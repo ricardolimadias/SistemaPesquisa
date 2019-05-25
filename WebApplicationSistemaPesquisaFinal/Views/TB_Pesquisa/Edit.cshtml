@@ -1,0 +1,54 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_Pesquisa
+
+@{
+    ViewBag.Title = "Editar Pesquisa";
+}
+@*<div class="jumbotron">
+    <p><img src="~/Imagens/logo_liquigas_CMYK.png" class="img-responsive" /></p>
+</div>*@
+<h2>Editar Pesquisa</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>Editar Pesquisa</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PesquisaId)
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label class="control-label col-md-2">Titulo</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label class="control-label col-md-2">Descrição</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para Lista", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

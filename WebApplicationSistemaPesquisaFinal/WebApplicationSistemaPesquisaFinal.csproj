@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F7166B7-2AA4-4B87-B1BC-5C11455A6DEE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebApplicationSistemaPesquisaFinal</RootNamespace>
+    <AssemblyName>WebApplicationSistemaPesquisaFinal</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+    <IncludeIisSettings>false</IncludeIisSettings>
+    <PublishDatabases>false</PublishDatabases>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.94.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.94.2\lib\net46\ClosedXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.2.0\lib\net45\DnsClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.1\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.3.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.3\lib\net20\ExcelNumberFormat.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FastMember, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.3.0\lib\net45\FastMember.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="MongoDB.Bson, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.8.0\lib\net452\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.8.0\lib\net452\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.8.0\lib\net452\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TB_AcessoController.cs" />
+    <Compile Include="Controllers\TB_AlternativasController.cs" />
+    <Compile Include="Controllers\TB_DataEnvioDataRespostaController.cs" />
+    <Compile Include="Controllers\TB_FormularioController.cs" />
+    <Compile Include="Controllers\TB_MensagemEmailController.cs" />
+    <Compile Include="Controllers\TB_ParticipantesController.cs" />
+    <Compile Include="Controllers\TB_PerfilController.cs" />
+    <Compile Include="Controllers\TB_PesquisaController.cs" />
+    <Compile Include="Controllers\TB_PesquisaPerfilController.cs" />
+    <Compile Include="Controllers\TB_QuestaoEncadeadaController.cs" />
+    <Compile Include="Controllers\TB_QuestoesController.cs" />
+    <Compile Include="Controllers\TB_RespostasController.cs" />
+    <Compile Include="Controllers\TB_TipoRespostaController.cs" />
+    <Compile Include="Controllers\TB_VigenciaPesquisaController.cs" />
+    <Compile Include="Controllers\TB_VigenciaRespostaController.cs" />
+    <Compile Include="Controllers\ViewRelatoriosController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Formulario.cs" />
+    <Compile Include="Models\ModelSistemaPesquisaFinal.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelSistemaPesquisaFinal.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelSistemaPesquisaFinal.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelSistemaPesquisaFinal.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelSistemaPesquisaFinal.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_AcaoQuestaoEncadeada.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_Acesso.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_Alternativas.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_DataEnvioDataResposta.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_MensagemEmail.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_Participantes.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_Perfil.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_Pesquisa.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_PesquisaPerfil.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_QuestaoEncadeada.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_Questoes.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_Respostas.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_TipoResposta.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_VigenciaPesquisa.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TB_VigenciaResposta.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewRelatorio.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\devmedia_estilo.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Imagens\alternativas-ico-branco.png" />
+    <Content Include="Imagens\alternativas-ico.png" />
+    <Content Include="Imagens\banner_topo_pesquisa.jpg" />
+    <Content Include="Imagens\home-icon-branco.png" />
+    <Content Include="Imagens\home-icon.png" />
+    <Content Include="Imagens\JP_131010_03B1803-G.jpg" />
+    <Content Include="Imagens\liquigas_Logo.jpg" />
+    <Content Include="Imagens\logo_liquigas_CMYK.png" />
+    <Content Include="Imagens\participantes-ico-branco.png" />
+    <Content Include="Imagens\participantes-ico.png" />
+    <Content Include="Imagens\pesquisa-ico-branco.png" />
+    <Content Include="Imagens\pesquisa-ico.png" />
+    <Content Include="Imagens\question-ico-branco.png" />
+    <Content Include="Imagens\question-ico.png" />
+    <Content Include="Imagens\resposta-ico-branco.png" />
+    <Content Include="Imagens\resposta-ico.png" />
+    <Content Include="Models\ModelSistemaPesquisaFinal.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelSistemaPesquisaFinal.edmx</DependentUpon>
+      <LastGenOutput>ModelSistemaPesquisaFinal.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelSistemaPesquisaFinal.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelSistemaPesquisaFinal.edmx</DependentUpon>
+      <LastGenOutput>ModelSistemaPesquisaFinal.cs</LastGenOutput>
+    </Content>
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Documentos\Manual do sistema de pesquisa.pdf" />
+    <EntityDeploy Include="Models\ModelSistemaPesquisaFinal.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelSistemaPesquisaFinal.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelSistemaPesquisaFinal.edmx.diagram">
+      <DependentUpon>ModelSistemaPesquisaFinal.edmx</DependentUpon>
+    </Content>
+    <Content Include="App_Browsers\qt.browser" />
+    <None Include="Properties\PublishProfiles\Sistema Pesquisa DEV.pubxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\Sistema Pesquisa HOM.pubxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\Sistema Pesquisa PRO.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Regras.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="SQL\CriacaoViewRelatorio.sql" />
+    <Content Include="SQL\CriacaoTB_Relatorio.sql" />
+    <Content Include="SQL\CriacaoTB_QuestaoEncadeada.sql" />
+    <Content Include="SQL\CriacaoBancoDados.sql" />
+    <Content Include="SQL\CriacaoInsertTB_Acesso.sql" />
+    <Content Include="SQL\CriacaoTB_Alternativas.sql" />
+    <Content Include="SQL\CriacaoTB_MensagemEmail.sql" />
+    <Content Include="SQL\CriacaoTB_Participantes.sql" />
+    <Content Include="SQL\CriacaoInsertTB_Perfil.sql" />
+    <Content Include="SQL\CriacaoTB_Pesquisa.sql" />
+    <Content Include="SQL\CriacaoTB_PesquisaPerfil.sql" />
+    <Content Include="SQL\CriacaoInsertTB_AcaoQuestaoEncadeada.sql" />
+    <Content Include="SQL\CriacaoTB_Questoes.sql" />
+    <Content Include="SQL\CriacaoTB_Respostas.sql" />
+    <Content Include="SQL\CriacaoTB_TipoRespostas.sql" />
+    <Content Include="SQL\CriacaoTB_VigenciaPesquisa.sql" />
+    <Content Include="SQL\CriacaoTB_DataEnvioDataResposta.sql" />
+    <Content Include="SQL\CriacaoTB_VigenciaResposta.sql" />
+    <Content Include="SQL\Constraint.sql" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\TB_Pesquisa\Create.cshtml" />
+    <Content Include="Views\TB_Pesquisa\Delete.cshtml" />
+    <Content Include="Views\TB_Pesquisa\Details.cshtml" />
+    <Content Include="Views\TB_Pesquisa\Edit.cshtml" />
+    <Content Include="Views\TB_Pesquisa\Index.cshtml" />
+    <Content Include="Views\TB_Questoes\Create.cshtml" />
+    <Content Include="Views\TB_Questoes\Delete.cshtml" />
+    <Content Include="Views\TB_Questoes\Details.cshtml" />
+    <Content Include="Views\TB_Questoes\Edit.cshtml" />
+    <Content Include="Views\TB_Questoes\Index.cshtml" />
+    <Content Include="Views\TB_Alternativas\Create.cshtml" />
+    <Content Include="Views\TB_Alternativas\Delete.cshtml" />
+    <Content Include="Views\TB_Alternativas\Details.cshtml" />
+    <Content Include="Views\TB_Alternativas\Edit.cshtml" />
+    <Content Include="Views\TB_Alternativas\Index.cshtml" />
+    <Content Include="Views\TB_Participantes\Create.cshtml" />
+    <Content Include="Views\TB_Participantes\Delete.cshtml" />
+    <Content Include="Views\TB_Participantes\Details.cshtml" />
+    <Content Include="Views\TB_Participantes\Edit.cshtml" />
+    <Content Include="Views\TB_Participantes\Index.cshtml" />
+    <Content Include="Views\TB_Respostas\Create.cshtml" />
+    <Content Include="Views\TB_Respostas\Delete.cshtml" />
+    <Content Include="Views\TB_Respostas\Details.cshtml" />
+    <Content Include="Views\TB_Respostas\Edit.cshtml" />
+    <Content Include="Views\TB_Respostas\Index.cshtml" />
+    <Content Include="Views\TB_TipoResposta\Create.cshtml" />
+    <Content Include="Views\TB_TipoResposta\Delete.cshtml" />
+    <Content Include="Views\TB_TipoResposta\Details.cshtml" />
+    <Content Include="Views\TB_TipoResposta\Edit.cshtml" />
+    <Content Include="Views\TB_TipoResposta\Index.cshtml" />
+    <Content Include="Views\TB_Formulario\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\TB_Perfil\Create.cshtml" />
+    <Content Include="Views\TB_Perfil\Delete.cshtml" />
+    <Content Include="Views\TB_Perfil\Details.cshtml" />
+    <Content Include="Views\TB_Perfil\Edit.cshtml" />
+    <Content Include="Views\TB_Perfil\Index.cshtml" />
+    <Content Include="Views\TB_PesquisaPerfil\Create.cshtml" />
+    <Content Include="Views\TB_PesquisaPerfil\Delete.cshtml" />
+    <Content Include="Views\TB_PesquisaPerfil\Details.cshtml" />
+    <Content Include="Views\TB_PesquisaPerfil\Edit.cshtml" />
+    <Content Include="Views\TB_PesquisaPerfil\Index.cshtml" />
+    <Content Include="Views\TB_MensagemEmail\Create.cshtml" />
+    <Content Include="Views\TB_MensagemEmail\Delete.cshtml" />
+    <Content Include="Views\TB_MensagemEmail\Details.cshtml" />
+    <Content Include="Views\TB_MensagemEmail\Edit.cshtml" />
+    <Content Include="Views\TB_MensagemEmail\Index.cshtml" />
+    <Content Include="Views\TB_VigenciaPesquisa\Create.cshtml" />
+    <Content Include="Views\TB_VigenciaPesquisa\Delete.cshtml" />
+    <Content Include="Views\TB_VigenciaPesquisa\Details.cshtml" />
+    <Content Include="Views\TB_VigenciaPesquisa\Edit.cshtml" />
+    <Content Include="Views\TB_VigenciaPesquisa\Index.cshtml" />
+    <Content Include="Views\TB_Acesso\Create.cshtml" />
+    <Content Include="Views\TB_Acesso\Delete.cshtml" />
+    <Content Include="Views\TB_Acesso\Details.cshtml" />
+    <Content Include="Views\TB_Acesso\Edit.cshtml" />
+    <Content Include="Views\TB_Acesso\Index.cshtml" />
+    <Content Include="Views\TB_QuestaoEncadeada\Create.cshtml" />
+    <Content Include="Views\TB_QuestaoEncadeada\Delete.cshtml" />
+    <Content Include="Views\TB_QuestaoEncadeada\Details.cshtml" />
+    <Content Include="Views\TB_QuestaoEncadeada\Edit.cshtml" />
+    <Content Include="Views\TB_QuestaoEncadeada\Index.cshtml" />
+    <Content Include="Views\TB_VigenciaResposta\Create.cshtml" />
+    <Content Include="Views\TB_VigenciaResposta\Delete.cshtml" />
+    <Content Include="Views\TB_VigenciaResposta\Details.cshtml" />
+    <Content Include="Views\TB_VigenciaResposta\Edit.cshtml" />
+    <Content Include="Views\TB_VigenciaResposta\Index.cshtml" />
+    <Content Include="Views\TB_VigenciaPesquisa\Error.cshtml" />
+    <Content Include="Views\TB_VigenciaResposta\Error.cshtml" />
+    <Content Include="Views\ViewRelatorios\Create.cshtml" />
+    <Content Include="Views\ViewRelatorios\Delete.cshtml" />
+    <Content Include="Views\ViewRelatorios\Details.cshtml" />
+    <Content Include="Views\ViewRelatorios\Edit.cshtml" />
+    <Content Include="Views\ViewRelatorios\Index.cshtml" />
+    <Content Include="Views\TB_Formulario\Error.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Relatorio\" />
+    <Folder Include="Views\TB_DataEnvioDataResposta\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>5891</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:5891/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://slqdbt-vspdop3.liquigas.hom:7777/</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,74 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_Acesso
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>TB_Acesso</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Chave)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Chave)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Senha)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Senha)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Ativo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Ativo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Sobrenome)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Sobrenome)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TB_Perfil.Perfil)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TB_Perfil.Perfil)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.LoginId }) |
+        @Html.ActionLink("Voltar para Lista", "Index")
+    </p>
+</body>
+</html>

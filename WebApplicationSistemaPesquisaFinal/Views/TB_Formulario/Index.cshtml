@@ -1,0 +1,136 @@
+﻿@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.Formulario>
+
+<link href="http://www.cssscript.com/wp-includes/css/sticky.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE; FF=5; OtherUA=4; chrome=5" />
+
+
+<div align="left">
+    <img src="~/Imagens/banner_topo_pesquisa.jpg" class="img-responsive" style="margin-top:-50px">
+</div>  
+
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "Formulário Resposta.";
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/Regras")
+@Scripts.Render("~/bundles/bootstrap")
+
+@{
+    var ttpesquisa = "";
+}
+<form>
+@*<h2>Formulário de Resposta</h2>*@
+
+    <div class="hidden" id="participante">@ViewBag.Participante</div>
+    <table class="table">
+        
+                @foreach (var item in Model)
+                {
+                    ttpesquisa = item.Descricao;
+                    <tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Questao)
+                        </th>
+                    </tr>
+                    <td style="white-space: nowrap;">
+
+                        @if (item.TipoRespostaId == 1)
+                        {
+                            <input type='text' id='@item.QuestaoId-0' name='@item.QuestaoId-0'>
+                        }
+
+                    @if (item.TipoRespostaId == 4)
+                        {
+                            <label>Classificação de 1 a 5</label>
+
+                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0'>
+                            @*cores Vermelho, Amarelo,Verde*@
+
+                    }
+
+                        @if (item.TipoRespostaId == 5)
+                        {
+                            <label>Classificação de 1 a 5</label>
+                                                        <div class="wrapper">
+                                                            <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="1" />
+                                                            <label for="@item.QuestaoId-1"></label>
+                                                            <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="2" />
+                                                            <label for="@item.QuestaoId-2"></label>
+                                                            <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
+                                                            <label for="@item.QuestaoId-3"></label>
+                                                            <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="4" />
+                                                            <label for="@item.QuestaoId-4"></label>
+                                                            <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="5" />
+                                                            <label for="@item.QuestaoId-5"></label>
+                                                        </div>
+                        }
+
+                        @foreach (var SubItem in item.Alternativas)
+                        {
+                            <p>
+                                @*@SubItem.Alternativa*@
+
+                                @if (item.TipoRespostaId == 2)
+                                {
+                                    <input type='checkbox' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-@SubItem.AlternativaId">
+                                }
+                                @if (item.TipoRespostaId == 3)
+                                {
+                                    <input type='radio' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-0" value="@SubItem.AlternativaId">
+                                }
+                                @if (item.TipoRespostaId == 4)
+                                {
+                                    <label>Classificação de 1 a 5</label>
+       
+                                    <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5">
+                                     @*cores Vermelho, Amarelo,Verde*@
+                                }
+                                @if (item.TipoRespostaId == 5)
+                                {
+                                    <label>Classificação de 1 a 5</label>
+                                    <div class="wrapper">
+                                        <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="1" />
+                                        <label for="@item.QuestaoId-1"></label>
+                                        <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="2" />
+                                        <label for="@item.QuestaoId-2"></label>
+                                        <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
+                                        <label for="@item.QuestaoId-3"></label>
+                                        <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="4" />
+                                        <label for="@item.QuestaoId-4"></label>
+                                        <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="5" />
+                                        <label for="@item.QuestaoId-5"></label>
+                                    </div>
+                                }
+                                @SubItem.Alternativa
+                            </p>
+                        }
+                    </td>
+                    </tr>
+                }
+                        <h3>@ttpesquisa</h3>
+                        @if (@ViewBag.RDM != null)
+                        {
+                        <h3>RDM: @ViewBag.RDM</h3>
+                        }
+</table>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+
+                        <input type="submit" value="Salvar" name="Salvar" onclick="javascript:window.btn='salvarp'" class="btn btn-default" />
+                        <input type="submit" value="Enviar suas Respostas" onclick="javascript:window.btn='enviar'" name="Enviar suas Respostas"  class="btn btn-default"/>
+                    </div>
+                </div>
+</form>
+<br />
+

@@ -1,0 +1,164 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+/* Campo range formatação inicio */
+::-ms-fill-lower { background: green; }
+::-ms-fill-upper { background: red; }
+::-ms-thumb { background: black; }
+
+::-moz-range-progress { background: green; }
+::-moz-range-track { background: red; }
+::-moz-range-thumb { background: black; }
+
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 10px 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px #222222, 0px 0px 2px #2f2f2f;
+  background: green;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #111111, 0px 0px 1px #1e1e1e;
+  border: 1px solid white;
+  height: 30px;
+  width: 30px;
+  border-radius: 8px;
+  background: black;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -11px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: red;
+
+}
+
+body { background-color:#fafafa;}
+.content {
+  text-align: center;
+  margin-top:150px;
+}
+.content h1 {
+  font-family: 'Sansita', sans-serif;
+  letter-spacing: 1px;
+  font-size: 50px;
+  color: #282828;
+  margin-bottom: 10px;
+}
+.content  i {
+  color: #FFC107;
+}
+.content span {
+  position: relative;
+  display: inline-block;
+}
+.content  span:before, .content  span:after {
+  position: absolute;
+  content: "";
+  background-color: #282828;
+  width: 40px;
+  height: 2px;
+  top: 40%;
+}
+.content  span:before {
+  left: -45px;
+}
+.content  span:after {
+  right: -45px;
+}
+.content p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+.wrapper {
+  position: relative;
+  /*display: inline-block;*/
+  border: none;
+  font-size: 14px;
+  /*margin: 50px auto;*/
+  left: -40%;
+  transform: translateX(-50%);
+}
+
+.wrapper input {
+  border: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  opacity: 0;
+}
+
+.wrapper label {
+  position: relative;
+  float: right;
+  color: #C8C8C8;
+}
+
+.wrapper label:before {
+  margin: 5px;
+  content: "\f005";
+  font-family: FontAwesome;
+  display: inline-block;
+  font-size: 1.5em;
+  color: #ccc;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.wrapper input:checked ~ label:before {
+  color: #FFC107;
+}
+
+.wrapper label:hover ~ label:before {
+  color: #ffdb70;
+}
+
+.wrapper label:hover:before {
+  color: #FFC107;
+}
+
+
+/*::-ms-ticks-after { display: block; color: red; }
+::-ms-ticks-before { display: block; color: green; }
+::-ms-track { padding: 20px 0; }
+::-ms-tooltip { display: none;}*/
+/* Campo range formatação fim */

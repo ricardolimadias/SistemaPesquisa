@@ -1,0 +1,49 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.TB_Perfil>*@
+@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.TB_Perfil>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Novo Perfil", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "TB_Perfil", FormMethod.Get))
+{
+    <p>
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Pesquisar" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Perfil)*@
+            @Html.ActionLink("Perfil", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Perfil)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.PerfilId }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.PerfilId }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.PerfilId })
+        </td>
+    </tr>
+}
+
+</table>
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

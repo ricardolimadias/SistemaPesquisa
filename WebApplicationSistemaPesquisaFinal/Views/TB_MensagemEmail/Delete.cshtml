@@ -1,0 +1,42 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_MensagemEmail
+
+@{
+    ViewBag.Title = "Excluir Mensagem E-mail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Excluir Mensagem E-mail</h2>
+
+<h3>Confirma a exclusão da Perfil?</h3>
+<div>
+    @*<h4>TB_MensagemEmail</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Mensagem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mensagem)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para Lista", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,36 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_MensagemEmail
+
+@{
+    ViewBag.Title = "Detalhe Mensagem E-mail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhe Mensagem E-mail</h2>
+
+<div>
+    @*<h4>TB_MensagemEmail</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Mensagem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mensagem)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.TextoEmailId }) |
+    @Html.ActionLink("Voltar para Lista", "Index")
+</p>

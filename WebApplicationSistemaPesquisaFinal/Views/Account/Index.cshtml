@@ -1,0 +1,83 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.TB_Acesso>*@
+@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.TB_Acesso>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    
+</head>
+
+<body>
+    <p>
+        @Html.ActionLink("Novo Usuário", "Create")
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>
+               @* @Html.DisplayNameFor(model => model.Chave)*@
+                @Html.ActionLink("Chave", "Index", new { sortOrder = ViewBag.TituloSortParm })
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Senha)*@
+                @Html.ActionLink("Senha", "Index", new { sortOrder = ViewBag.TituloSortParm })
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Ativo)*@
+                @Html.ActionLink("Ativo", "Index", new { sortOrder = ViewBag.TituloSortParm })
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Nome)*@
+                @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.TituloSortParm })
+            </th>
+            <th>
+               @* @Html.DisplayNameFor(model => model.Sobrenome)*@
+                @Html.ActionLink("Sobrenome", "Index", new { sortOrder = ViewBag.TituloSortParm })
+            </th>
+            <th>
+               @* @Html.DisplayNameFor(model => model.TB_Perfil.Perfil)*@
+                @Html.ActionLink("Perfil", "Index", new { sortOrder = ViewBag.TituloSortParm })
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chave)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Senha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sobrenome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TB_Perfil.Perfil)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id=item.LoginId }) |
+                @Html.ActionLink("Detalhes", "Details", new { id=item.LoginId }) |
+                @Html.ActionLink("Excluir", "Delete", new { id=item.LoginId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+</body>
+</html>

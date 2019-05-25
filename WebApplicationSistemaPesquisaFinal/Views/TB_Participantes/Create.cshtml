@@ -1,0 +1,67 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_Participantes
+
+@{
+    ViewBag.Title = "Novo Participante";
+}
+@*<div class="jumbotron">
+    <p><img src="~/Imagens/logo_liquigas_CMYK.png" class="img-responsive" /></p>
+</div>*@
+<h2>Novo Participante</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>Novo Participante</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.PesquisaId, "PesquisaId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label class="control-label col-md-2">Pesquisa</label>
+            <div class="col-md-10">
+                @Html.DropDownList("PesquisaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PesquisaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label class="control-label col-md-2">Nome</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label class="control-label col-md-2">E-mail</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label class="control-label col-md-2">RDM</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RDM, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para Lista", "Index")
+</div>

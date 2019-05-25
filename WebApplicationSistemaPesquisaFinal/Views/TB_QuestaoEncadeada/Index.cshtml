@@ -1,0 +1,69 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.TB_QuestaoEncadeada>*@
+@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.TB_QuestaoEncadeada>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Questão Encadeada";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Questão Encadeada</h2>
+@using (Html.BeginForm("Index", "TB_QuestaoEncadeada", FormMethod.Get))
+{
+    <p>
+        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo), "Selecione")
+        <input type="submit" value="Filtrar" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Pesquisar" />
+    </p>
+}
+<p>
+    @Html.ActionLink("Nova Questão Encadeada", "Create")
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.ActionLink("Pesquisa", "Index", new { sortOrder = ViewBag.QuestoesSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Questão", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Alternativa", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Ação", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_Pesquisa.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_Questoes.Questao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_Alternativas.Alternativa)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_AcaoQuestaoEncadeada.Acao)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.QuestaoEncadeadaId }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.QuestaoEncadeadaId }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.QuestaoEncadeadaId })
+        </td>
+    </tr>
+}
+
+</table>
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+ new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

@@ -1,0 +1,54 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_Questoes
+
+@{
+    ViewBag.Title = "Detalhe da Questão";
+}
+@*<div class="jumbotron">
+    <p><img src="~/Imagens/logo_liquigas_CMYK.png" class="img-responsive" /></p>
+</div>*@
+<h2>Detalhe da Questão</h2>
+
+<div>
+    @*<h4>Detalhe da Questão</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Questao)*@
+            <label>Questão</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Questao)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_TipoResposta.TipoResposta)*@
+            <label>Tipo de Resposta</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_TipoResposta.TipoResposta)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_TipoResposta.TipoResposta)*@
+            <label>Obrigatório</label>
+        </dt>
+
+        <dd>
+            @Html.CheckBoxFor(model => model.Obrigatorio.Value, new { @disabled = "True" })
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.QuestaoId }) |
+    @Html.ActionLink("Voltar para Lista", "Index")
+</p>

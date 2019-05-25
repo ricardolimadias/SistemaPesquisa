@@ -1,0 +1,43 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_VigenciaResposta
+
+@{
+    ViewBag.Title = "Excluir Vigência Resposta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Excluir Vigência Resposta</h2>
+
+<h3>Confirma a exclusão da Vigência Resposta?</h3>
+<div>
+    @*<h4>TB_VigenciaResposta</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           @* @Html.DisplayNameFor(model => model.QuantidadeDias)*@
+            <label>Quantidade de Dias</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantidadeDias)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Titulo</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para Lista", "Index")
+        </div>
+    }
+</div>

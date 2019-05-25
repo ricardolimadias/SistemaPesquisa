@@ -1,0 +1,63 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_Questoes
+
+@{
+    ViewBag.Title = "Excluir Questão";
+}
+
+@*<div class="jumbotron">
+    <p><img src="~/Imagens/logo_liquigas_CMYK.png" class="img-responsive" /></p>
+</div>*@
+<h2>Excluir Questão</h2>
+
+<h3>Confirma a exclusão da Questão?</h3>
+<div>
+    @*<h4>Excluir Questão</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Questao)*@
+            <label>Questão</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Questao)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_TipoResposta.TipoResposta)*@
+            <label>Tipo de Resposta</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_TipoResposta.TipoResposta)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_TipoResposta.TipoResposta)*@
+            <label>Obrigatório</label>
+        </dt>
+
+        <dd>
+            @Html.CheckBoxFor(model => model.Obrigatorio.Value, new { @disabled = "True" })
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para Lista", "Index")
+        </div>
+    }
+</div>

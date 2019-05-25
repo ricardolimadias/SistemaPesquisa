@@ -1,0 +1,69 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.TB_VigenciaPesquisa>*@
+@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.TB_VigenciaPesquisa>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Vigência Pesquisa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Vigência Pesquisa</h2>
+
+<p>
+    @Html.ActionLink("Nova Vigência Pesquisa", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "TB_VigenciaPesquisa", FormMethod.Get))
+{
+    <p>
+        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo), "Selecione")
+        <input type="submit" value="Filtrar" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Pesquisar" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DataInicialPesquisa)*@
+            @Html.ActionLink("Data Inicial Pesquisa", "Index", new { sortOrder = ViewBag.TituloSortParm})
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DataFinalPesquisa)*@
+            @Html.ActionLink("Data Final Pesquisa", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            @Html.ActionLink("Pesquisa", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataInicialPesquisa)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataFinalPesquisa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_Pesquisa.Titulo)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.VigenciaPesquisaId }) |
+            @Html.ActionLink("Detalhe", "Details", new { id=item.VigenciaPesquisaId }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.VigenciaPesquisaId })
+        </td>
+    </tr>
+}
+
+</table>
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

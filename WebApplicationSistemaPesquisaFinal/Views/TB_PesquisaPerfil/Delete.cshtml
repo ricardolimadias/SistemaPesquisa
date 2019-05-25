@@ -1,0 +1,42 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_PesquisaPerfil
+
+@{
+    ViewBag.Title = "Excluir Pesquisa x Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Excluir Pesquisa x Perfil</h2>
+
+<h3>Confirma a exclusão da Pesquisa x Perfil?</h3>
+<div>
+    @*<h4>TB_PesquisaPerfil</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TB_Perfil.Perfil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Perfil.Perfil)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para Lista", "Index")
+        </div>
+    }
+</div>

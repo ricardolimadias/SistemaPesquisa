@@ -1,0 +1,80 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_Acesso
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>TB_Acesso</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Chave)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Chave)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Senha)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Senha)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Ativo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Ativo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Sobrenome)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Sobrenome)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TB_Perfil.Perfil)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TB_Perfil.Perfil)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Excluir" class="btn btn-default" /> |
+                @Html.ActionLink("Voltar para Lista", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

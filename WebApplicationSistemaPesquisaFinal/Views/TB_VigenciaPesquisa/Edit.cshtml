@@ -1,0 +1,61 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_VigenciaPesquisa
+
+@{
+    ViewBag.Title = "Editar Vigência Pesquisa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Editar Vigência Pesquisa</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @*<h4>TB_VigenciaPesquisa</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.VigenciaPesquisaId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PesquisaId, "Pesquisa", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PesquisaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PesquisaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.DataInicialPesquisa, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label class="control-label col-md-2">Data Inicial Pesquisa</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DataInicialPesquisa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DataInicialPesquisa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.DataFinalPesquisa, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label class="control-label col-md-2">Data Final Pesquisa</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DataFinalPesquisa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DataFinalPesquisa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para Lista", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

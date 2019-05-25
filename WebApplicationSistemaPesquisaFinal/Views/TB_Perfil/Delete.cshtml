@@ -1,0 +1,33 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_Perfil
+
+@{
+    ViewBag.Title = "Excluir Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Excluir Perfil</h2>
+
+<h3>Confirma a exclusão da Perfil?</h3>
+<div>
+    @*<h4>TB_Perfil</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Perfil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Perfil)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para Lista", "Index")
+        </div>
+    }
+</div>

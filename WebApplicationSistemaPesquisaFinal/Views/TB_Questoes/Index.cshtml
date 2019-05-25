@@ -1,0 +1,94 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.TB_Questoes>*@
+@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.TB_Questoes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Questões";
+}
+@*<div class="jumbotron">
+    <p><img src="~/Imagens/logo_liquigas_CMYK.png" class="img-responsive" /></p>
+</div>*@
+<h2>Questões</h2>
+
+@using (Html.BeginForm("Index", "TB_Questoes", FormMethod.Get))
+{
+    <p>
+        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo),"Selecione")
+        <input type="submit" value="Filtrar" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type = "submit" value = "Pesquisar"/>
+    </p>
+}
+@*@using (Html.BeginForm())
+{
+    <p>
+        @Html.TextBox("SearchString")
+        <input type="submit" value="Pesquisar" />
+    </p>
+}*@
+
+<p>
+    @Html.ActionLink("Nova Questão", "Create")
+</p>
+<table class="table">
+    @*<tr>
+        <th>
+            
+            <label>Questão</label>
+        </th>
+        <th>
+           
+            <label>Titulo</label>
+        </th>
+        <th>
+            
+            <label>Tipo de Resposta</label>
+        </th>
+        <th></th>
+    </tr>*@
+
+    <tr>
+        <th>
+           @Html.ActionLink("Pesquisa", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Questão", "Index", new { sortOrder = ViewBag.QuestoesSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Tipo de Campo", "Index", new { sortOrder = ViewBag.QuestoesSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Obrigatório", "Index", new { sortOrder = ViewBag.QuestoesSortParm })
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_Pesquisa.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Questao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_TipoResposta.TipoResposta)
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => item.Obrigatorio.Value, new { @disabled = "True" })
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.QuestaoId }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.QuestaoId }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.QuestaoId })
+        </td>
+    </tr>
+}
+
+</table>
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+ new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+

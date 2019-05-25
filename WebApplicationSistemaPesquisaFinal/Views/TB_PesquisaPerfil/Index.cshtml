@@ -1,0 +1,57 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.TB_PesquisaPerfil>*@
+@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.TB_PesquisaPerfil>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Perfil x Pesquisa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Perfil x Pesquisa</h2>
+
+<p>
+    @Html.ActionLink("Novo Perfil Pesquisa", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "TB_PesquisaPerfil", FormMethod.Get))
+{
+    <p>
+        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo), "Selecione")
+        <input type="submit" value="Filtrar" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Pesquisar" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Perfil", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Pesquisa", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_Perfil.Perfil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TB_Pesquisa.Titulo)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.PerfilPesquisaId }) |
+            @Html.ActionLink("Detalhe", "Details", new { id=item.PerfilPesquisaId }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.PerfilPesquisaId })
+        </td>
+    </tr>
+}
+
+</table>
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

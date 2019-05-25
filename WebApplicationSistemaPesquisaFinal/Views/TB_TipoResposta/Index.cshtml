@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.TB_TipoResposta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoResposta)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoResposta)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.TipoRespostaId }) |
+            @Html.ActionLink("Detalhe", "Details", new { id=item.TipoRespostaId }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.TipoRespostaId })
+        </td>
+    </tr>
+}
+
+</table>

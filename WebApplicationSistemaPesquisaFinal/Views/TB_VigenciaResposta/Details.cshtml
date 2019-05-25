@@ -1,0 +1,37 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_VigenciaResposta
+
+@{
+    ViewBag.Title = "Detalhe Vigência Resposta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhe Vigência Resposta</h2>
+
+<div>
+    @*<h4>TB_VigenciaResposta</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.QuantidadeDias)*@
+            <label>Quantidade de Dias</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantidadeDias)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Titulo</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.VigenciaRespostaId }) |
+    @Html.ActionLink("Voltar para Lista", "Index")
+</p>

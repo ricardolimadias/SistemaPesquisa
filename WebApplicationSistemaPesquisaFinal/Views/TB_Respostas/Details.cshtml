@@ -1,0 +1,57 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_Respostas
+
+@{
+    ViewBag.Title = "Detalhes da Resposta";
+}
+@*<div class="jumbotron">
+    <p><img src="~/Imagens/logo_liquigas_CMYK.png" class="img-responsive" /></p>
+</div>*@
+<h2>Detalhes da Resposta</h2>
+
+<div>
+    @*<h4>Detalhes da Resposta</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Questoes.Questao)*@
+            <label>Questão</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Questoes.Questao)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.AlternativaId)*@
+            <label>Alternativa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlternativaId)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Resposta)*@
+            <label>Resposta</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resposta)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Resposta)*@
+            <label>Participante</label>
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.ParticipanteId)*@
+            @Html.DisplayFor(model => model.TB_Participantes.Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Editar", "Edit", new { id = Model.RespostaId }) |*@
+    @Html.ActionLink("Voltar para Lista", "Index")
+</p>

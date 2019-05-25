@@ -1,0 +1,65 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.TB_Acesso>*@
+@model WebApplicationSistemaPesquisaFinal.Models.TB_Acesso
+<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE; FF=5; OtherUA=4; chrome=5" />
+
+@*<div align="left">
+    <img src="~/Imagens/banner_topo_pesquisa.jpg" class="img-responsive" style="margin-top:-50px;align-self:center"  >
+</div>*@  
+
+@{
+    Layout = null;
+}
+
+@Styles.Render("~/Content/bootstrap.min.css")
+@Styles.Render("~/Content/devmedia_estilo.css")
+@Scripts.Render("~/bundles/jquery-1.10.2.js")
+@Scripts.Render("~/bundles/bootstrap.min.js")
+@*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/devmedia_estilo.css" rel="stylesheet" />*@
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+
+@*<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>*@
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken();
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="container">
+        <div class="form-login">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Login do Sistema de Pesquisa</div>
+                </div>
+
+                <div style="padding-top:30px" class="panel-body">
+                    <div style="display:none" id="result" class="alert alert-danger col-sm-12">
+
+                    </div>
+
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        @Html.EditorFor(model => model.Chave, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Chave", autofocus = true } })
+                        @Html.ValidationMessageFor(model => model.Chave, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        @Html.TextBox("Senha", null, new { @class = "form-control input-lg", type = "password", placeholder = "Senha" })
+                        @*@Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control input-lg", placeholder = "Senha" } })*@
+                        @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div style="margin-top:10px" class="form-group">
+
+                        <div class="col-sm-12 controls">
+                            <input type="submit" value="Acessar" class="btn primary btn-lg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,80 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.TB_Participantes>*@
+@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.TB_Participantes>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Participantes";
+}
+
+<h2>Participantes</h2>
+@using (Html.BeginForm("Index", "TB_Participantes", FormMethod.Get))
+{
+    <p>
+        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo), "Selecione")
+        <input type="submit" value="Filtrar" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Pesquisar" />
+    </p>
+}
+
+
+<p>
+    @Html.ActionLink("Novo Participante", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.NomeSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Data Envio", "Index", new { sortOrder = ViewBag.NomeSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.NomeSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Pesquisa", "Index", new { sortOrder = ViewBag.PesquisaSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NomeSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("E-mail", "Index", new { sortOrder = ViewBag.NomeSortParm })
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RDM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DTEV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TB_Pesquisa.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ParticipanteId }) |
+                @Html.ActionLink("Detalhe", "Details", new { id = item.ParticipanteId }) |
+                @Html.ActionLink("Excluir", "Delete", new { id = item.ParticipanteId })
+            </td>
+        </tr>
+    }
+
+</table>
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

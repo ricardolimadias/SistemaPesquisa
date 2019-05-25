@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sistema de Pesquisa</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE; FF=5; OtherUA=4; chrome=5" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+    <div align="left">
+        <img src="~/Imagens/banner_topo_pesquisa.jpg" class="img-responsive">
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Sistema de Pesquisa", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+                    <li>@Html.ActionLink("Pesquisas", "Index", "TB_Pesquisa")</li>
+                    <li>@Html.ActionLink("Questões", "Index", "TB_Questoes")</li>
+                    <li>@Html.ActionLink("Alternativas", "Index", "TB_Alternativas")</li>
+                    <li>@Html.ActionLink("Participantes", "Index", "TB_Participantes")</li>
+                    <li>@Html.ActionLink("Respostas", "Index", "TB_Respostas")</li>
+                    @*<li>@Html.ActionLink("Parametrização", "Index", "")</li>*@
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Parametrização</a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Perfil", "Index", "TB_Perfil")</li>
+                            <li>@Html.ActionLink("Usuário", "Index", "TB_Acesso")</li>
+                            <li>@Html.ActionLink("Pesquisa x Perfil", "Index", "TB_PesquisaPerfil")</li>
+                            <li>@Html.ActionLink("Mensagem E-mail", "Index", "TB_MensagemEmail")</li>
+                            <li>@Html.ActionLink("Vigência Pesquisa", "Index", "TB_VigenciaPesquisa")</li>
+                            <li>@Html.ActionLink("Vigência Resposta", "Index", "TB_VigenciaResposta")</li>
+                            <li>@Html.ActionLink("Pergunta Encadeada", "Index", "TB_QuestaoEncadeada")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Relatório", "Index", "ViewRelatorios")</li>
+                    <li>@Html.ActionLink("Sair", "Login", "Account")</li>
+                    <li><a href="~/Documentos/Manual do sistema de pesquisa.pdf" target="_blank" class="btn btn-primary btn-lg">Ajuda</a></li>
+                    <li><label></label></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Liquigás. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

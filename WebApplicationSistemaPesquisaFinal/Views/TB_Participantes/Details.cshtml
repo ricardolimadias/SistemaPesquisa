@@ -1,0 +1,79 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_Participantes
+
+@{
+    ViewBag.Title = "Detalhes Participantes";
+}
+@*<div class="jumbotron">
+    <p><img src="~/Imagens/logo_liquigas_CMYK.png" class="img-responsive" /></p>
+</div>*@
+<h2>Detalhes Participantes</h2>
+
+<div>
+    @*<h4>Detalhe Participantes</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+        <dt>
+            @* @Html.DisplayNameFor(model => model.Nome)*@
+            <label>Nome</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Email)*@
+            <label>E-mail</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Email)*@
+            <label>RDM</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RDM)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Email)*@
+            <label>Data Envio</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DTEV)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Email)*@
+            <label>Data Resposta</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DTER)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Email)*@
+            <label>Status</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ParticipanteId }) |
+    @Html.ActionLink("Voltar para Lista", "Index")
+</p>

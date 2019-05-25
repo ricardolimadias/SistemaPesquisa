@@ -1,0 +1,67 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_QuestaoEncadeada
+
+@{
+    ViewBag.Title = "Excluir Questão Encadeada";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Excluir Questão Encadeada</h2>
+
+<h3>Confirma a exclusão da Questão Encadeada?</h3>
+<div>
+    @*<h4>TB_QuestaoEncadeada</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Questoes.Questao)*@
+            <label>Questão</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Questoes.Questao)
+        </dd>
+        
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Alternativas.Alternativa)*@
+            <label>Alternativa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Alternativas.Alternativa)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_AcaoQuestaoEncadeada.Acao)*@
+            <label>Ação</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_AcaoQuestaoEncadeada.Acao)
+        </dd>
+
+        
+
+       
+
+        
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para Lista", "Index")
+        </div>
+    }
+</div>

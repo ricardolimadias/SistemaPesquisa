@@ -1,0 +1,119 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.ViewRelatorio>*@
+@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.ViewRelatorio>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Relatório";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Relatório</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+@using (Html.BeginForm("Index", "ViewRelatorios", FormMethod.Get))
+{
+    <p>
+        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo), "Selecione")
+        <input type="submit" value="Filtrar" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Pesquisar" />  
+        <label>De</label>
+        @Html.TextBox("SearchEnvio", ViewBag.CurrentFilter as string, "{0:dd/MM/yyyy}")
+        @*@Html.TextBoxFor(m => m.RegistrationDate, "{0:dd/MM/yyyy}"*@
+        <label>Até</label>
+        @Html.TextBox("SearchResposta", ViewBag.CurrentFilter as string, "{0:dd/MM/yyyy}")
+        <input type="submit" value="Pesquisar" />  
+    </p>
+}
+
+@using (Html.BeginForm("ExportData", "ViewRelatorios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>
+                    <input id="Export" name="Export" type="submit" value="XLS" />
+                </td>
+                <td></td>
+                <td>
+                    <input id="Export" name="Export" type="submit" value="CSV" />
+                </td>
+                <td></td>
+                <td>
+                    <input id="Export" name="Export" type="submit" value="XLSX" />
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Título", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Questão", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Alternativa", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Participante", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Data de Envio", "Index", new { sortOrder = ViewBag.ContSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Data de Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RDM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Questao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Alternativa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataEnvio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataResposta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Resposta)
+        </td>
+    </tr>
+}
+
+</table>
+
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

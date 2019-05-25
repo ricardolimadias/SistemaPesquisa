@@ -1,0 +1,61 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_QuestaoEncadeada
+
+@{
+    ViewBag.Title = "Detalhe Questão Encadeada";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhe Questão Encadeada</h2>
+
+<div>
+    <@*h4>TB_QuestaoEncadeada</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+        
+        <dt>
+          @*  @Html.DisplayNameFor(model => model.TB_Questoes.Questao)*@
+            <label>Questão</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Questoes.Questao)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Alternativas.Alternativa)*@
+            <label>Alternativa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Alternativas.Alternativa)
+            
+        </dd>
+
+         <dt>
+            @*@Html.DisplayNameFor(model => model.TB_AcaoQuestaoEncadeada.Acao)*@
+             <label>Ação</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_AcaoQuestaoEncadeada.Acao)
+        </dd>
+
+       
+
+        
+
+        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.QuestaoEncadeadaId }) |
+    @Html.ActionLink("Voltar para Lista", "Index")
+</p>

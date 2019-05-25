@@ -1,0 +1,46 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_VigenciaPesquisa
+
+@{
+    ViewBag.Title = "Detalhe Vigência Pesquisa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhe Vigência Pesquisa</h2>
+
+<div>
+    @*<h4>TB_VigenciaPesquisa</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.DataInicialPesquisa)*@
+            <label>Data Inicial Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInicialPesquisa)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.DataFinalPesquisa)*@
+            <label>Data Final Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFinalPesquisa)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.VigenciaPesquisaId }) |
+    @Html.ActionLink("Voltar para Lista", "Index")
+</p>

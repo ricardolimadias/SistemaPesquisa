@@ -1,0 +1,36 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_PesquisaPerfil
+
+@{
+    ViewBag.Title = "Detalhe Pesquisa x Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhe Pesquisa x Perfil</h2>
+
+<div>
+    @*<h4>TB_PesquisaPerfil</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TB_Perfil.Perfil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Perfil.Perfil)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Pesquisa.Titulo)*@
+            <label>Pesquisa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Pesquisa.Titulo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.PerfilPesquisaId }) |
+    @Html.ActionLink("Voltar para Lista", "Index")
+</p>
