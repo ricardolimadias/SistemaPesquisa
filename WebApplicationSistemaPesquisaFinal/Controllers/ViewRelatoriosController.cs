@@ -116,6 +116,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 string[] ArryDTRET = SearchResposta.Split('-');
                 string DTER = ArryDTRET[2] + '-' + ArryDTRET[1] + '-' + ArryDTRET[0];
 
+
                 Relarorio = Relarorio.Where(s => s.DataEnvio.ToString().Contains(DTEV)).Where(s => s.DataResposta.ToString().Contains(DTER));
 
             }
