@@ -117,7 +117,17 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 string DTER = ArryDTRET[2] + '-' + ArryDTRET[1] + '-' + ArryDTRET[0];
 
 
-                Relarorio = Relarorio.Where(s => s.DataEnvio.ToString().Contains(DTEV)).Where(s => s.DataResposta.ToString().Contains(DTER));
+                //DateTime DTEV1 = Convert.ToDateTime(DTEV).Date;
+                //DateTime DTER1 = Convert.ToDateTime(DTER).Date;
+
+                //DateTime DTEV1 = Convert.ToDateTime(DTEV1, CultureInfo.CurrentCulture).ToString("yyyy-MM-dd");
+                //DateTime DTER1 = Convert.ToDateTime(DTER1, CultureInfo.CurrentCulture).ToString("yyyy-MM-dd");
+
+                Relarorio = from r in db.ViewRelatorios join p in db.TB_Pesquisa on r.PesquisaId equals p.PesquisaId where r.DataEnvio >= Convert.ToDateTime(DTEV).Date where r.DataResposta <= Convert.ToDateTime(DTER).Date select r;
+
+                //Relarorio = Relarorio.Where(s => s.DataEnvio.ToString().Contains(DTEV)).Where(s => s.DataResposta.ToString().Contains(DTER));
+               // Relarorio = Relarorio.Where(p => p.DataEnvio >= Convert.ToDateTime(DTEV) && p.DataResposta <= Convert.ToDateTime(DTER));
+                //Relarorio = Relarorio.Where(p => p.DataEnvio.Value() >= DTEV.Value.Date() && p.DataResposta.Date() <= DTER.Value.Date());
 
             }
             //Pesquisa Data Parte 2
@@ -176,12 +186,20 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         public ActionResult ExportData()
         {
             string val = Request["Export"].ToString();
-            List<ViewRelatorio> lst = db.ViewRelatorios.ToList();
+            var Perfil = int.Parse(Session["Perfil"].ToString());
+            var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
+            //List<ViewRelatorio> lst = db.ViewRelatorios.ToList();
+            List<ViewRelatorio> lst = Relarorio.ToList();
+
 
             if (val.ToLower() == "xls")
             {
+                //var Perfil = int.Parse(Session["Perfil"].ToString());
+                //var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
+
                 GridView gv = new GridView();
-                gv.DataSource = db.ViewRelatorios.ToList();
+                //gv.DataSource = db.ViewRelatorios.ToList();
+                gv.DataSource = Relarorio.ToList();
                 gv.DataBind();
 
                 Response.ContentEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
@@ -200,6 +218,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             }
             else if (val.ToLower() == "csv")
             {
+                //var Perfil = int.Parse(Session["Perfil"].ToString());
+                //var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
+
                 StringBuilder sb = new StringBuilder();
                 string[] columns = new string[8] { "RDM", "Título","Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta", "Resposta" };
                 for (int k = 0; k < columns.Length; k++)
@@ -236,18 +257,21 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             }
             else if (val.ToLower() == "xlsx")
             {
-                var data = from ViewRelatorio in lst
-                           select new
-                           {
-                               RDM = ViewRelatorio.RDM,
-                               Titulo = ViewRelatorio.Titulo,
-                               Questao = ViewRelatorio.Questao,
-                               Alternativa = ViewRelatorio.Alternativa,
-                               Nome = ViewRelatorio.Nome,
-                               DataEnvio = ViewRelatorio.DataEnvio,
-                               DataResposta = ViewRelatorio.DataResposta,
-                               Resposta = ViewRelatorio.Resposta
-                           };
+                //var Perfil = int.Parse(Session["Perfil"].ToString());
+                var data = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
+                
+                //var data = from ViewRelatorio in lst
+                //           select new
+                //           {
+                //               RDM = ViewRelatorio.RDM,
+                //               Titulo = ViewRelatorio.Titulo,
+                //               Questao = ViewRelatorio.Questao,
+                //               Alternativa = ViewRelatorio.Alternativa,
+                //               Nome = ViewRelatorio.Nome,
+                //               DataEnvio = ViewRelatorio.DataEnvio,
+                //               DataResposta = ViewRelatorio.DataResposta,
+                //               Resposta = ViewRelatorio.Resposta
+                //           };
                 ExcelPackage excel = new ExcelPackage();
                 var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
                 workSheet.Cells[1, 1].LoadFromCollection(data, true);
@@ -264,8 +288,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     Response.End();
                 }
             }
-
-            return RedirectToAction("StudentDetails");
+            return RedirectToAction("Relatorio");
         }
 
 

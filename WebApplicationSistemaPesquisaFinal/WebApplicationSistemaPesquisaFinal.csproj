@@ -517,6 +517,7 @@
     <Content Include="Views\ViewRelatorios\Index.cshtml" />
     <Content Include="Views\TB_Formulario\Error.cshtml" />
     <Content Include="SQL\BANCO.zip" />
+    <Content Include="SQL\BANCO.bak" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

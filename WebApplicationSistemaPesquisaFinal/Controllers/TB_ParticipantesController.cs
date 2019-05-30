@@ -119,7 +119,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         {
             foreach (var Particip in participantes)
             {
-                Particip.Status = "";
+                //Particip.Status = "";
 
 
                 IEnumerable<string> DTE = (from dte in db.TB_DataEnvioDataResposta
@@ -261,7 +261,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 mail.Sender = new System.Net.Mail.MailAddress("pesquisa@liquigas.com.br");
                 mail.From = new MailAddress("pesquisa@liquigas.com.br");
                 mail.To.Add(new MailAddress(tB_Participantes.Email));
-                mail.Subject = "Sistema de Pesquisa Link de Acesso";
+                mail.Subject = "Pesquisa de Satisfação – Link de Acesso";
                 mail.Body = "<font face='Calibri'>" + MSG1 + "<br/><br/>Acesse a pesquisa através do link:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "<br/><br/> Copie e cole este link no browser do Internet Explorer ou do Mozilla Firefox." + "</font>";
 
                 mail.IsBodyHtml = true;
@@ -349,7 +349,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 mail.Sender = new System.Net.Mail.MailAddress("pesquisa@liquigas.com.br");
                 mail.From = new MailAddress("pesquisa@liquigas.com.br");
                 mail.To.Add(new MailAddress(tB_Participantes.Email));
-                mail.Subject = "Sistema de Pesquisa Link de Acesso Referente a RDM:" + tB_Participantes.RDM;
+                mail.Subject = "Pesquisa de Satisfação – Link de Acesso Referente a RDM:" + tB_Participantes.RDM;
                 //mail.Body = tB_Participantes.TB_Pesquisa.TB_MensagemEmail + " Mensagem do Sistema de Pesquisa:<br/> Nome:  " + tB_Participantes.Nome + "<br/> Email : " + tB_Participantes.Email + " <br/> Mensagem : " + MSG1 + " o link de acesso:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId;
                 mail.Body = "<font face='Calibri'>" + "RDM: " + tB_Participantes.RDM + MSG1 + "<br/><br/>Acesse a pesquisa através do link:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "<br/><br/> Copie e cole este link no browser do Internet Explorer ou do Mozilla Firefox." + "</font>";
                 mail.IsBodyHtml = true;
