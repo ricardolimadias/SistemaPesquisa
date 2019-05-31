@@ -93,20 +93,42 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
                 var questoes = db.TB_Questoes.Where(x => x.PesquisaId == Id_pesquisa).ToList();
                 var listaDeQuestoes = new List<Formulario>();
-                
-                
-                foreach (var item in questoes)
+
+                var listaResposta = db.TB_Respostas.Where(y => y.ParticipanteId == Id_Participante).ToList();
+
+                if (listaResposta.Count != 0)
                 {
-                    listaDeQuestoes.Add(new Formulario()
+                    foreach (var item in questoes)
                     {
-                        PesquisaId = item.PesquisaId,
-                        Titulo = item.TB_Pesquisa.Titulo,
-                        Descricao = item.TB_Pesquisa.Descricao,
-                        QuestaoId = item.QuestaoId,
-                        Questao = item.Questao,
-                        TipoRespostaId = item.TipoRespostaId,
-                        Alternativas = db.TB_Alternativas.Where(x => x.QuestaoId == item.QuestaoId).ToList(),
-                    });
+                        listaDeQuestoes.Add(new Formulario()
+                        {
+                            PesquisaId = item.PesquisaId,
+                            Titulo = item.TB_Pesquisa.Titulo,
+                            Descricao = item.TB_Pesquisa.Descricao,
+                            QuestaoId = item.QuestaoId,
+                            Questao = item.Questao,
+                            TipoRespostaId = item.TipoRespostaId,
+                            Alternativas = db.TB_Alternativas.Where(x => x.QuestaoId == item.QuestaoId).ToList(),
+                            VLResposta = listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta).First()
+
+                        });
+                    }
+                }else
+                {
+                    foreach (var item in questoes)
+                    {
+                        listaDeQuestoes.Add(new Formulario()
+                        {
+                            PesquisaId = item.PesquisaId,
+                            Titulo = item.TB_Pesquisa.Titulo,
+                            Descricao = item.TB_Pesquisa.Descricao,
+                            QuestaoId = item.QuestaoId,
+                            Questao = item.Questao,
+                            TipoRespostaId = item.TipoRespostaId,
+                            Alternativas = db.TB_Alternativas.Where(x => x.QuestaoId == item.QuestaoId).ToList(),
+                            //VLResposta = listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta).First()
+                        });
+                    }
                 }
                 @ViewBag.Participante = Id_Participante;
                 return View(listaDeQuestoes);

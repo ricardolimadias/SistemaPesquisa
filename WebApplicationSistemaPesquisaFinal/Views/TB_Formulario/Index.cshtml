@@ -47,7 +47,8 @@
 
                         @if (item.TipoRespostaId == 1)
                         {
-                            <input type='text' id='@item.QuestaoId-0' name='@item.QuestaoId-0'>
+                                                      
+                            <input type='text' id='@item.QuestaoId-0' name='@item.QuestaoId-0' value="@item.VLResposta">
                         }
 
                     @if (item.TipoRespostaId == 4)
@@ -83,11 +84,23 @@
 
                                 @if (item.TipoRespostaId == 2)
                                 {
-                                    <input type='checkbox' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-@SubItem.AlternativaId">
+                                    if (item.VLResposta == SubItem.AlternativaId.ToString())
+                                    {
+                                    <input type='checkbox' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-@SubItem.AlternativaId" checked="checked">
+                                    }
+                                    else
+                                    {
+                                    <input type = 'checkbox' id = '@item.QuestaoId-@SubItem.AlternativaId' name = "@item.QuestaoId-@SubItem.AlternativaId" >
+                                    }
                                 }
                                 @if (item.TipoRespostaId == 3)
                                 {
-                                    <input type='radio' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-0" value="@SubItem.AlternativaId">
+                                   if (item.VLResposta == SubItem.AlternativaId.ToString())
+                                   {
+                                     <input type='radio' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-0" value="@SubItem.AlternativaId" checked="checked">
+                                   } else { 
+                                     <input type='radio' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-0" value="@SubItem.AlternativaId">
+                                   }   
                                 }
                                 @if (item.TipoRespostaId == 4)
                                 {

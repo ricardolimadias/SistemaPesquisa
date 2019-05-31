@@ -109,6 +109,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 SearchEnvio = SearchEnvio.Replace("/", "-");
                 SearchResposta = SearchResposta.Replace("/", "-");
+                var Relarorio1 = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
 
                 string[] ArryDTEVN = SearchEnvio.Split('-');
                 string DTEV = ArryDTEVN[2] + '-' + ArryDTEVN[1] + '-' + ArryDTEVN[0];
@@ -116,22 +117,15 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 string[] ArryDTRET = SearchResposta.Split('-');
                 string DTER = ArryDTRET[2] + '-' + ArryDTRET[1] + '-' + ArryDTRET[0];
 
+                DateTime DTEV1 = Convert.ToDateTime(DTEV);
+                DateTime DTER1 = Convert.ToDateTime(DTER);
+                
+                Relarorio = Relarorio.Where(s => s.DataEnvio >= DTEV1 && s.DataResposta <= DTER1);
 
-                //DateTime DTEV1 = Convert.ToDateTime(DTEV).Date;
-                //DateTime DTER1 = Convert.ToDateTime(DTER).Date;
-
-                //DateTime DTEV1 = Convert.ToDateTime(DTEV1, CultureInfo.CurrentCulture).ToString("yyyy-MM-dd");
-                //DateTime DTER1 = Convert.ToDateTime(DTER1, CultureInfo.CurrentCulture).ToString("yyyy-MM-dd");
-
-                Relarorio = from r in db.ViewRelatorios join p in db.TB_Pesquisa on r.PesquisaId equals p.PesquisaId where r.DataEnvio >= Convert.ToDateTime(DTEV).Date where r.DataResposta <= Convert.ToDateTime(DTER).Date select r;
-
-                //Relarorio = Relarorio.Where(s => s.DataEnvio.ToString().Contains(DTEV)).Where(s => s.DataResposta.ToString().Contains(DTER));
-               // Relarorio = Relarorio.Where(p => p.DataEnvio >= Convert.ToDateTime(DTEV) && p.DataResposta <= Convert.ToDateTime(DTER));
-                //Relarorio = Relarorio.Where(p => p.DataEnvio.Value() >= DTEV.Value.Date() && p.DataResposta.Date() <= DTER.Value.Date());
 
             }
             //Pesquisa Data Parte 2
-            if (!String.IsNullOrEmpty(SearchEnvio))
+            if (!String.IsNullOrEmpty(SearchEnvio) && String.IsNullOrEmpty(SearchResposta))
             {
                
                 SearchEnvio = SearchEnvio.Replace("/", "-");
@@ -140,7 +134,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 Relarorio = Relarorio.Where(s => s.DataEnvio.ToString().Contains(DTEV));
             }
 
-            if (!String.IsNullOrEmpty(SearchResposta))
+            if (!String.IsNullOrEmpty(SearchResposta) && String.IsNullOrEmpty(SearchEnvio))
             {
                 SearchResposta = SearchResposta.Replace("/", "-");
                 string[] ArryDTRET = SearchResposta.Split('-');

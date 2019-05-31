@@ -10,7 +10,7 @@ namespace WebApplicationSistemaPesquisaFinal.Models
     public class Formulario
     {
 
-
+        public string VLResposta { get; set; }
 
         public int RespostaId { get; set; }
         public int PesquisaId { get; set; }
@@ -22,7 +22,7 @@ namespace WebApplicationSistemaPesquisaFinal.Models
 
         public string Questao { get; set; }
 
-       // public Nullable<bool> Obrigatorio { get; set; }
+        //public Nullable<bool> Obrigatorio { get; set; }
         public int TipoRespostaId { get; set; }
 
         public virtual ICollection<TB_Alternativas> Alternativas { get; set; }
