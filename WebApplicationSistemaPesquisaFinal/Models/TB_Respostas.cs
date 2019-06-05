@@ -18,8 +18,7 @@ namespace WebApplicationSistemaPesquisaFinal.Models
         public int RespostaId { get; set; }
         public int QuestaoId { get; set; }
 
-        public bool Obrigatorio { get; set; }
-
+        public Nullable<bool> Obrigatorio { get; set; }
 
         public int AlternativaId { get; set; }
         public string Resposta { get; set; }

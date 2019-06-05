@@ -31,6 +31,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         {
 
             var Perfil = int.Parse(Session["Perfil"].ToString());
+            ViewBag.Perfil = Perfil;
 
 
             ViewBag.Titulo = (from c in db.TB_Pesquisa

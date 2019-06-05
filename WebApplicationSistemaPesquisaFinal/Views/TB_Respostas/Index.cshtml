@@ -56,10 +56,13 @@
     </tr>*@
 
     <tr>
+        @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+        {
         <th>
             @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.RDM })
         </th>
-        <th>
+        }
+         <th>
             @Html.ActionLink("Data Resposta", "Index", new { sortOrder = ViewBag.RDM })
         </th>
         <th>
@@ -82,9 +85,12 @@
     @foreach (var item in Model)
     {
         <tr>
+            @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+            {
             <td>
                 @Html.DisplayFor(modelItem => item.TB_Participantes.RDM)
             </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.DTER)
             </td>

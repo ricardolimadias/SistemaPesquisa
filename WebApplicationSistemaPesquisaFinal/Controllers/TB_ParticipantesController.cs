@@ -28,6 +28,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         public async Task<ViewResult> Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
+            ViewBag.Perfil = Perfil;
             //tB_Participantes = db.TB_Participantes.Find(tB_Participantes.ParticipanteId);
 
             ViewBag.Titulo = (from c in db.TB_Pesquisa
@@ -117,11 +118,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
         private Task<IQueryable<TB_Participantes>> Particip1(IQueryable<TB_Participantes> participantes)
         {
-            foreach (var Particip in participantes)
+           foreach (var Particip in participantes)
             {
-                //Particip.Status = "";
-
-
+                
+                Particip.Status = "";
                 IEnumerable<string> DTE = (from dte in db.TB_DataEnvioDataResposta
                                            join vgpi in db.TB_VigenciaPesquisa on dte.PesquisaId equals vgpi.PesquisaId
                                            where dte.ParticipanteId == Particip.ParticipanteId
@@ -167,6 +167,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         public async Task<ActionResult> Details(int? id)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
+            ViewBag.Perfil = Perfil;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -190,6 +191,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         public ActionResult Create()
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
+            ViewBag.Perfil = Perfil;
 
             ViewBag.PesquisaId = new SelectList(from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "PesquisaId", "Titulo");
             //ViewBag.PesquisaId = new SelectList(db.TB_Pesquisa, "PesquisaId", "Titulo");
@@ -351,7 +353,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 mail.To.Add(new MailAddress(tB_Participantes.Email));
                 mail.Subject = "Pesquisa de Satisfação – Link de Acesso Referente a RDM:" + tB_Participantes.RDM;
                 //mail.Body = tB_Participantes.TB_Pesquisa.TB_MensagemEmail + " Mensagem do Sistema de Pesquisa:<br/> Nome:  " + tB_Participantes.Nome + "<br/> Email : " + tB_Participantes.Email + " <br/> Mensagem : " + MSG1 + " o link de acesso:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId;
-                mail.Body = "<font face='Calibri'>" + "RDM: " + tB_Participantes.RDM + MSG1 + "<br/><br/>Acesse a pesquisa através do link:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "<br/><br/> Copie e cole este link no browser do Internet Explorer ou do Mozilla Firefox." + "</font>";
+                mail.Body = "<font face='Calibri'>" + "RDM: " + tB_Participantes.RDM +" "+ MSG1 + "<br/><br/>Acesse a pesquisa através do link:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "<br/><br/> Copie e cole este link no browser do Internet Explorer ou do Mozilla Firefox." + "</font>";
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.High;
                 try
@@ -379,6 +381,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         public ActionResult Edit(int? id)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
+            ViewBag.Perfil = Perfil;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -401,6 +404,8 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
         public ActionResult Edit([Bind(Include = "ParticipanteId,PesquisaId,Nome,Email,RDM")] TB_Participantes tB_Participantes)
         {
+            var Perfil = int.Parse(Session["Perfil"].ToString());
+            ViewBag.Perfil = Perfil;
             if (ModelState.IsValid)
             {
                 db.Entry(tB_Participantes).State = EntityState.Modified;
@@ -415,6 +420,8 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
         public ActionResult Delete(int? id)
         {
+            var Perfil = int.Parse(Session["Perfil"].ToString());
+            ViewBag.Perfil = Perfil;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

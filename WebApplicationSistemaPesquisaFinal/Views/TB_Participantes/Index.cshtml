@@ -24,9 +24,12 @@
 </p>
 <table class="table">
     <tr>
+        @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+        {
         <th>
             @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.NomeSortParm })
         </th>
+        }
         <th>
             @Html.ActionLink("Data Envio", "Index", new { sortOrder = ViewBag.NomeSortParm })
         </th>
@@ -47,9 +50,12 @@
     @foreach (var item in Model)
     {
         <tr>
+            @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+            {
             <td>
                 @Html.DisplayFor(modelItem => item.RDM)
             </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.DTEV)
             </td>

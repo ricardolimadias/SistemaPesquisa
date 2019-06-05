@@ -45,7 +45,8 @@
             </div>
         </div>
 
-
+@if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+{
         <div class="form-group">
             @* @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <label class="control-label col-md-2">RDM</label>
@@ -54,7 +55,7 @@
                 @Html.ValidationMessageFor(model => model.RDM, "", new { @class = "text-danger" })
             </div>
         </div>
-
+}
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Salvar" class="btn btn-default" />

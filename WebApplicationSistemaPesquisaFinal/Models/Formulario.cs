@@ -17,8 +17,8 @@ namespace WebApplicationSistemaPesquisaFinal.Models
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public int QuestaoId { get; set; }
-
-        public bool Obrigatorio { get; set; }
+        
+        public Nullable<bool> Obrigatorio { get; set; }
 
         public string Questao { get; set; }
 
@@ -26,6 +26,7 @@ namespace WebApplicationSistemaPesquisaFinal.Models
         public int TipoRespostaId { get; set; }
 
         public virtual ICollection<TB_Alternativas> Alternativas { get; set; }
+        
 
 
     }

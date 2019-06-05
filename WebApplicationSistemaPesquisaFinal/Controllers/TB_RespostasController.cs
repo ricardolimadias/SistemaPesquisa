@@ -25,6 +25,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
+            ViewBag.Perfil = Perfil;
 
             ViewBag.Titulo = (from c in db.TB_Pesquisa
                               join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId

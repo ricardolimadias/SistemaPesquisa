@@ -109,7 +109,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                             Questao = item.Questao,
                             TipoRespostaId = item.TipoRespostaId,
                             Alternativas = db.TB_Alternativas.Where(x => x.QuestaoId == item.QuestaoId).ToList(),
-                            VLResposta = listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta).First()
+                            VLResposta = listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta).LastOrDefault()
 
                         });
                     }
@@ -144,6 +144,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             
             tB_DataEnvioDataResposta = db.TB_DataEnvioDataResposta.Find(await db.TB_DataEnvioDataResposta.Where(x => x.ParticipanteId == participante).Select(x => x.EnvioId).SingleOrDefaultAsync());
 
+            var IdResposta = db.TB_Respostas.FirstOrDefault(x => x.ParticipanteId == ParticipanteId);
 
             if (acao == "enviar")
             {
@@ -156,7 +157,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         db.Entry(tB_DataEnvioDataResposta).State = EntityState.Modified;
                     }
 
-
                     var lista = new List<TB_Respostas>();
 
                     foreach (KeyValuePair<string, string> kvp in valor)
@@ -164,10 +164,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         var chave = kvp.Key.Split('-');
                         var vl = kvp.Value;
                         var resposta = new TB_Respostas();
-
+                        
                         resposta.QuestaoId = int.Parse(chave[0]);
-
                         resposta.AlternativaId = int.Parse(chave[1]);
+
                         resposta.ParticipanteId = participante;
                         resposta.Resposta = vl;
                         lista.Add(resposta);
@@ -188,11 +188,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     var chave = kvp.Key.Split('-');
                     var vl = kvp.Value;
                     var resposta = new TB_Respostas();
-
                     resposta.QuestaoId = int.Parse(chave[0]);
                     resposta.AlternativaId = int.Parse(chave[1]);
                     resposta.ParticipanteId = participante;
-
                     resposta.Resposta = vl;
                     lista.Add(resposta);
                 }
@@ -203,7 +201,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 return "Obrigado(a) por participar desta Pesquisa. Este formulário será fechado.";
             }
-            return "Obrigado(a) por participar desta Pesquisa. Este formulário será fechado.Mas poderá retomar para responder a esta Pesquisa.";
+            return "A Pesquisa foi salva parcialmente. Você poderá retornar, mais tarde, para concluir ou modificar suas respostas. Não se esqueça de, após preencher todas as questões, clicar no botão “Enviar as Respostas”.";
         }
     }
 }
