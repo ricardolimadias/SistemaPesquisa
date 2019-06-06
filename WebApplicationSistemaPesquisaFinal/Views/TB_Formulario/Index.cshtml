@@ -58,50 +58,92 @@
                         }
 
                     @if (item.TipoRespostaId == 4)
-                        {
-                            <label>Classificação de 1 a 5</label>
-                        if (item.VLResposta == item.QuestaoId.ToString())
-                        {
-                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="@item.VLResposta">
-                            @*cores Vermelho, Amarelo,Verde*@
-                        }
+                    {
+                    
+                        <label>Classificação de 1 a 5</label>
+                        //if (item.VLResposta == 1.ToString()||item.VLResposta == 2.ToString()||item.VLResposta == 3.ToString()||item.VLResposta == 4.ToString()||item.VLResposta == 5.ToString())
+                        //{
+                                <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="@item.VLResposta">
+                                @*cores Vermelho, Amarelo,Verde*@
+                        @*}
                         else
                         {
-                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="@item.VLResposta">
-                        }
-
+                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0'> 
+                        }*@
                     }
+                   
+                    
 
                         @if (item.TipoRespostaId == 5)
                         {
                             <label>Classificação de 1 a 5</label>
-                            if (item.VLResposta == item.QuestaoId.ToString())
+                            if (item.VLResposta == 1.ToString()|| item.VLResposta ==2.ToString()||item.VLResposta==3.ToString()||item.VLResposta==4.ToString()||item.VLResposta==5.ToString())
                             {
                                     <div class="wrapper">
-                                      <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" checked="checked" />
+                                      @if (item.VLResposta == 5.ToString())
+                                      {
+                                      <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" checked="checked"  />
                                       <label for="@item.QuestaoId-1"></label>
+                                      }
+                                      else
+                                      {
+                                        <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" />
+                                        <label for="@item.QuestaoId-1"></label>
+                                      }
+                                      @if (item.VLResposta == 4.ToString())
+                                      {
                                       <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" checked="checked" />
                                       <label for="@item.QuestaoId-2"></label>
-                                      <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" checked="checked"/>
+                                      }
+                                      else
+                                      {
+                                        <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" />
+                                        <label for="@item.QuestaoId-2"></label>
+                                      }
+                                      @if (item.VLResposta == 3.ToString())
+                                      {
+                                      <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" checked="checked" />
                                       <label for="@item.QuestaoId-3"></label>
-                                      <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" checked="checked"/>
+                                      }
+                                      else
+                                      {
+                                        <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" />
+                                        <label for="@item.QuestaoId-3"></label>
+                                      }
+                                      @if (item.VLResposta == 2.ToString())
+                                      {
+                                      <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta"  checked="checked"/>
                                       <label for="@item.QuestaoId-4"></label>
-                                      <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" checked="checked"/>
+                                      }
+                                      else
+                                      {
+                                        <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" />
+                                        <label for="@item.QuestaoId-4"></label>
+                                      }
+                                      @if (item.VLResposta == 1.ToString())
+                                      {
+                                      <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" checked="checked" />
                                       <label for="@item.QuestaoId-5"></label>
+                                      }
+                                      else
+                                      {
+                                        <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta"  />
+                                        <label for="@item.QuestaoId-5"></label>
+                                      }
                                   </div>
                             }
                             else
                             {
                                 <div class="wrapper">
-                                    <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="1" />
+                                    <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" />
                                     <label for="@item.QuestaoId-1"></label>
-                                    <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="2" />
+                                    <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" />
                                     <label for="@item.QuestaoId-2"></label>
                                     <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
                                     <label for="@item.QuestaoId-3"></label>
-                                    <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="4" />
+                                    <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" />
                                     <label for="@item.QuestaoId-4"></label>
-                                    <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="5" />
+                                    <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" />
                                     <label for="@item.QuestaoId-5"></label>
                                 </div>
                             }
@@ -132,49 +174,94 @@
                                         <input type='radio' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-0" value="@SubItem.AlternativaId">
                                    }   
                                 }
+
                                 @if (item.TipoRespostaId == 4)
                                 {
+                               
                                     <label>Classificação de 1 a 5</label>
-                                    if (item.VLResposta == SubItem.AlternativaId.ToString())
-                                    {
-                                        <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' value="@item.VLResposta">
-                                    }
-                                    else
-                                    {
+                                    //if (item.VLResposta == 1.ToString() || item.VLResposta == 2.ToString() || item.VLResposta == 3.ToString() || item.VLResposta == 4.ToString() || item.VLResposta == 5.ToString())
+                                    //{
+                                        <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="@item.VLResposta">
+                                        @*cores Vermelho, Amarelo,Verde*@
+                                        @*}
+                                        else
+                                        {
                                         <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5">
-                                     @*cores Vermelho, Amarelo,Verde*@
+                                        @*cores Vermelho, Amarelo,Verde*@
+                                        @*}*@
+                                        
                                     }
-                                }
+
                                 @if (item.TipoRespostaId == 5)
                                 {
                                     <label>Classificação de 1 a 5</label>
-                                    if (item.VLResposta == SubItem.AlternativaId.ToString())
-                                    {
-                                        <div class="wrapper">
-                                            <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" checked="checked"/>
-                                            <label for="@item.QuestaoId-1"></label>
-                                            <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" checked="checked"/>
-                                            <label for="@item.QuestaoId-2"></label>
-                                            <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" checked="checked"/>
-                                            <label for="@item.QuestaoId-3"></label>
-                                            <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" checked="checked"/>
-                                            <label for="@item.QuestaoId-4"></label>
-                                            <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" checked="checked"/>
-                                            <label for="@item.QuestaoId-5"></label>
-                                        </div>
-                                    }
-                                    else
-                                    {
+                                if (item.VLResposta == 1.ToString() || item.VLResposta == 2.ToString() || item.VLResposta == 3.ToString() || item.VLResposta == 4.ToString() || item.VLResposta == 5.ToString())
+                                {
                                     <div class="wrapper">
-                                        <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="1" />
+                                        @if (item.VLResposta == 5.ToString())
+                                        {
+                                            <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" checked="checked" />
+                                            <label for="@item.QuestaoId-1"></label>
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" />
+                                            <label for="@item.QuestaoId-1"></label>
+                                        }
+                                        @if (item.VLResposta == 4.ToString())
+                                        {
+                                            <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" checked="checked" />
+                                            <label for="@item.QuestaoId-2"></label>
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" />
+                                            <label for="@item.QuestaoId-2"></label>
+                                        }
+                                        @if (item.VLResposta == 3.ToString())
+                                        {
+                                            <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" checked="checked" />
+                                            <label for="@item.QuestaoId-3"></label>
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" />
+                                            <label for="@item.QuestaoId-3"></label>
+                                        }
+                                        @if (item.VLResposta == 2.ToString())
+                                        {
+                                            <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" checked="checked" />
+                                            <label for="@item.QuestaoId-4"></label>
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" />
+                                            <label for="@item.QuestaoId-4"></label>
+                                        }
+                                        @if (item.VLResposta == 1.ToString())
+                                        {
+                                            <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" checked="checked" />
+                                            <label for="@item.QuestaoId-5"></label>
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" />
+                                            <label for="@item.QuestaoId-5"></label>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="wrapper">
+                                        <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" />
                                         <label for="@item.QuestaoId-1"></label>
-                                        <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="2" />
+                                        <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" />
                                         <label for="@item.QuestaoId-2"></label>
                                         <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
                                         <label for="@item.QuestaoId-3"></label>
-                                        <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="4" />
+                                        <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" />
                                         <label for="@item.QuestaoId-4"></label>
-                                        <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="5" />
+                                        <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" />
                                         <label for="@item.QuestaoId-5"></label>
                                     </div>
                                     }
