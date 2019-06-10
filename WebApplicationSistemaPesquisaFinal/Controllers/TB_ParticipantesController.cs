@@ -108,7 +108,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             }
 
             Participante = await Particip1(Participante);
-
+           
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(Participante.ToPagedList(pageNumber, pageSize));
@@ -138,7 +138,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 if (DTE.Count() <= 0 || string.IsNullOrEmpty(DTE.First<string>()))
                 {
                     continue;
-
                 }
 
                 if (DTR.Count() <= 0 || string.IsNullOrEmpty(DTR.First<string>()))
@@ -219,7 +218,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     tB_DataEnvioDataResposta.DataEnvio = DateTime.Now;
                     db.TB_DataEnvioDataResposta.Add(tB_DataEnvioDataResposta);
                     db.SaveChanges();
-
                 }
 
                 IEnumerable<string> MSG = from p in db.TB_Participantes
@@ -228,9 +226,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                                           where m.PesquisaId == p.PesquisaId
                                           where p.ParticipanteId == tB_Participantes.ParticipanteId
                                           select m.Mensagem;
-                //select new { m.Mensagem };
 
-                // new System.Linq.SystemCore_EnumerableDebugView<string>(MSG).Items[0];
 
                 var MSG1 = MSG.First<string>();
 

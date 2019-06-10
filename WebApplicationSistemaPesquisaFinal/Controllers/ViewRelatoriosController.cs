@@ -123,7 +123,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 
                 Relarorio = Relarorio.Where(s => s.DataEnvio >= DTEV1 && s.DataResposta <= DTER1);
 
-
             }
             //Pesquisa Data Parte 2
             if (!String.IsNullOrEmpty(SearchEnvio) && String.IsNullOrEmpty(SearchResposta))
@@ -215,58 +214,82 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 //var Perfil = int.Parse(Session["Perfil"].ToString());
                 //var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
-
-                StringBuilder sb = new StringBuilder();
-                string[] columns = new string[8] { "RDM", "Título","Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta", "Resposta" };
-                for (int k = 0; k < columns.Length; k++)
+                if (Perfil == 1 || Perfil == 2 || Perfil == 4)
                 {
-                    //add separator
-                    sb.Append(columns[k].ToString() + ',');
-                }
+                    StringBuilder sb = new StringBuilder();
+                    string[] columns = new string[8] { "RDM", "Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta", "Resposta" };
+                    for (int k = 0; k < columns.Length; k++)
+                    {
+                        //add separator
+                        sb.Append(columns[k].ToString() + ',');
+                    }
 
-                sb.Append("\r\n");
-                foreach (ViewRelatorio item in lst)
-                {
-                    sb.Append(item.RDM + ",");
-                    sb.Append(item.Titulo + ",");
-                    sb.Append(item.Questao + ",");
-                    sb.Append(item.Alternativa + ",");
-                    sb.Append(item.Nome + ",");
-                    sb.Append(item.DataEnvio + ",");
-                    sb.Append(item.DataResposta + ",");
-                    sb.Append(item.Resposta);
-                    //sb.Append new line
                     sb.Append("\r\n");
+                    foreach (ViewRelatorio item in lst)
+                    {
+                        sb.Append(item.RDM + ",");
+                        sb.Append(item.Titulo + ",");
+                        sb.Append(item.Questao + ",");
+                        sb.Append(item.Alternativa + ",");
+                        sb.Append(item.Nome + ",");
+                        sb.Append(item.DataEnvio + ",");
+                        sb.Append(item.DataResposta + ",");
+                        sb.Append(item.Resposta);
+                        //sb.Append new line
+                        sb.Append("\r\n");
+                    }
+
+                    Response.ContentEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
+
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.AddHeader("content-disposition", "attachment;filename=RelatorioPesquisa.csv");
+                    Response.Charset = "";
+                    Response.ContentType = "application/text";
+                    Response.Output.Write(sb.ToString());
+                    Response.Flush();
+                    Response.End();
+                }else
+                {
+                    StringBuilder sb = new StringBuilder();
+                    string[] columns = new string[7] {"Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta", "Resposta" };
+                    for (int k = 0; k < columns.Length; k++)
+                    {
+                        //add separator
+                        sb.Append(columns[k].ToString() + ',');
+                    }
+
+                    sb.Append("\r\n");
+                    foreach (ViewRelatorio item in lst)
+                    {
+                        sb.Append(item.Titulo + ",");
+                        sb.Append(item.Questao + ",");
+                        sb.Append(item.Alternativa + ",");
+                        sb.Append(item.Nome + ",");
+                        sb.Append(item.DataEnvio + ",");
+                        sb.Append(item.DataResposta + ",");
+                        sb.Append(item.Resposta);
+                        //sb.Append new line
+                        sb.Append("\r\n");
+                    }
+
+                    Response.ContentEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
+
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.AddHeader("content-disposition", "attachment;filename=RelatorioPesquisa.csv");
+                    Response.Charset = "";
+                    Response.ContentType = "application/text";
+                    Response.Output.Write(sb.ToString());
+                    Response.Flush();
+                    Response.End();
                 }
-
-                Response.ContentEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
-
-                Response.Clear();
-                Response.Buffer = true;
-                Response.AddHeader("content-disposition", "attachment;filename=RelatorioPesquisa.csv");
-                Response.Charset = "";
-                Response.ContentType = "application/text";
-                Response.Output.Write(sb.ToString());
-                Response.Flush();
-                Response.End();
             }
             else if (val.ToLower() == "xlsx")
             {
                 //var Perfil = int.Parse(Session["Perfil"].ToString());
                 var data = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
                 
-                //var data = from ViewRelatorio in lst
-                //           select new
-                //           {
-                //               RDM = ViewRelatorio.RDM,
-                //               Titulo = ViewRelatorio.Titulo,
-                //               Questao = ViewRelatorio.Questao,
-                //               Alternativa = ViewRelatorio.Alternativa,
-                //               Nome = ViewRelatorio.Nome,
-                //               DataEnvio = ViewRelatorio.DataEnvio,
-                //               DataResposta = ViewRelatorio.DataResposta,
-                //               Resposta = ViewRelatorio.Resposta
-                //           };
                 ExcelPackage excel = new ExcelPackage();
                 var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
                 workSheet.Cells[1, 1].LoadFromCollection(data, true);
@@ -285,9 +308,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             }
             return RedirectToAction("Relatorio");
         }
-
-
-
 
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
         // GET: ViewRelatorios/Details/5

@@ -17,9 +17,6 @@ namespace WebApplicationSistemaPesquisaFinal.Models
     {
         public int RespostaId { get; set; }
         public int QuestaoId { get; set; }
-
-        public Nullable<bool> Obrigatorio { get; set; }
-
         public int AlternativaId { get; set; }
         public string Resposta { get; set; }
         public int ParticipanteId { get; set; }
@@ -29,5 +26,7 @@ namespace WebApplicationSistemaPesquisaFinal.Models
 
         public virtual TB_Participantes TB_Participantes { get; set; }
         public virtual TB_Questoes TB_Questoes { get; set; }
+       
+        //public Nullable<bool> Obrigatorio { get; set; }
     }
 }

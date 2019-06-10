@@ -142,9 +142,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         public async Task<string> Save(Dictionary<string, string> valor, int participante, [Bind(Include = "DataResposta")] TB_DataEnvioDataResposta tB_DataEnvioDataResposta, string acao)
         {
             var ParticipanteId = participante;
-            
-            tB_DataEnvioDataResposta = db.TB_DataEnvioDataResposta.Find(await db.TB_DataEnvioDataResposta.Where(x => x.ParticipanteId == participante).Select(x => x.EnvioId).SingleOrDefaultAsync());
+            var listaDeQuestoes = new List<Formulario>();
 
+            tB_DataEnvioDataResposta = db.TB_DataEnvioDataResposta.Find(await db.TB_DataEnvioDataResposta.Where(x => x.ParticipanteId == participante).Select(x => x.EnvioId).SingleOrDefaultAsync());
+            
             var IdResposta = db.TB_Respostas.FirstOrDefault(x => x.ParticipanteId == ParticipanteId);
 
             if (acao == "enviar")
@@ -159,7 +160,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     }
 
                     var lista = new List<TB_Respostas>();
-
+                    
                     foreach (KeyValuePair<string, string> kvp in valor)
                     {
                         var chave = kvp.Key.Split('-');
@@ -168,7 +169,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         
                         resposta.QuestaoId = int.Parse(chave[0]);
                         resposta.AlternativaId = int.Parse(chave[1]);
-
                         resposta.ParticipanteId = participante;
                         resposta.Resposta = vl;
                         lista.Add(resposta);
