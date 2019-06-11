@@ -59,20 +59,19 @@
 
                     @if (item.TipoRespostaId == 4)
                     {
-                    
                         <label>Classificação de 1 a 5</label>
-                        //if (item.VLResposta == 1.ToString()||item.VLResposta == 2.ToString()||item.VLResposta == 3.ToString()||item.VLResposta == 4.ToString()||item.VLResposta == 5.ToString())
-                        //{
-                                <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="@item.VLResposta">
-                                @*cores Vermelho, Amarelo,Verde*@
-                        @*}
+                        if (item.VLResposta == item.QuestaoId.ToString())
+                        {
+                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="@item.VLResposta">
+                        }
                         else
                         {
-                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0'> 
-                        }*@
+                        <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="5">
+                                @*cores Vermelho, Amarelo,Verde*@
+                        }
                     }
-                   
-                    
+
+
 
                         @if (item.TipoRespostaId == 5)
                         {
@@ -177,20 +176,18 @@
 
                                 @if (item.TipoRespostaId == 4)
                                 {
-                               
+
                                     <label>Classificação de 1 a 5</label>
-                                    //if (item.VLResposta == 1.ToString() || item.VLResposta == 2.ToString() || item.VLResposta == 3.ToString() || item.VLResposta == 4.ToString() || item.VLResposta == 5.ToString())
-                                    //{
-                                        <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="@item.VLResposta">
-                                        @*cores Vermelho, Amarelo,Verde*@
-                                        @*}
-                                        else
-                                        {
-                                        <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5">
-                                        @*cores Vermelho, Amarelo,Verde*@
-                                        @*}*@
-                                        
+                                    if (item.VLResposta == SubItem.AlternativaId.ToString())
+                                    {
+                                    <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="5">
                                     }
+                                    else
+                                    {
+                                        <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="@SubItem.AlternativaId">
+                                    }
+
+                                }
 
                                 @if (item.TipoRespostaId == 5)
                                 {
