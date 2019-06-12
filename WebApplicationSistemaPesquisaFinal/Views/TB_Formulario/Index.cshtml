@@ -155,7 +155,7 @@
 
                                 @if (item.TipoRespostaId == 2)
                                 {
-                                    if (item.VLResposta == SubItem.AlternativaId.ToString())
+                                    if (item.VLResposta==SubItem.AlternativaId.ToString())
                                     {
                                         <input type='checkbox' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-@SubItem.AlternativaId" checked="checked">
                                     }
