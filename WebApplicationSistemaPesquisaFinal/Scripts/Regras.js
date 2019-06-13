@@ -48,9 +48,16 @@ $(document).ready(function () {
         var url = window.location.origin + '/TB_Formulario/save';
         //console.log(window.btn);
         $.ajax({
-            url: url, data: { valor: o, participante: $("#participante").html(),acao:window.btn }, type: "Get", dataType: "text", error: function (jqXHR, textStatus, errorThrown) {
+            url: url, data: { valor: o, participante: $("#participante").html(), acao: window.btn, pesquisa: $("#pesquisa").html() }, type: "Get", dataType: "text", error: function (jqXHR, textStatus, errorThrown) {
                 if (textStatus) { console.log('Erro ao carregar os dados.', textStatus) };
-            }, success: function (data) { alert(data); $("Form").remove(); window.close(); }
+            }, success: function (data) {
+                console.log(data);
+                var result = $.parseJSON(data);
+                alert(result.msg);
+                if (result.status == "Erro") return;
+                $("Form").remove();
+                window.close();
+            }
         });
     });
 

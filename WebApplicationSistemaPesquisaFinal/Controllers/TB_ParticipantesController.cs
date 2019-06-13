@@ -74,7 +74,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             //03
             if (!String.IsNullOrEmpty(SearchString))
             {
-                Participante = Participante.Where(s => s.TB_Pesquisa.Titulo.Contains(SearchString) || s.Nome.Contains(SearchString) || s.Email.Contains(SearchString) || s.RDM.Contains(SearchString) || s.Status.Contains(SearchString));
+                Participante = Participante.Where(s => s.TB_Pesquisa.Titulo.Contains(SearchString) || s.Nome.Contains(SearchString) || s.Email.Contains(SearchString) || s.RDM.Contains(SearchString));
             }
 
             if (!String.IsNullOrEmpty(SearchPesquisa))

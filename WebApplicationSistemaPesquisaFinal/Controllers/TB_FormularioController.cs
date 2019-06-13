@@ -109,8 +109,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                             Questao = item.Questao,
                             TipoRespostaId = item.TipoRespostaId,
                             Alternativas = db.TB_Alternativas.Where(x => x.QuestaoId == item.QuestaoId).ToList(),
-                            VLResposta = listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta).LastOrDefault()
-                            //VLResposta = listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta).FirstOrDefault()
+
+                            VLResposta = string.Join(";", listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta))
+                            
 
                         });
                     }
@@ -132,6 +133,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     }
                 }
                 @ViewBag.Participante = Id_Participante;
+                @ViewBag.Pesquisa = Id_pesquisa;
                 return View(listaDeQuestoes);
             }
             //return "Pesquisa já foi respondida. Este formulário será fechado. Obrigado (a).";
@@ -139,7 +141,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         }
 
         //public string Save(Dictionary<string, string> valor,int participante, [Bind(Include = "DataResposta")] TB_DataEnvioDataResposta tB_DataEnvioDataResposta)
-        public async Task<string> Save(Dictionary<string, string> valor, int participante, [Bind(Include = "DataResposta")] TB_DataEnvioDataResposta tB_DataEnvioDataResposta, string acao)
+        public async Task<JsonResult> Save(Dictionary<string, string> valor, int participante, [Bind(Include = "DataResposta")] TB_DataEnvioDataResposta tB_DataEnvioDataResposta, string acao,string pesquisa)
         {
             var ParticipanteId = participante;
             var listaDeQuestoes = new List<Formulario>();
@@ -160,21 +162,43 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     }
 
                     var lista = new List<TB_Respostas>();
-                    
+                    var questoes = db.TB_Questoes.Where(x => x.PesquisaId.ToString() == pesquisa && x.Obrigatorio==true).ToList();
+                    var questoesrespondidas = new List<int>();
+
+
+
                     foreach (KeyValuePair<string, string> kvp in valor)
                     {
                         var chave = kvp.Key.Split('-');
                         var vl = kvp.Value;
                         var resposta = new TB_Respostas();
                         resposta.QuestaoId = int.Parse(chave[0]);
-                        resposta.AlternativaId = int.Parse(chave[1]);
+                        resposta.AlternativaId = int.Parse(chave[1]);                       
                         resposta.ParticipanteId = participante;
                         resposta.Resposta = vl;
-                       
+                        questoesrespondidas.Add(resposta.QuestaoId);
                         lista.Add(resposta);
                     }
-                   
+                   foreach(var questao in questoes)
+                    {
+                        var respondeu = questoesrespondidas.Any(x=> questoesrespondidas.Contains(questao.QuestaoId));
+                        if(respondeu==true)
+                        {
+                            var qut = lista.First(x => x.QuestaoId == questao.QuestaoId);
+                            if (string.IsNullOrEmpty(qut.Resposta))
+                            {
+                                return Json(new { status = "Erro", msg = $"Obrigatório Responder a {questao.Questao}" }, JsonRequestBehavior.AllowGet);
+                            }
+                        }else{
+                            return Json(new { status = "Erro", msg = $"Obrigatório Responder a {questao.Questao}" }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
                     db.TB_Respostas.AddRange(lista);
+
+                    var respostabd = db.TB_Respostas.Where(x => x.ParticipanteId == participante);
+                    db.TB_Respostas.RemoveRange(respostabd);
+
                     db.SaveChanges();
                 }
                 
@@ -196,13 +220,16 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     lista.Add(resposta);
                 }
                 db.TB_Respostas.AddRange(lista);
+                var respostabd = db.TB_Respostas.Where(x => x.ParticipanteId == participante);
+                db.TB_Respostas.RemoveRange(respostabd);
                 db.SaveChanges();
             }
             if (acao == "enviar")
             {
-                return "Obrigado(a) por participar desta Pesquisa. Este formulário será fechado.";
+                return Json(new { status = "Sucesso", msg = "Obrigado(a) por participar desta Pesquisa. Este formulário será fechado." },JsonRequestBehavior.AllowGet);
             }
-            return "A Pesquisa foi salva parcialmente. Você poderá retornar, mais tarde, para concluir ou modificar suas respostas. Não se esqueça de, após preencher todas as questões, clicar no botão “Enviar as Respostas”.";
+                return Json(new { status = "Sucesso", msg = "A Pesquisa foi salva parcialmente. Você poderá retornar, mais tarde, para concluir ou modificar suas respostas. Não se esqueça de, após preencher todas as questões, clicar no botão “Enviar as Respostas”." }, JsonRequestBehavior.AllowGet);
+           
         }
     }
 }

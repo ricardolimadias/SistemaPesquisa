@@ -19,6 +19,7 @@ namespace WebApplicationSistemaPesquisaFinal.Models
         public TB_Participantes()
         {
             this.TB_Respostas = new HashSet<TB_Respostas>();
+            this.Status = "";
         }
     
         public int ParticipanteId { get; set; }

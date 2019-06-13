@@ -30,7 +30,8 @@
 }
 <form>
 @*<h2>Formulário de Resposta</h2>*@
-
+    @*<input type="hidden" name="pesquisa" value="@ViewBag.Pesquisa">*@
+    <div class="hidden" id="pesquisa">@ViewBag.Pesquisa</div>
     <div class="hidden" id="participante">@ViewBag.Participante</div>
     <table class="table">
         
@@ -66,7 +67,7 @@
                         }
                         else
                         {
-                        <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="5">
+                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="@item.VLResposta">
                                 @*cores Vermelho, Amarelo,Verde*@
                         }
                     }
@@ -155,15 +156,18 @@
 
                                 @if (item.TipoRespostaId == 2)
                                 {
-                                    if (item.VLResposta==SubItem.AlternativaId.ToString())
+                                    var Lista = item.VLResposta.Split(';');
+
+                                    if (Lista.Contains(SubItem.AlternativaId.ToString()))
+                                    //if(item.VLResposta == SubItem.AlternativaId.ToString())
                                     {
-                                        <input type='checkbox' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-@SubItem.AlternativaId" checked="checked">
+                                        <input type='checkbox' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-@SubItem.AlternativaId" value="@SubItem.AlternativaId" checked="checked">
                                     }
                                     else
                                     {
-                                        <input type ='checkbox' id='@item.QuestaoId-@SubItem.AlternativaId' name ="@item.QuestaoId-@SubItem.AlternativaId" >
+                                        <input type ='checkbox' id='@item.QuestaoId-@SubItem.AlternativaId' name ="@item.QuestaoId-@SubItem.AlternativaId" value="@SubItem.AlternativaId" >
                                     }
-                                }
+                                    }
                                 @if (item.TipoRespostaId == 3)
                                 {
                                    if (item.VLResposta == SubItem.AlternativaId.ToString())
@@ -180,7 +184,7 @@
                                     <label>Classificação de 1 a 5</label>
                                     if (item.VLResposta == SubItem.AlternativaId.ToString())
                                     {
-                                    <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="5">
+                                    <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="@SubItem.AlternativaId">
                                     }
                                     else
                                     {
