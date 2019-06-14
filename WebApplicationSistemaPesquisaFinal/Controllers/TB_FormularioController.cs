@@ -109,10 +109,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                             Questao = item.Questao,
                             TipoRespostaId = item.TipoRespostaId,
                             Alternativas = db.TB_Alternativas.Where(x => x.QuestaoId == item.QuestaoId).ToList(),
-
                             VLResposta = string.Join(";", listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta))
-                            
-
                         });
                     }
                 }else
@@ -129,6 +126,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                             TipoRespostaId = item.TipoRespostaId,
                             Alternativas = db.TB_Alternativas.Where(x => x.QuestaoId == item.QuestaoId).ToList(),
                             //VLResposta = listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta).First()
+                            VLResposta = string.Join(";", listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta))
                         });
                     }
                 }
@@ -187,10 +185,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                             var qut = lista.First(x => x.QuestaoId == questao.QuestaoId);
                             if (string.IsNullOrEmpty(qut.Resposta))
                             {
-                                return Json(new { status = "Erro", msg = $"Obrigatório Responder a {questao.Questao}" }, JsonRequestBehavior.AllowGet);
+                                return Json(new { status = "Erro", msg = $"Obrigatório responder à questão {questao.Questao}" }, JsonRequestBehavior.AllowGet);
                             }
                         }else{
-                            return Json(new { status = "Erro", msg = $"Obrigatório Responder a {questao.Questao}" }, JsonRequestBehavior.AllowGet);
+                            return Json(new { status = "Erro", msg = $"Obrigatório responder à questão {questao.Questao}" }, JsonRequestBehavior.AllowGet);
                         }
                     }
 

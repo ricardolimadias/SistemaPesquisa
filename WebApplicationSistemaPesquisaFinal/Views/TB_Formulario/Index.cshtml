@@ -61,13 +61,17 @@
                     @if (item.TipoRespostaId == 4)
                     {
                         <label>Classificação de 1 a 5</label>
-                        if (item.VLResposta == item.QuestaoId.ToString())
-                        {
+
+                        var Lista = item.VLResposta.Split(';');
+
+                        if (Lista.Contains(item.QuestaoId.ToString()))
+                           // if (item.VLResposta == item.QuestaoId.ToString())
+                            {
                             <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="@item.VLResposta">
                         }
                         else
                         {
-                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="@item.VLResposta">
+                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="5">
                                 @*cores Vermelho, Amarelo,Verde*@
                         }
                     }
@@ -159,7 +163,6 @@
                                     var Lista = item.VLResposta.Split(';');
 
                                     if (Lista.Contains(SubItem.AlternativaId.ToString()))
-                                    //if(item.VLResposta == SubItem.AlternativaId.ToString())
                                     {
                                         <input type='checkbox' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-@SubItem.AlternativaId" value="@SubItem.AlternativaId" checked="checked">
                                     }
@@ -170,25 +173,36 @@
                                     }
                                 @if (item.TipoRespostaId == 3)
                                 {
-                                   if (item.VLResposta == SubItem.AlternativaId.ToString())
-                                   {
-                                        <input type='radio' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-0" value="@SubItem.AlternativaId" checked="checked">
-                                   } else { 
-                                        <input type='radio' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-0" value="@SubItem.AlternativaId">
-                                   }   
+                                    var datavalue="";
+                                    if (SubItem.TB_QuestaoEncadeada.Count >= 1)
+                                    {
+                                        datavalue = SubItem.TB_QuestaoEncadeada.Select(x => x.TB_AcaoQuestaoEncadeada.Acao).First();
+                                    }
+                                    if (item.VLResposta == SubItem.AlternativaId.ToString())
+                                    {
+                                        <input type='radio' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-0" value="@SubItem.AlternativaId" data-value="@datavalue" checked="checked">
+                                        }
+                                        else
+                                        {
+                                        <input type='radio' id='@item.QuestaoId-@SubItem.AlternativaId' name="@item.QuestaoId-0" value="@SubItem.AlternativaId" data-value="@datavalue" onclick="javascript: Encadeado(this);">
+                                        }
+                                    
                                 }
 
                                 @if (item.TipoRespostaId == 4)
                                 {
 
                                     <label>Classificação de 1 a 5</label>
-                                    if (item.VLResposta == SubItem.AlternativaId.ToString())
+                                    var Lista = item.VLResposta.Split(';');
+
+                                    if (Lista.Contains(SubItem.AlternativaId.ToString()))
+                                    //if (item.VLResposta == SubItem.AlternativaId.ToString())
                                     {
                                     <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="@SubItem.AlternativaId">
                                     }
                                     else
                                     {
-                                        <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="@SubItem.AlternativaId">
+                                        <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="5">
                                     }
 
                                 }

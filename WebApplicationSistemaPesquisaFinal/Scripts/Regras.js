@@ -1,4 +1,14 @@
-﻿(function (i, s, o, g, r, a, m) {
+﻿function Encadeado (campo)
+{
+    var valorencadeado = $(campo).attr("data-value");
+    if (valorencadeado == "Parar Resposta Formulario") {
+        window.btn = "enviar";
+        $("form").submit();
+    }
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+(function (i, s, o, g, r, a, m) {
     i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
         (i[r].q = i[r].q || []).push(arguments)
     }, i[r].l = 1 * new Date(); a = s.createElement(o),
@@ -11,7 +21,6 @@ $(document).ready(function () {
     GetDadosRespostas();
 });
 function GetDadosRespostas() {
-    
     $.get('/TB_Formulario/index', {}, function (data) {
         var tblRespostas = $("#tblRespostas");
         $.each(data, function (index, item) {
