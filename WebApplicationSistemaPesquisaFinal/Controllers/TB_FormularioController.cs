@@ -180,26 +180,25 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                    foreach(var questao in questoes)
                     {
                         var respondeu = questoesrespondidas.Any(x=> questoesrespondidas.Contains(questao.QuestaoId));
-                        if(respondeu==true)
+
+                        if (respondeu == true)
                         {
                             var qut = lista.First(x => x.QuestaoId == questao.QuestaoId);
                             if (string.IsNullOrEmpty(qut.Resposta))
                             {
                                 return Json(new { status = "Erro", msg = $"Obrigatório responder à questão {questao.Questao}" }, JsonRequestBehavior.AllowGet);
                             }
-                        }else{
-                            return Json(new { status = "Erro", msg = $"Obrigatório responder à questão {questao.Questao}" }, JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                                return Json(new { status = "Erro", msg = $"Obrigatório responder à questão {questao.Questao}" }, JsonRequestBehavior.AllowGet);
                         }
                     }
-
                     db.TB_Respostas.AddRange(lista);
-
                     var respostabd = db.TB_Respostas.Where(x => x.ParticipanteId == participante);
                     db.TB_Respostas.RemoveRange(respostabd);
-
-                    db.SaveChanges();
-                }
-                
+                    //db.SaveChanges();
+                } 
             }
             if (tB_DataEnvioDataResposta.DataResposta == null)
             {
@@ -220,14 +219,14 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 db.TB_Respostas.AddRange(lista);
                 var respostabd = db.TB_Respostas.Where(x => x.ParticipanteId == participante);
                 db.TB_Respostas.RemoveRange(respostabd);
-                db.SaveChanges();
+                //db.SaveChanges();
             }
             if (acao == "enviar")
             {
                 return Json(new { status = "Sucesso", msg = "Obrigado(a) por participar desta Pesquisa. Este formulário será fechado." },JsonRequestBehavior.AllowGet);
             }
                 return Json(new { status = "Sucesso", msg = "A Pesquisa foi salva parcialmente. Você poderá retornar, mais tarde, para concluir ou modificar suas respostas. Não se esqueça de, após preencher todas as questões, clicar no botão “Enviar as Respostas”." }, JsonRequestBehavior.AllowGet);
-           
+
+            }
         }
     }
-}

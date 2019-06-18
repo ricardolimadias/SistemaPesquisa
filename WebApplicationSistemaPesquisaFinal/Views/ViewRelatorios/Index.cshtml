@@ -68,7 +68,7 @@
             @Html.ActionLink("Questão", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
         </th>
         <th>
-            @Html.ActionLink("Alternativa", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
+            @Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
         </th>
         <th>
             @Html.ActionLink("Participante", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
@@ -79,9 +79,9 @@
         <th>
             @Html.ActionLink("Data de Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
         </th>
-        <th>
+        @*<th>
             @Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -111,9 +111,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.DataResposta)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Resposta)
-        </td>
+        </td>*@
     </tr>
 }
 

@@ -150,7 +150,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 case "Questão":
                     Relarorio = Relarorio.OrderBy(s => s.Questao);
                     break;
-                case "Alternativa":
+                case "Resposta":
                     Relarorio = Relarorio.OrderBy(s => s.Alternativa);
                     break;
                 case "Participante":
@@ -162,9 +162,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 case "Data de Resposta":
                     Relarorio = Relarorio.OrderBy(s => s.DataResposta);
                     break;
-                case "Resposta":
-                    Relarorio = Relarorio.OrderBy(s => s.Resposta);
-                    break;
+                //case "Resposta":
+                //    Relarorio = Relarorio.OrderBy(s => s.Resposta);
+                //    break;
                 default:
                     Relarorio = Relarorio.OrderBy(s => s.Titulo);
                     break;
@@ -217,7 +217,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 if (Perfil == 1 || Perfil == 2 || Perfil == 4)
                 {
                     StringBuilder sb = new StringBuilder();
-                    string[] columns = new string[8] { "RDM", "Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta", "Resposta" };
+                    string[] columns = new string[7] { "RDM", "Título", "Questão", "Resposta", "Participante", "Data de Envio", "Data de Resposta" };
                     for (int k = 0; k < columns.Length; k++)
                     {
                         //add separator
@@ -288,11 +288,11 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             else if (val.ToLower() == "xlsx")
             {
                 //var Perfil = int.Parse(Session["Perfil"].ToString());
-                var data = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
+                //var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
                 
                 ExcelPackage excel = new ExcelPackage();
                 var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
-                workSheet.Cells[1, 1].LoadFromCollection(data, true);
+                workSheet.Cells[1, 1].LoadFromCollection(Relarorio, true);
                 using (var memoryStream = new MemoryStream())
                 {
 
