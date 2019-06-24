@@ -2,7 +2,7 @@
 {
     var valorencadeado = $(campo).attr("data-value");
     if (valorencadeado == "Parar Resposta Formulario") {
-        window.btn = "enviar";
+        window.btn = "fechar";
         $("form").submit();
     }
 }
