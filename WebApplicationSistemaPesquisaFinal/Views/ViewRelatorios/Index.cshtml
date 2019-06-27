@@ -20,12 +20,11 @@
         <input type="submit" value="Filtrar" />
         @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Pesquisar" />  
-        <label>De</label>
+        <label>Data de Envio</label>
         @Html.TextBox("SearchEnvio", ViewBag.CurrentFilter as string, "{0:dd/MM/yyyy}")
-        @*@Html.TextBoxFor(m => m.RegistrationDate, "{0:dd/MM/yyyy}"*@
-        <label>Até</label>
+        <label>Data de Resposta</label>
         @Html.TextBox("SearchResposta", ViewBag.CurrentFilter as string, "{0:dd/MM/yyyy}")
-        <input type="submit" value="Pesquisar" />  
+        <input type="submit" value="Filtrar" />  
     </p>
 }
 
@@ -35,17 +34,17 @@
         <tbody>
             <tr>
                 <td></td>
-                <td>
+                @*<td>
                     <input id="Export" name="Export" type="submit" value="XLS" />
-                </td>
+                </td>*@
                 <td></td>
                 <td>
                     <input id="Export" name="Export" type="submit" value="CSV" />
                 </td>
                 <td></td>
-                <td>
+                @*<td>
                     <input id="Export" name="Export" type="submit" value="XLSX" />
-                </td>
+                </td>*@
                 <td></td>
             </tr>
         </tbody>

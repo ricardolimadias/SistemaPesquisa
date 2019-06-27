@@ -22,7 +22,7 @@ FROM         dbo.TB_Respostas AS resp INNER JOIN
                       dbo.TB_VigenciaResposta AS vigresp ON vigresp.PesquisaId = partc.PesquisaId INNER JOIN
                       dbo.TB_VigenciaPesquisa AS vigpesq ON vigpesq.PesquisaId = partc.PesquisaId INNER JOIN
                       dbo.TB_Pesquisa AS pesq ON partc.PesquisaId = pesq.PesquisaId
-WHERE     (dta1.DataResposta IS NOT NULL)
+--WHERE     (dta1.DataResposta IS NOT NULL)
 
 GO
 

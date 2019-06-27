@@ -43,52 +43,85 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             ViewBag.TituloSortParm = String.IsNullOrEmpty(sortOrder) ? "Título" : "";
             ViewBag.DescricaoSortParm = sortOrder == "Questão" ? "Alternativa" : "Participante";
             ViewBag.ContSortParm = sortOrder == "Data de Envio" ? "Data de Resposta" : "Resposta";
-
-            if (SearchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                SearchString = currentFilter;
-            }
             //01
-            if (SearchPesquisa != null)
+            if (SearchPesquisa != null && SearchPesquisa != "")
             {
                 page = 1;
+                currentFilter = SearchPesquisa;
             }
-            else
+            else if (SearchPesquisa == null && SearchPesquisa=="")
             {
                 SearchPesquisa = currentFilter;
+                //SearchString = "";
+                SearchEnvio = "";
+                SearchResposta = "";
             }
-            //01
-            //02
-            if (SearchString != null)
-            {
-                ViewBag.CurrentFilter = SearchString;
-            }
-            if (SearchPesquisa != null)
+
+            if (SearchPesquisa != null && SearchPesquisa != "")
             {
                 ViewBag.CurrentFilter = SearchPesquisa;
             }
+            //01
             //02
+            if (SearchString != null && SearchString !="")
+            {
+                page = 1;
+                currentFilter = SearchString;
+            }
+            else //if (SearchString == null && SearchString=="")
+            {
+                SearchString = currentFilter;
+                //SearchPesquisa = "";
+                SearchEnvio = "";
+                SearchResposta = "";
+            }
 
+            if (SearchString != null && SearchString != "")
+            {
+                ViewBag.CurrentFilter = SearchString;
+            }
+            //02
+            
             //Pesquisa Data
-            if (SearchEnvio != null)
+            if (SearchEnvio != null && SearchEnvio !="")
             {
                 page = 1;
+                //SearchEnvio = SearchEnvio;
+                currentFilter = SearchEnvio;
             }
-            else
+            else //if (SearchEnvio == null && SearchEnvio=="")
             {
-                SearchEnvio = currentFilter;
+                SearchEnvio = "";
+                //SearchString = "";
+                //SearchPesquisa = "";
+                //SearchResposta = "";
+
             }
-            if (SearchResposta != null)
+
+            if (SearchEnvio != null && SearchEnvio != "")
+            {
+                ViewBag.CurrentFilter = SearchEnvio;
+                //SearchEnvio = SearchEnvio;
+            }
+
+            if (SearchResposta != null && SearchResposta !="")
             {
                 page = 1;
+                //SearchResposta = SearchResposta;
+                currentFilter = SearchResposta;
             }
-            else
+            else //if (SearchResposta == null && SearchResposta == "")
             {
-                SearchResposta = currentFilter;
+                SearchResposta = "";
+                //SearchEnvio = "";
+                //SearchString = "";
+                //SearchPesquisa = "";               
+            }
+
+            if (SearchResposta != null && SearchResposta != "")
+            {
+                ViewBag.CurrentFilter = SearchResposta;
+                //SearchResposta = SearchResposta;
             }
             //Pesquisa Data Fim
 
@@ -232,9 +265,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         sb.Append(item.Questao + ",");
                         sb.Append(item.Alternativa + ",");
                         sb.Append(item.Nome + ",");
-                        sb.Append(item.DataEnvio + ",");
-                        sb.Append(item.DataResposta + ",");
-                        sb.Append(item.Resposta);
+                        sb.Append(item.DataEnvio.ToString().Replace("00:00:00","") + ",");
+                        sb.Append(item.DataResposta.ToString().Replace("00:00:00", "") + ",");
+                        //sb.Append(item.Resposta);
                         //sb.Append new line
                         sb.Append("\r\n");
                     }
@@ -249,10 +282,11 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     Response.Output.Write(sb.ToString());
                     Response.Flush();
                     Response.End();
-                }else
-                {
+
+                }else{
+
                     StringBuilder sb = new StringBuilder();
-                    string[] columns = new string[7] {"Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta", "Resposta" };
+                    string[] columns = new string[6] {"Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta" };
                     for (int k = 0; k < columns.Length; k++)
                     {
                         //add separator
@@ -268,7 +302,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         sb.Append(item.Nome + ",");
                         sb.Append(item.DataEnvio + ",");
                         sb.Append(item.DataResposta + ",");
-                        sb.Append(item.Resposta);
+                        //sb.Append(item.Resposta);
                         //sb.Append new line
                         sb.Append("\r\n");
                     }

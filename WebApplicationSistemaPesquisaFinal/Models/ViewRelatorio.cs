@@ -21,6 +21,7 @@ namespace WebApplicationSistemaPesquisaFinal.Models
         public string Alternativa { get; set; }
         public string Nome { get; set; }
 
+
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DataEnvio { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
