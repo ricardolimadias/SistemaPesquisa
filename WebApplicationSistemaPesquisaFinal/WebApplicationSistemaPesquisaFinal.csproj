@@ -408,6 +408,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="SQL\Banco.sql" />
     <Content Include="SQL\CriacaoViewRelatorio.sql" />
     <Content Include="SQL\CriacaoTB_Relatorio.sql" />
     <Content Include="SQL\CriacaoTB_QuestaoEncadeada.sql" />
@@ -518,8 +519,8 @@
     <Content Include="Views\ViewRelatorios\Edit.cshtml" />
     <Content Include="Views\ViewRelatorios\Index.cshtml" />
     <Content Include="Views\TB_Formulario\Error.cshtml" />
-    <Content Include="SQL\BANCO.zip" />
     <Content Include="SQL\BANCO.bak" />
+    <Content Include="SQL\BANCO.zip" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
