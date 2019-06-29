@@ -1,0 +1,64 @@
+﻿@model WebApplicationSistemaPesquisaFinal.Models.TB_Respostas
+
+@{
+    ViewBag.Title = "Excluir Resposta";
+}
+@*<div class="jumbotron">
+    <p><img src="~/Imagens/logo_liquigas_CMYK.png" class="img-responsive" /></p>
+</div>*@
+<h2>Excluir Resposta</h2>
+
+<h3>Tem certeza que deseja excluir essa resposta?</h3>
+<div>
+    @*<h4>Excluir Resposta</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.TB_Questoes.Questao)*@
+            <label>Questão</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TB_Questoes.Questao)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.AlternativaId)*@
+            <label>Alternativa</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlternativaId)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Resposta)*@
+            <label>Resposta</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resposta)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Resposta)*@
+            <label>Particioante</label>
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.ParticipanteId)*@
+            @Html.DisplayFor(model => model.TB_Participantes.Nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para Lista", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,124 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.TB_Respostas>*@
+@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.TB_Respostas>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewBag.Title = "Respostas";
+}
+@*<div class="jumbotron">
+    <p><img src="~/Imagens/logo_liquigas_CMYK.png" class="img-responsive" /></p>
+</div>*@
+
+<h2>Respostas</h2>
+@*<p>
+    @Html.ActionLink("Responder", "Create")
+</p>*@
+
+@using (Html.BeginForm("Index", "TB_Respostas", FormMethod.Get))
+{
+    <p>
+        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo),"Selecione")
+        <input type="submit" value="Filtrar" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Pesquisar" />
+    </p>
+}
+
+@*@using (Html.BeginForm())
+{
+    <p>
+        @Html.TextBox("SearchString")
+        <input type="submit" value="Pesquisar" />
+    </p>
+}*@
+
+<table class="table">
+    @*<tr>
+        <th>
+            
+            <label>Questões</label>
+        </th>
+        <th>
+           
+            <label>Alternativas</label>
+        </th>
+        <th>
+           
+            <label>Respostas</label>
+        </th>
+        <th>
+           
+            <label>Participante</label>
+        </th>
+        <th></th>
+    </tr>*@
+
+    <tr>
+        @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+        {
+        <th>
+            @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.RDM })
+        </th>
+        }
+         <th>
+            @Html.ActionLink("Data Resposta", "Index", new { sortOrder = ViewBag.RDM })
+        </th>
+        <th>
+            @Html.ActionLink("Pesquisa", "Index", new { sortOrder = ViewBag.QuestaoSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Questões", "Index", new { sortOrder = ViewBag.QuestaoSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Alternativas", "Index", new { sortOrder = ViewBag.AlternativaSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Respostas", "Index", new { sortOrder = ViewBag.AlternativaSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Participante", "Index", new { sortOrder = ViewBag.AlternativaSortParm })
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+            {
+            <td>
+                @Html.DisplayFor(modelItem => item.TB_Participantes.RDM)
+            </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.DTER)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TB_Questoes.TB_Pesquisa.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TB_Questoes.Questao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlternativaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resposta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TB_Participantes.Nome)
+            </td>
+            <td>
+               @* @Html.ActionLink("Editar", "Edit", new { id = item.RespostaId }) |*@
+                @Html.ActionLink("Detalhes", "Details", new { id = item.RespostaId }) |
+                @Html.ActionLink("Excluir", "Delete", new { id = item.RespostaId })
+            </td>
+
+        </tr>
+    }
+</table>
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

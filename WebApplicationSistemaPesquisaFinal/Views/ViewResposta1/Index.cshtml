@@ -1,0 +1,94 @@
+﻿@*@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.ViewRelatorio>*@
+@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.ViewRelatorio>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewBag.Title = "Respostas";
+}
+
+<h2>Respostas</h2>
+
+@using (Html.BeginForm("Index", "ViewResposta1", FormMethod.Get))
+{
+    <p>
+        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo), "Selecione")
+        <input type="submit" value="Filtrar" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Pesquisar" />
+    </p>
+}
+<table class="table">
+    <tr>
+        @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+        {
+            <th>
+                @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.TituloSortParm })
+            </th>
+        }
+        <th>
+            @Html.ActionLink("Título", "Index", new { sortOrder = ViewBag.TituloSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Questão", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Participante", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Data de Envio", "Index", new { sortOrder = ViewBag.ContSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Data de Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
+        </th>
+        @*<th>
+                @Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
+            </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.RDM)
+            </td>
+        }
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Questao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Alternativa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataEnvio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataResposta)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.Resposta }) |
+            @Html.ActionLink("Excluir", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>*@
+    </tr>
+}
+
+</table>
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

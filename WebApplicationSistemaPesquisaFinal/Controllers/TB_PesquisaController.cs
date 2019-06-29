@@ -37,7 +37,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             ViewBag.TituloSortParm = String.IsNullOrEmpty(sortOrder) ? "Titulo" : "";
             ViewBag.DescricaoSortParm = sortOrder == "Titulo" ? "Descricao" : "Titulo";
 
-            if (SearchString != null)
+            if (SearchString != null && SearchString!="")
             {
                 page = 1;
             }
@@ -46,7 +46,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 SearchString = currentFilter;
             }
             //01
-            if (SearchPesquisa != null)
+            if (SearchPesquisa != null && SearchPesquisa !="")
             {
                 page = 1;
             }
@@ -56,11 +56,11 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             }
             //01
             //02
-            if (SearchString != null)
+            if (SearchString != null && SearchString!="")
             {
                 ViewBag.CurrentFilter = SearchString;
             }
-            if (SearchPesquisa != null)
+            if (SearchPesquisa != null && SearchPesquisa!="")
             {
                 ViewBag.CurrentFilter = SearchPesquisa;
             }

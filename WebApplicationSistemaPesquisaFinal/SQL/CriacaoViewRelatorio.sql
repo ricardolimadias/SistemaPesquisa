@@ -10,19 +10,18 @@ GO
 
 CREATE VIEW [dbo].[ViewRelatorio]
 AS
-SELECT     partc.RDM, pesq.Titulo, pesq.Descricao, quest.Questao, CASE WHEN (quest.TipoRespostaId = 1 OR
-                      quest.TipoRespostaId = 4 OR
-                      quest.TipoRespostaId = 5) THEN resp.Resposta ELSE altern.Alternativa END AS Alternativa, partc.Nome, dta1.DataEnvio, dta1.DataResposta, resp.Resposta, 
-                      vigresp.QuantidadeDias, vigpesq.DataInicialPesquisa, vigpesq.DataFinalPesquisa, pesq.PesquisaId
-FROM         dbo.TB_Respostas AS resp INNER JOIN
-                      dbo.TB_Questoes AS quest ON quest.QuestaoId = resp.QuestaoId LEFT OUTER JOIN
-                      dbo.TB_Alternativas AS altern ON altern.QuestaoId = resp.QuestaoId AND CAST(altern.AlternativaId AS nvarchar) = resp.Resposta INNER JOIN
-                      dbo.TB_Participantes AS partc ON partc.ParticipanteId = resp.ParticipanteId AND resp.ParticipanteId = partc.ParticipanteId INNER JOIN
-                      dbo.TB_DataEnvioDataResposta AS dta1 ON dta1.ParticipanteId = resp.ParticipanteId INNER JOIN
-                      dbo.TB_VigenciaResposta AS vigresp ON vigresp.PesquisaId = partc.PesquisaId INNER JOIN
-                      dbo.TB_VigenciaPesquisa AS vigpesq ON vigpesq.PesquisaId = partc.PesquisaId INNER JOIN
-                      dbo.TB_Pesquisa AS pesq ON partc.PesquisaId = pesq.PesquisaId
---WHERE     (dta1.DataResposta IS NOT NULL)
+SELECT        partc.RDM, pesq.Titulo, pesq.Descricao, quest.Questao, CASE WHEN (quest.TipoRespostaId = 1 OR
+                         quest.TipoRespostaId = 4 OR
+                         quest.TipoRespostaId = 5) THEN resp.Resposta ELSE altern.Alternativa END AS Alternativa, partc.Nome, dta1.DataEnvio, dta1.DataResposta, resp.Resposta, vigresp.QuantidadeDias, 
+                         vigpesq.DataInicialPesquisa, vigpesq.DataFinalPesquisa, pesq.PesquisaId
+FROM            dbo.TB_Respostas AS resp INNER JOIN
+                         dbo.TB_Questoes AS quest ON quest.QuestaoId = resp.QuestaoId LEFT OUTER JOIN
+                         dbo.TB_Alternativas AS altern ON altern.QuestaoId = resp.QuestaoId AND CAST(altern.AlternativaId AS nvarchar) = resp.Resposta INNER JOIN
+                         dbo.TB_Participantes AS partc ON partc.ParticipanteId = resp.ParticipanteId AND resp.ParticipanteId = partc.ParticipanteId INNER JOIN
+                         dbo.TB_DataEnvioDataResposta AS dta1 ON dta1.ParticipanteId = resp.ParticipanteId INNER JOIN
+                         dbo.TB_VigenciaResposta AS vigresp ON vigresp.PesquisaId = partc.PesquisaId INNER JOIN
+                         dbo.TB_VigenciaPesquisa AS vigpesq ON vigpesq.PesquisaId = partc.PesquisaId INNER JOIN
+                         dbo.TB_Pesquisa AS pesq ON partc.PesquisaId = pesq.PesquisaId
 
 GO
 
