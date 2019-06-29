@@ -27,154 +27,35 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         //    return View(db.ViewRelatorios.ToList());
         //}
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
-        public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa,string SearchEnvio,string SearchResposta, int? page)
+        public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, string SearchEnvio, string SearchResposta, int? page)
         {
+            var Perfil = 0;
+            ViewBag.Perfil = Perfil = int.Parse(Session["Perfil"].ToString());
 
-            var Perfil = int.Parse(Session["Perfil"].ToString());
-            ViewBag.Perfil = Perfil;
+            var list = (from c in db.TB_Pesquisa
+                        join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
+                        where d.PerfilId == Perfil
+                        select new { c.PesquisaId, c.Titulo }).Distinct().ToList();
 
-
-            ViewBag.Titulo = (from c in db.TB_Pesquisa
-                              join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
-                              where d.PerfilId == Perfil
-                              select c.Titulo).Distinct();
+            //Inicializa um objeto com o primeiro valor como 'selecione'
+            var objSelectList = new List<object> { new { id = 0, name = "Selecione" } };
+            //Insere o restante dos itens no SelectList
+            objSelectList.AddRange(list.Select(m => new { id = m.PesquisaId, name = m.Titulo }).ToList());
+            var selectList = new SelectList(objSelectList, "id", "name", SearchPesquisa);
+            ViewBag.Titulo = selectList;
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.TituloSortParm = String.IsNullOrEmpty(sortOrder) ? "Título" : "";
             ViewBag.DescricaoSortParm = sortOrder == "Questão" ? "Alternativa" : "Participante";
             ViewBag.ContSortParm = sortOrder == "Data de Envio" ? "Data de Resposta" : "Resposta";
-            //01
-            if (SearchPesquisa != null && SearchPesquisa != "")
-            {
-                page = 1;
-                currentFilter = SearchPesquisa;
-            }
-            else if (SearchPesquisa == null && SearchPesquisa=="")
-            {
-                SearchPesquisa = currentFilter;
-                //SearchString = "";
-                SearchEnvio = "";
-                SearchResposta = "";
-            }
-
-            if (SearchPesquisa != null && SearchPesquisa != "")
-            {
-                ViewBag.CurrentFilter = SearchPesquisa;
-            }
-            //01
-            //02
-            if (SearchString != null && SearchString !="")
-            {
-                page = 1;
-                currentFilter = SearchString;
-            }
-            else //if (SearchString == null && SearchString=="")
-            {
-                SearchString = currentFilter;
-                //SearchPesquisa = "";
-                SearchEnvio = "";
-                SearchResposta = "";
-            }
-
-            if (SearchString != null && SearchString != "")
-            {
-                ViewBag.CurrentFilter = SearchString;
-            }
-            //02
-            
-            //Pesquisa Data
-            if (SearchEnvio != null && SearchEnvio !="")
-            {
-                page = 1;
-                //SearchEnvio = SearchEnvio;
-                currentFilter = SearchEnvio;
-            }
-            else //if (SearchEnvio == null && SearchEnvio=="")
-            {
-                SearchEnvio = "";
-                //SearchString = "";
-                //SearchPesquisa = "";
-                //SearchResposta = "";
-
-            }
-
-            if (SearchEnvio != null && SearchEnvio != "")
-            {
-                ViewBag.CurrentFilter = SearchEnvio;
-                //SearchEnvio = SearchEnvio;
-            }
-
-            if (SearchResposta != null && SearchResposta !="")
-            {
-                page = 1;
-                //SearchResposta = SearchResposta;
-                currentFilter = SearchResposta;
-            }
-            else //if (SearchResposta == null && SearchResposta == "")
-            {
-                SearchResposta = "";
-                //SearchEnvio = "";
-                //SearchString = "";
-                //SearchPesquisa = "";               
-            }
-
-            if (SearchResposta != null && SearchResposta != "")
-            {
-                ViewBag.CurrentFilter = SearchResposta;
-                //SearchResposta = SearchResposta;
-            }
-            //Pesquisa Data Fim
+            ViewBag.SearchString = SearchString;
+            ViewBag.SearchPesquisa = SearchPesquisa = SearchPesquisa == "0" ? null : SearchPesquisa;
+            ViewBag.SearchEnvio = SearchEnvio;
+            ViewBag.SearchResposta = SearchResposta;
 
             var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
+            GetQueryRelatorio(SearchString, SearchResposta, SearchEnvio, SearchPesquisa, ref Relarorio);
 
-            //03
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                Relarorio = Relarorio.Where(s => s.Titulo.Contains(SearchString) || s.Questao.Contains(SearchString) || s.Alternativa.Contains(SearchString) || s.Nome.Contains(SearchString) || s.Resposta.Contains(SearchString)|| s.RDM.Contains(SearchString));
-            }
-
-            if (!String.IsNullOrEmpty(SearchPesquisa))
-            {
-                Relarorio = Relarorio.Where(s => s.Titulo.Contains(SearchPesquisa));
-            }
-            //03
-
-            if (!String.IsNullOrEmpty(SearchEnvio) && !String.IsNullOrEmpty(SearchResposta))
-            {
-                SearchEnvio = SearchEnvio.Replace("/", "-");
-                SearchResposta = SearchResposta.Replace("/", "-");
-                var Relarorio1 = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
-
-                string[] ArryDTEVN = SearchEnvio.Split('-');
-                string DTEV = ArryDTEVN[2] + '-' + ArryDTEVN[1] + '-' + ArryDTEVN[0];
-
-                string[] ArryDTRET = SearchResposta.Split('-');
-                string DTER = ArryDTRET[2] + '-' + ArryDTRET[1] + '-' + ArryDTRET[0];
-
-                DateTime DTEV1 = Convert.ToDateTime(DTEV);
-                DateTime DTER1 = Convert.ToDateTime(DTER);
-                
-                Relarorio = Relarorio.Where(s => s.DataEnvio >= DTEV1 && s.DataResposta <= DTER1);
-
-            }
-            //Pesquisa Data Parte 2
-            if (!String.IsNullOrEmpty(SearchEnvio) && String.IsNullOrEmpty(SearchResposta))
-            {
-               
-                SearchEnvio = SearchEnvio.Replace("/", "-");
-                string[] ArryDTEVN = SearchEnvio.Split('-');
-                string DTEV = ArryDTEVN[2] + '-' + ArryDTEVN[1] + '-' + ArryDTEVN[0];
-                Relarorio = Relarorio.Where(s => s.DataEnvio.ToString().Contains(DTEV));
-            }
-
-            if (!String.IsNullOrEmpty(SearchResposta) && String.IsNullOrEmpty(SearchEnvio))
-            {
-                SearchResposta = SearchResposta.Replace("/", "-");
-                string[] ArryDTRET = SearchResposta.Split('-');
-                string DTER = ArryDTRET[2] + '-' + ArryDTRET[1] + '-' + ArryDTRET[0];
-                Relarorio = Relarorio.Where(s => s.DataResposta.ToString().Contains(DTER));
-            }
-            //Pesquisa Data Parte 2 Fim
             switch (sortOrder)
             {
                 case "Título":
@@ -195,9 +76,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 case "Data de Resposta":
                     Relarorio = Relarorio.OrderBy(s => s.DataResposta);
                     break;
-                //case "Resposta":
-                //    Relarorio = Relarorio.OrderBy(s => s.Resposta);
-                //    break;
                 default:
                     Relarorio = Relarorio.OrderBy(s => s.Titulo);
                     break;
@@ -208,25 +86,23 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             return View(Relarorio.ToPagedList(pageNumber, pageSize));
         }
 
-
-
         public ActionResult ExportData()
         {
             string val = Request["Export"].ToString();
             var Perfil = int.Parse(Session["Perfil"].ToString());
-            var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
-            //List<ViewRelatorio> lst = db.ViewRelatorios.ToList();
-            List<ViewRelatorio> lst = Relarorio.ToList();
+            var searchString = Request.QueryString["SearchString"];
+            var searchResposta = Request.QueryString["SearchResposta"];
+            var searchEnvio = Request.QueryString["SearchEnvio"];
+            var searchPesquisa = Request.QueryString["SearchPesquisa"];
 
+            var relatorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
+            GetQueryRelatorio(searchString, searchResposta, searchEnvio, searchPesquisa, ref relatorio);
+            List<ViewRelatorio> lst = relatorio.ToList();
 
             if (val.ToLower() == "xls")
             {
-                //var Perfil = int.Parse(Session["Perfil"].ToString());
-                //var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
-
                 GridView gv = new GridView();
-                //gv.DataSource = db.ViewRelatorios.ToList();
-                gv.DataSource = Relarorio.ToList();
+                gv.DataSource = lst.ToList();
                 gv.DataBind();
 
                 Response.ContentEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
@@ -265,7 +141,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         sb.Append(item.Questao + ",");
                         sb.Append(item.Alternativa + ",");
                         sb.Append(item.Nome + ",");
-                        sb.Append(item.DataEnvio.ToString().Replace("00:00:00","") + ",");
+                        sb.Append(item.DataEnvio.ToString().Replace("00:00:00", "") + ",");
                         sb.Append(item.DataResposta.ToString().Replace("00:00:00", "") + ",");
                         //sb.Append(item.Resposta);
                         //sb.Append new line
@@ -283,10 +159,12 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     Response.Flush();
                     Response.End();
 
-                }else{
+                }
+                else
+                {
 
                     StringBuilder sb = new StringBuilder();
-                    string[] columns = new string[6] {"Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta" };
+                    string[] columns = new string[6] { "Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta" };
                     for (int k = 0; k < columns.Length; k++)
                     {
                         //add separator
@@ -323,10 +201,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 //var Perfil = int.Parse(Session["Perfil"].ToString());
                 //var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
-                
+
                 ExcelPackage excel = new ExcelPackage();
                 var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
-                workSheet.Cells[1, 1].LoadFromCollection(Relarorio, true);
+                workSheet.Cells[1, 1].LoadFromCollection(lst, true);
                 using (var memoryStream = new MemoryStream())
                 {
 
@@ -451,6 +329,39 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        protected void GetQueryRelatorio(string searchString, string searchResposta, string searchEnvio, string searchPesquisa, ref IQueryable<ViewRelatorio> relatorio)
+        {
+            var perfil = int.Parse(Session["Perfil"].ToString());
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                relatorio = relatorio.Where(s => s.Titulo.Contains(searchString) || s.Questao.Contains(searchString) || s.Alternativa.Contains(searchString) || s.Nome.Contains(searchString) || s.Resposta.Contains(searchString) || s.RDM.Contains(searchString));
+            }
+
+            if (!String.IsNullOrEmpty(searchPesquisa))
+            {
+                relatorio = relatorio.Where(s => s.PesquisaId.ToString() == searchPesquisa);
+            }
+
+            if (!String.IsNullOrEmpty(searchEnvio) && !String.IsNullOrEmpty(searchResposta))
+            {
+                var dtEnvio = DateTime.Parse(searchEnvio);
+                var dtResposta = DateTime.Parse(searchResposta);
+
+                relatorio = relatorio.Where(s => ((s.DataEnvio >= dtEnvio && s.DataEnvio <= dtResposta) || (s.DataResposta >= dtEnvio && s.DataResposta <= dtResposta)));
+            }
+
+            if (!String.IsNullOrEmpty(searchEnvio) && String.IsNullOrEmpty(searchResposta))
+            {
+                var dtEnvio = DateTime.Parse(searchEnvio).ToString("yyyy-MM-dd");
+                relatorio = relatorio.Where(s => s.DataEnvio.ToString() == dtEnvio);
+            }
+            else if (!String.IsNullOrEmpty(searchResposta) && String.IsNullOrEmpty(searchEnvio))
+            {
+                var dtResposta = DateTime.Parse(searchResposta).ToString("yyyy-MM-dd");
+                relatorio = relatorio.Where(s => s.DataResposta.ToString() == dtResposta);
+            }
         }
     }
 }
