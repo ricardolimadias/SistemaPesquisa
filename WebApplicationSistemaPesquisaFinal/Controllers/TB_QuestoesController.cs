@@ -38,7 +38,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             ViewBag.QuestoesSortParm = String.IsNullOrEmpty(sortOrder) ? "Questoes" : "";
             ViewBag.TituloSortParm = sortOrder == "Questoes" ? "Titulo" : "Tipo de Campo";
 
-            if (SearchString != null)
+            if (SearchString != null && SearchString !="")
             {
                 page = 1;
             }
@@ -47,7 +47,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 SearchString = currentFilter;
             }
             //01
-            if (SearchPesquisa != null)
+            if (SearchPesquisa != null && SearchPesquisa !="")
             {
                 page = 1;
             }
@@ -58,11 +58,11 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             //01
 
             //02
-            if (SearchString != null)
+            if (SearchString != null && SearchString !="")
             {
                 ViewBag.CurrentFilter = SearchString;
             }
-            if (SearchPesquisa != null)
+            if (SearchPesquisa != null && SearchPesquisa !="")
             {
                 ViewBag.CurrentFilter = SearchPesquisa;
             }
@@ -75,14 +75,12 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             if (!String.IsNullOrEmpty(SearchString))
             {
-                Questoes = Questoes.Where(s => s.Questao.Contains(SearchString)
-                                       || s.TB_Pesquisa.Titulo.Contains(SearchString)|| s.TB_TipoResposta.TipoResposta.Contains(SearchString));
+                Questoes = Questoes.Where(s => s.Questao.Contains(SearchString) || s.TB_Pesquisa.Titulo.Contains(SearchString)|| s.TB_TipoResposta.TipoResposta.Contains(SearchString));
             }
             //03
             if (!String.IsNullOrEmpty(SearchPesquisa))
             {
-                Questoes = Questoes.Where(s => s.Questao.Contains(SearchPesquisa)
-                                       || s.TB_Pesquisa.Titulo.Contains(SearchPesquisa));
+                Questoes = Questoes.Where(s => s.Questao.Contains(SearchPesquisa) || s.TB_Pesquisa.Titulo.Contains(SearchPesquisa));
             }
             //03
             switch (sortOrder)

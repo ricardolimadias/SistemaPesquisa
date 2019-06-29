@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApplicationSistemaPesquisaFinal.Models.Formulario>
 
-<link href="http://www.cssscript.com/wp-includes/css/sticky.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+@*<link href="http://www.cssscript.com/wp-includes/css/sticky.css" rel="stylesheet" type="text/css">*@
+@*<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE; FF=5; OtherUA=4; chrome=5" />
@@ -24,6 +24,10 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/Regras")
 @Scripts.Render("~/bundles/bootstrap")
+
+@Scripts.Render("~/bundles/sticky")
+@Scripts.Render("~/bundles/font-awesome.min")
+
 
 @{
     var ttpesquisa = "";
@@ -64,14 +68,14 @@
 
                         var Lista = item.VLResposta.Split(';');
 
-                        if (Lista.Contains(item.QuestaoId.ToString()))
-                           // if (item.VLResposta == item.QuestaoId.ToString())
-                            {
-                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="@item.VLResposta">
+                        //if (Lista.Contains(item.QuestaoId.ToString()))
+                        if (item.VLResposta == 1.ToString() || item.VLResposta == 2.ToString() || item.VLResposta == 3.ToString() || item.VLResposta == 4.ToString() || item.VLResposta == 5.ToString())
+                        {
+                            <input type='range' id='@item.QuestaoId-0' min="0" max="5" name='@item.QuestaoId-0' value="@item.VLResposta">
                         }
                         else
                         {
-                            <input type='range' id='@item.QuestaoId-0' min="1" max="5" name='@item.QuestaoId-0' value="5">
+                            <input type='range' id='@item.QuestaoId-0' min="0" max="5" name='@item.QuestaoId-0' value="0">
                                 @*cores Vermelho, Amarelo,Verde*@
                         }
                     }
@@ -91,7 +95,7 @@
                                       }
                                       else
                                       {
-                                        <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" />
+                                        <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" />
                                         <label for="@item.QuestaoId-1"></label>
                                       }
                                       @if (item.VLResposta == 4.ToString())
@@ -101,7 +105,7 @@
                                       }
                                       else
                                       {
-                                        <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" />
+                                        <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" />
                                         <label for="@item.QuestaoId-2"></label>
                                       }
                                       @if (item.VLResposta == 3.ToString())
@@ -111,7 +115,7 @@
                                       }
                                       else
                                       {
-                                        <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" />
+                                        <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
                                         <label for="@item.QuestaoId-3"></label>
                                       }
                                       @if (item.VLResposta == 2.ToString())
@@ -121,7 +125,7 @@
                                       }
                                       else
                                       {
-                                        <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" />
+                                        <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" />
                                         <label for="@item.QuestaoId-4"></label>
                                       }
                                       @if (item.VLResposta == 1.ToString())
@@ -131,7 +135,7 @@
                                       }
                                       else
                                       {
-                                        <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta"  />
+                                        <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1"  />
                                         <label for="@item.QuestaoId-5"></label>
                                       }
                                   </div>
@@ -171,6 +175,7 @@
                                         <input type ='checkbox' id='@item.QuestaoId-@SubItem.AlternativaId' name ="@item.QuestaoId-@SubItem.AlternativaId" value="@SubItem.AlternativaId" >
                                     }
                                     }
+                                
                                 @if (item.TipoRespostaId == 3)
                                 {
                                     var datavalue="";
@@ -193,18 +198,20 @@
                                 {
 
                                     <label>Classificação de 1 a 5</label>
+
                                     var Lista = item.VLResposta.Split(';');
 
-                                    if (Lista.Contains(SubItem.AlternativaId.ToString()))
-                                    //if (item.VLResposta == SubItem.AlternativaId.ToString())
+                                    //if (Lista.Contains(SubItem.QuestaoId.ToString()))
+                                    if (item.VLResposta == 1.ToString() || item.VLResposta == 2.ToString() || item.VLResposta == 3.ToString() || item.VLResposta == 4.ToString() || item.VLResposta == 5.ToString())
                                     {
-                                    <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="@SubItem.AlternativaId">
-                                    }
-                                    else
-                                    {
-                                        <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="1" max="5" value="5">
-                                    }
+                                        <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="0" max="5" value="@item.VLResposta">
+                                        }
+                                        else
+                                        {
+                                        <input type='range' id='@item.QuestaoId-@SubItem.AlternativaId' name='@item.QuestaoId-@SubItem.AlternativaId' min="0" max="5" value="0">
+                                        }
 
+                                    
                                 }
 
                                 @if (item.TipoRespostaId == 5)
@@ -220,7 +227,7 @@
                                         }
                                         else
                                         {
-                                            <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" />
+                                            <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" />
                                             <label for="@item.QuestaoId-1"></label>
                                         }
                                         @if (item.VLResposta == 4.ToString())
@@ -230,7 +237,7 @@
                                         }
                                         else
                                         {
-                                            <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" />
+                                            <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" />
                                             <label for="@item.QuestaoId-2"></label>
                                         }
                                         @if (item.VLResposta == 3.ToString())
@@ -240,7 +247,7 @@
                                         }
                                         else
                                         {
-                                            <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" />
+                                            <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
                                             <label for="@item.QuestaoId-3"></label>
                                         }
                                         @if (item.VLResposta == 2.ToString())
@@ -250,7 +257,7 @@
                                         }
                                         else
                                         {
-                                            <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" />
+                                            <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" />
                                             <label for="@item.QuestaoId-4"></label>
                                         }
                                         @if (item.VLResposta == 1.ToString())
@@ -260,7 +267,7 @@
                                         }
                                         else
                                         {
-                                            <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" />
+                                            <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" />
                                             <label for="@item.QuestaoId-5"></label>
                                         }
                                     </div>

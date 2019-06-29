@@ -40,7 +40,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             ViewBag.PesquisaSortParm = String.IsNullOrEmpty(sortOrder) ? "Titulo" : "";
             ViewBag.NomeSortParm = sortOrder == "Titulo" ? "Nome" : "E-mail";
 
-            if (SearchString != null)
+            if (SearchString != null && SearchString !="")
             {
                 page = 1;
             }
@@ -49,7 +49,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 SearchString = currentFilter;
             }
             //01
-            if (SearchPesquisa != null)
+            if (SearchPesquisa != null && SearchPesquisa !="")
             {
                 page = 1;
             }
@@ -60,11 +60,11 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             //01
 
             //02
-            if (SearchString != null)
+            if (SearchString != null && SearchString !="")
             {
                 ViewBag.CurrentFilter = SearchString;
             }
-            if (SearchPesquisa != null)
+            if (SearchPesquisa != null && SearchPesquisa !="")
             {
                 ViewBag.CurrentFilter = SearchPesquisa;
             }
@@ -297,14 +297,14 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             if (ModelState.IsValid)
             {
                 db.TB_Participantes.Add(tB_Participantes);
-                db.SaveChanges();
+                //db.SaveChanges();
 
                 if (ModelState.IsValid)
                 {
                     tB_DataEnvioDataResposta.ParticipanteId = tB_Participantes.ParticipanteId;
                     tB_DataEnvioDataResposta.DataEnvio = DateTime.Now;
                     db.TB_DataEnvioDataResposta.Add(tB_DataEnvioDataResposta);
-                    db.SaveChanges();
+                    //db.SaveChanges();
 
                 }
 

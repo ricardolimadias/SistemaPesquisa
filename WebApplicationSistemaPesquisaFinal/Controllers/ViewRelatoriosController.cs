@@ -17,10 +17,11 @@ using System.Globalization;
 
 namespace WebApplicationSistemaPesquisaFinal.Controllers
 {
+
     public class ViewRelatoriosController : Controller
     {
         private DEV_PESQUISA_SATISFACAOEntities db = new DEV_PESQUISA_SATISFACAOEntities();
-
+     
         // GET: ViewRelatorios
         //public ActionResult Index()
         //{
@@ -33,7 +34,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             var Perfil = int.Parse(Session["Perfil"].ToString());
             ViewBag.Perfil = Perfil;
 
-
             ViewBag.Titulo = (from c in db.TB_Pesquisa
                               join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
                               where d.PerfilId == Perfil
@@ -43,8 +43,8 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             ViewBag.TituloSortParm = String.IsNullOrEmpty(sortOrder) ? "Título" : "";
             ViewBag.DescricaoSortParm = sortOrder == "Questão" ? "Alternativa" : "Participante";
             ViewBag.ContSortParm = sortOrder == "Data de Envio" ? "Data de Resposta" : "Resposta";
-
-            if (SearchString != null)
+            //01
+            if (!String.IsNullOrEmpty(SearchString))
             {
                 page = 1;
             }
@@ -53,7 +53,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 SearchString = currentFilter;
             }
             //01
-            if (SearchPesquisa != null)
+            if (!String.IsNullOrEmpty(SearchPesquisa))
             {
                 page = 1;
             }
@@ -61,20 +61,16 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 SearchPesquisa = currentFilter;
             }
-            //01
-            //02
-            if (SearchString != null)
+            if (!String.IsNullOrEmpty(SearchEnvio) && !String.IsNullOrEmpty(SearchResposta))
             {
-                ViewBag.CurrentFilter = SearchString;
+                page = 1;
             }
-            if (SearchPesquisa != null)
-            {
-                ViewBag.CurrentFilter = SearchPesquisa;
-            }
-            //02
-
-            //Pesquisa Data
-            if (SearchEnvio != null)
+            //else
+            //{
+            //    SearchEnvio = currentFilter;
+            //    SearchResposta = currentFilter;
+            //}
+            if (!String.IsNullOrEmpty(SearchEnvio) && String.IsNullOrEmpty(SearchResposta))
             {
                 page = 1;
             }
@@ -82,7 +78,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 SearchEnvio = currentFilter;
             }
-            if (SearchResposta != null)
+            if (!String.IsNullOrEmpty(SearchResposta) && String.IsNullOrEmpty(SearchEnvio))
             {
                 page = 1;
             }
@@ -90,9 +86,27 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 SearchResposta = currentFilter;
             }
+            //01
+            //02
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                ViewBag.CurrentFilter = SearchString;
+            }
+            if (!String.IsNullOrEmpty(SearchPesquisa))
+            {
+                ViewBag.CurrentFilter = SearchPesquisa;
+            }
+            if (!String.IsNullOrEmpty(SearchEnvio))
+            {
+                ViewBag.CurrentFilter = SearchEnvio;
+            }
+            if (!String.IsNullOrEmpty(SearchResposta))
+            {
+                ViewBag.CurrentFilter = SearchResposta;
+            }
             //Pesquisa Data Fim
 
-            var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
+            var  Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
 
             //03
             if (!String.IsNullOrEmpty(SearchString))
@@ -110,7 +124,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 SearchEnvio = SearchEnvio.Replace("/", "-");
                 SearchResposta = SearchResposta.Replace("/", "-");
-                var Relarorio1 = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
+                //var Relarorio1 = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
 
                 string[] ArryDTEVN = SearchEnvio.Split('-');
                 string DTEV = ArryDTEVN[2] + '-' + ArryDTEVN[1] + '-' + ArryDTEVN[0];
@@ -232,9 +246,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         sb.Append(item.Questao + ",");
                         sb.Append(item.Alternativa + ",");
                         sb.Append(item.Nome + ",");
-                        sb.Append(item.DataEnvio + ",");
-                        sb.Append(item.DataResposta + ",");
-                        sb.Append(item.Resposta);
+                        sb.Append(item.DataEnvio.ToString().Replace("00:00:00","") + ",");
+                        sb.Append(item.DataResposta.ToString().Replace("00:00:00", "") + ",");
+                        //sb.Append(item.Resposta);
                         //sb.Append new line
                         sb.Append("\r\n");
                     }
@@ -249,10 +263,11 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     Response.Output.Write(sb.ToString());
                     Response.Flush();
                     Response.End();
-                }else
-                {
+
+                }else{
+
                     StringBuilder sb = new StringBuilder();
-                    string[] columns = new string[7] {"Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta", "Resposta" };
+                    string[] columns = new string[6] {"Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta" };
                     for (int k = 0; k < columns.Length; k++)
                     {
                         //add separator
@@ -266,9 +281,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         sb.Append(item.Questao + ",");
                         sb.Append(item.Alternativa + ",");
                         sb.Append(item.Nome + ",");
-                        sb.Append(item.DataEnvio + ",");
-                        sb.Append(item.DataResposta + ",");
-                        sb.Append(item.Resposta);
+                        sb.Append(item.DataEnvio.ToString().Replace("00:00:00", "") + ",");
+                        sb.Append(item.DataResposta.ToString().Replace("00:00:00", "") + ",");
+                        //sb.Append(item.Resposta);
                         //sb.Append new line
                         sb.Append("\r\n");
                     }

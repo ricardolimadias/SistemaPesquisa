@@ -36,7 +36,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             ViewBag.QuestoesSortParm = String.IsNullOrEmpty(sortOrder) ? "Pesquisa" : "";
             ViewBag.AlternativaSortParm = sortOrder == "Pesquisa" ? "Questoes" : "Alternativa";
 
-            if (SearchString != null)
+            if (SearchString != null && SearchString != "")
             {
                 page = 1;
             }
@@ -45,7 +45,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 SearchString = currentFilter;
             }
             //01
-            if (SearchPesquisa != null)
+            if (SearchPesquisa != null && SearchPesquisa != "")
             {
                 page = 1;
             }
@@ -56,11 +56,11 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             //01
 
             //02
-            if (SearchString != null)
+            if (SearchString != null && SearchString != "")
             {
                 ViewBag.CurrentFilter = SearchString;
             }
-            if (SearchPesquisa != null)
+            if (SearchPesquisa != null && SearchPesquisa != "")
             {
                 ViewBag.CurrentFilter = SearchPesquisa;
             }
@@ -73,8 +73,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             if (!String.IsNullOrEmpty(SearchString))
             {
-                Alternativa = Alternativa.Where(s => s.TB_Questoes.Questao.Contains(SearchString)
-                                       || s.Alternativa.Contains(SearchString));
+                Alternativa = Alternativa.Where(s => s.TB_Questoes.Questao.Contains(SearchString) || s.Alternativa.Contains(SearchString));
             }
             //03
             if (!String.IsNullOrEmpty(SearchPesquisa))

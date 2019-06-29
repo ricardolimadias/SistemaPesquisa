@@ -24,6 +24,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             tB_DataEnvioDataResposta = db.TB_DataEnvioDataResposta.Find(await db.TB_DataEnvioDataResposta.Where(x => x.ParticipanteId == Id_Participante).Select(x => x.EnvioId).SingleOrDefaultAsync());
             tB_Participantes = db.TB_Participantes.Find(await db.TB_Participantes.Where(x => x.ParticipanteId == Id_Participante).Select(x => x.ParticipanteId).SingleOrDefaultAsync());
 
+
             if (tB_Participantes.RDM != null)
             {
                 ViewBag.RDM = tB_Participantes.RDM;
@@ -109,7 +110,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                             Questao = item.Questao,
                             TipoRespostaId = item.TipoRespostaId,
                             Alternativas = db.TB_Alternativas.Where(x => x.QuestaoId == item.QuestaoId).ToList(),
-                            VLResposta = string.Join(";", listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta))
+                            VLResposta = string.Join(";", listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta).FirstOrDefault())
                         });
                     }
                 }else
@@ -132,6 +133,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 }
                 @ViewBag.Participante = Id_Participante;
                 @ViewBag.Pesquisa = Id_pesquisa;
+                //@ViewBag.Resposta = listaResposta;
                 return View(listaDeQuestoes);
             }
             //return "Pesquisa já foi respondida. Este formulário será fechado. Obrigado (a).";
@@ -148,7 +150,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             
             var IdResposta = db.TB_Respostas.FirstOrDefault(x => x.ParticipanteId == ParticipanteId);
 
-            if (acao == "enviar")
+            if (acao == "enviar" || acao=="fechar")
             {
                 if (tB_DataEnvioDataResposta.DataResposta == null)
                 {
@@ -163,8 +165,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     var questoes = db.TB_Questoes.Where(x => x.PesquisaId.ToString() == pesquisa && x.Obrigatorio==true).ToList();
                     var questoesrespondidas = new List<int>();
 
-
-
                     foreach (KeyValuePair<string, string> kvp in valor)
                     {
                         var chave = kvp.Key.Split('-');
@@ -177,27 +177,30 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         questoesrespondidas.Add(resposta.QuestaoId);
                         lista.Add(resposta);
                     }
-                   foreach(var questao in questoes)
+                    if (acao == "enviar")
                     {
-                        var respondeu = questoesrespondidas.Any(x=> questoesrespondidas.Contains(questao.QuestaoId));
-
-                        if (respondeu == true)
+                        foreach (var questao in questoes)
                         {
-                            var qut = lista.First(x => x.QuestaoId == questao.QuestaoId);
-                            if (string.IsNullOrEmpty(qut.Resposta))
+                            var respondeu = questoesrespondidas.Any(x => questoesrespondidas.Contains(questao.QuestaoId));
+
+                            if (respondeu == true)
+                            {
+                                var qut = lista.First(x => x.QuestaoId == questao.QuestaoId);
+                                if (string.IsNullOrEmpty(qut.Resposta))
+                                {
+                                    return Json(new { status = "Erro", msg = $"Obrigatório responder à questão {questao.Questao}" }, JsonRequestBehavior.AllowGet);
+                                }
+                            }
+                            else
                             {
                                 return Json(new { status = "Erro", msg = $"Obrigatório responder à questão {questao.Questao}" }, JsonRequestBehavior.AllowGet);
                             }
-                        }
-                        else
-                        {
-                                return Json(new { status = "Erro", msg = $"Obrigatório responder à questão {questao.Questao}" }, JsonRequestBehavior.AllowGet);
                         }
                     }
                     db.TB_Respostas.AddRange(lista);
                     var respostabd = db.TB_Respostas.Where(x => x.ParticipanteId == participante);
                     db.TB_Respostas.RemoveRange(respostabd);
-                    //db.SaveChanges();
+                    db.SaveChanges();
                 } 
             }
             if (tB_DataEnvioDataResposta.DataResposta == null)
@@ -219,9 +222,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 db.TB_Respostas.AddRange(lista);
                 var respostabd = db.TB_Respostas.Where(x => x.ParticipanteId == participante);
                 db.TB_Respostas.RemoveRange(respostabd);
-                //db.SaveChanges();
+                db.SaveChanges();
             }
-            if (acao == "enviar")
+            if (acao == "enviar" || acao=="fechar")
             {
                 return Json(new { status = "Sucesso", msg = "Obrigado(a) por participar desta Pesquisa. Este formulário será fechado." },JsonRequestBehavior.AllowGet);
             }

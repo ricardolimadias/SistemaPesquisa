@@ -259,6 +259,7 @@
     <Compile Include="Controllers\TB_VigenciaPesquisaController.cs" />
     <Compile Include="Controllers\TB_VigenciaRespostaController.cs" />
     <Compile Include="Controllers\ViewRelatoriosController.cs" />
+    <Compile Include="Controllers\ViewResposta1Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -336,7 +337,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\devmedia_estilo.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\sticky.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -461,11 +464,11 @@
     <Content Include="Views\TB_Participantes\Details.cshtml" />
     <Content Include="Views\TB_Participantes\Edit.cshtml" />
     <Content Include="Views\TB_Participantes\Index.cshtml" />
-    <Content Include="Views\TB_Respostas\Create.cshtml" />
-    <Content Include="Views\TB_Respostas\Delete.cshtml" />
-    <Content Include="Views\TB_Respostas\Details.cshtml" />
-    <Content Include="Views\TB_Respostas\Edit.cshtml" />
-    <Content Include="Views\TB_Respostas\Index.cshtml" />
+    <Content Include="Views\TB_Respostas-OLD\Create.cshtml" />
+    <Content Include="Views\TB_Respostas-OLD\Delete.cshtml" />
+    <Content Include="Views\TB_Respostas-OLD\Details.cshtml" />
+    <Content Include="Views\TB_Respostas-OLD\Edit.cshtml" />
+    <Content Include="Views\TB_Respostas-OLD\Index.cshtml" />
     <Content Include="Views\TB_TipoResposta\Create.cshtml" />
     <Content Include="Views\TB_TipoResposta\Delete.cshtml" />
     <Content Include="Views\TB_TipoResposta\Details.cshtml" />
@@ -518,6 +521,11 @@
     <Content Include="Views\TB_Formulario\Error.cshtml" />
     <Content Include="SQL\BANCO.zip" />
     <Content Include="SQL\BANCO.bak" />
+    <Content Include="Views\ViewResposta1\Create.cshtml" />
+    <Content Include="Views\ViewResposta1\Delete.cshtml" />
+    <Content Include="Views\ViewResposta1\Details.cshtml" />
+    <Content Include="Views\ViewResposta1\Edit.cshtml" />
+    <Content Include="Views\ViewResposta1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
