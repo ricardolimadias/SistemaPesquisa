@@ -6,48 +6,20 @@
 @{
     ViewBag.Title = "Questões";
 }
-@*<div class="jumbotron">
-    <p><img src="~/Imagens/logo_liquigas_CMYK.png" class="img-responsive" /></p>
-</div>*@
 <h2>Questões</h2>
 
 @using (Html.BeginForm("Index", "TB_Questoes", FormMethod.Get))
 {
     <p>
-        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo),"Selecione")
-        <input type="submit" value="Filtrar" />
-        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        @Html.DropDownList("SearchPesquisa", (SelectList)ViewBag.Titulo)
+        @Html.TextBox("SearchString", ViewBag.SearchString as string)
         <input type = "submit" value = "Pesquisar"/>
     </p>
 }
-@*@using (Html.BeginForm())
-{
-    <p>
-        @Html.TextBox("SearchString")
-        <input type="submit" value="Pesquisar" />
-    </p>
-}*@
-
 <p>
     @Html.ActionLink("Nova Questão", "Create")
 </p>
 <table class="table">
-    @*<tr>
-        <th>
-            
-            <label>Questão</label>
-        </th>
-        <th>
-           
-            <label>Titulo</label>
-        </th>
-        <th>
-            
-            <label>Tipo de Resposta</label>
-        </th>
-        <th></th>
-    </tr>*@
-
     <tr>
         <th>
            @Html.ActionLink("Pesquisa", "Index", new { sortOrder = ViewBag.TituloSortParm })
@@ -89,6 +61,6 @@
 Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
- new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+ new { page, sortOrder = ViewBag.CurrentSort, SearchString = ViewBag.SearchString, SearchPesquisa = ViewBag.SearchPesquisa }))
 
 

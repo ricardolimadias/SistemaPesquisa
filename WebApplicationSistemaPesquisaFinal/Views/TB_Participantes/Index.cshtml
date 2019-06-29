@@ -11,9 +11,10 @@
 @using (Html.BeginForm("Index", "TB_Participantes", FormMethod.Get))
 {
     <p>
-        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo), "Selecione")
-        <input type="submit" value="Filtrar" />
-        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+
+        @*<input type="submit" value="Filtrar" />*@
+        @Html.DropDownList("SearchPesquisa", (SelectList)ViewBag.Titulo)
+        @Html.TextBox("SearchString", ViewBag.SearchString as string)
         <input type="submit" value="Pesquisar" />
     </p>
 }
@@ -26,9 +27,9 @@
     <tr>
         @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
         {
-        <th>
-            @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.NomeSortParm })
-        </th>
+            <th>
+                @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.NomeSortParm })
+            </th>
         }
         <th>
             @Html.ActionLink("Data Envio", "Index", new { sortOrder = ViewBag.NomeSortParm })
@@ -52,9 +53,9 @@
         <tr>
             @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
             {
-            <td>
-                @Html.DisplayFor(modelItem => item.RDM)
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RDM)
+                </td>
             }
             <td>
                 @Html.DisplayFor(modelItem => item.DTEV)
@@ -83,4 +84,4 @@
 Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+ new { page, sortOrder = ViewBag.CurrentSort, SearchString = ViewBag.SearchString, SearchPesquisa = ViewBag.SearchPesquisa }))

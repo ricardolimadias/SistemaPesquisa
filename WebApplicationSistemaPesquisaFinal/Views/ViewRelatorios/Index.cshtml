@@ -10,41 +10,42 @@
 
 <h2>Relatório</h2>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
 @using (Html.BeginForm("Index", "ViewRelatorios", FormMethod.Get))
 {
     <p>
-        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo), "Selecione")
-        <input type="submit" value="Filtrar" />
-        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Pesquisar" />  
+        @Html.DropDownList("SearchPesquisa", (SelectList)ViewBag.Titulo)
+        @Html.TextBox("SearchString", ViewBag.SearchString as string)
         <label>Data de Envio</label>
-        @Html.TextBox("SearchEnvio", ViewBag.CurrentFilter as string, "{0:dd/MM/yyyy}")
+        @Html.TextBox("SearchEnvio", ViewBag.SearchEnvio as string, "{0:dd/MM/yyyy}")
         <label>Data de Resposta</label>
-        @Html.TextBox("SearchResposta", ViewBag.CurrentFilter as string, "{0:dd/MM/yyyy}")
-        <input type="submit" value="Filtrar" />  
+        @Html.TextBox("SearchResposta", ViewBag.SearchResposta as string, "{0:dd/MM/yyyy}")
+        <input type="submit" value="Filtrar" />
     </p>
 }
 
-@using (Html.BeginForm("ExportData", "ViewRelatorios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ExportData", "ViewRelatorios", new
+{
+    SearchString = @ViewBag.SearchString,
+    SearchEnvio = @ViewBag.SearchEnvio,
+    SearchResposta = @ViewBag.SearchResposta,
+    SearchPesquisa = @ViewBag.SearchPesquisa
+}, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <table>
         <tbody>
             <tr>
                 <td></td>
-                @*<td>
-                    <input id="Export" name="Export" type="submit" value="XLS" />
-                </td>*@
+                <td>
+                        <input id="Export" name="Export" type="submit" value="XLS" />
+                    </td>
                 <td></td>
                 <td>
                     <input id="Export" name="Export" type="submit" value="CSV" />
                 </td>
                 <td></td>
-                @*<td>
-                    <input id="Export" name="Export" type="submit" value="XLSX" />
-                </td>*@
+                <td>
+                        <input id="Export" name="Export" type="submit" value="XLSX" />
+                    </td>
                 <td></td>
             </tr>
         </tbody>
@@ -56,9 +57,9 @@
     <tr>
         @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
         {
-        <th>
-            @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.TituloSortParm })
-        </th>
+            <th>
+                @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.TituloSortParm })
+            </th>
         }
         <th>
             @Html.ActionLink("Título", "Index", new { sortOrder = ViewBag.TituloSortParm })
@@ -79,46 +80,52 @@
             @Html.ActionLink("Data de Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
         </th>
         @*<th>
-            @Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
-        </th>*@
+                @Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
+            </th>*@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-       @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
-       {
-         <td>
-            @Html.DisplayFor(modelItem => item.RDM)
-        </td>
-       }
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Questao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Alternativa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataEnvio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataResposta)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Resposta)
-        </td>*@
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.RDM)
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Questao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alternativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataEnvio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataResposta)
+            </td>
+        </tr>
+    }
 
 </table>
 
 Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    new
+    {
+        page,
+        sortOrder = ViewBag.CurrentSort,
+        SearchString = ViewBag.SearchString,
+        SearchPesquisa = ViewBag.SearchPesquisa,
+        SearchEnvio = ViewBag.SearchEnvio,
+        SearchResposta = ViewBag.SearchResposta
+    }))
