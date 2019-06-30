@@ -11,8 +11,6 @@
 @using (Html.BeginForm("Index", "TB_Participantes", FormMethod.Get))
 {
     <p>
-
-        @*<input type="submit" value="Filtrar" />*@
         @Html.DropDownList("SearchPesquisa", (SelectList)ViewBag.Titulo)
         @Html.TextBox("SearchString", ViewBag.SearchString as string)
         <input type="submit" value="Pesquisar" />
@@ -82,6 +80,5 @@
 
 </table>
 Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
-
 @Html.PagedListPager(Model, page => Url.Action("Index",
  new { page, sortOrder = ViewBag.CurrentSort, SearchString = ViewBag.SearchString, SearchPesquisa = ViewBag.SearchPesquisa }))

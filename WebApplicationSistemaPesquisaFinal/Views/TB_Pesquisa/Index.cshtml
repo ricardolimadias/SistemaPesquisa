@@ -19,34 +19,13 @@
 @using (Html.BeginForm("Index", "TB_Pesquisa", FormMethod.Get))
 {
     <p>
-        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo),"Selecione")
-        <input type="submit" value="Filtrar" />
-        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        @Html.DropDownList("SearchPesquisa", (SelectList)ViewBag.Titulo)
+        @Html.TextBox("SearchString", ViewBag.SearchString as string)
         <input type="submit" value="Pesquisar" />
     </p>
 }
 
-@*@using (Html.BeginForm())
-{
-    <p>
-        @Html.TextBox("SearchString")
-        <input type="submit" value="Pesquisar" />
-    </p>
-}*@
-
 <table class="table">
-    @*<tr>
-        <th>
-            
-            <label>Título</label>
-        </th>
-        <th>
-          
-            <label>Descrição</label>
-        </th>
-        <th></th>
-    </tr>*@
-
     <tr>
         <th>
             @Html.ActionLink("Título", "Index", new { sortOrder = ViewBag.TituloSortParm })
@@ -77,6 +56,5 @@
 
 </table>
 Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
-
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+ new { page, sortOrder = ViewBag.CurrentSort, SearchString = ViewBag.SearchString, SearchPesquisa = ViewBag.SearchPesquisa }))

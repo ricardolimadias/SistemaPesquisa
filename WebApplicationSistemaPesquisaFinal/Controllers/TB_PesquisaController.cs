@@ -28,63 +28,36 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             
             var Perfil = int.Parse(Session["Perfil"].ToString());
 
-            ViewBag.Titulo = (from c in db.TB_Pesquisa
-                              join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
-                              where d.PerfilId == Perfil
-                              select c.Titulo).Distinct();
+            var list = (from c in db.TB_Pesquisa
+                        join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
+                        where d.PerfilId == Perfil
+                        select new { c.PesquisaId, c.Titulo }).Distinct().ToList();
+
+            //Inicializa um objeto com o primeiro valor como 'selecione'
+            var objSelectList = new List<object> { new { id = 0, name = "Selecione" } };
+            //Insere o restante dos itens no SelectList
+            objSelectList.AddRange(list.Select(m => new { id = m.PesquisaId, name = m.Titulo }).ToList());
+            var selectList = new SelectList(objSelectList, "id", "name", SearchPesquisa);
+            ViewBag.Titulo = selectList;
 
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.TituloSortParm = String.IsNullOrEmpty(sortOrder) ? "Titulo" : "";
-            ViewBag.DescricaoSortParm = sortOrder == "Titulo" ? "Descricao" : "Titulo";
+            ViewBag.QuestoesSortParm = String.IsNullOrEmpty(sortOrder) ? "Titulo" : "";
+            ViewBag.TituloSortParm = sortOrder == "Titulo" ? "Descricao" : "Titulo";
+            ViewBag.SearchString = SearchString;
+            ViewBag.SearchPesquisa = SearchPesquisa = SearchPesquisa == "0" ? null : SearchPesquisa;
 
-            if (SearchString != null && SearchString!="")
-            {
-                page = 1;
-            }
-            else
-            {
-                SearchString = currentFilter;
-            }
-            //01
-            if (SearchPesquisa != null && SearchPesquisa !="")
-            {
-                page = 1;
-            }
-            else
-            {
-                SearchPesquisa = currentFilter;
-            }
-            //01
-            //02
-            if (SearchString != null && SearchString!="")
-            {
-                ViewBag.CurrentFilter = SearchString;
-            }
-            if (SearchPesquisa != null && SearchPesquisa!="")
-            {
-                ViewBag.CurrentFilter = SearchPesquisa;
-            }
-            //02
+            var Pesquisa = from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
 
-            
-            //var Pesquisa = from s in db.TB_Pesquisa
-            //               select s;
-
-            var Pesquisa = from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil  select s;
-
-            //03
             if (!String.IsNullOrEmpty(SearchString))
             {
-                Pesquisa = Pesquisa.Where(s => s.Titulo.Contains(SearchString) || s.Descricao.Contains(SearchString));
+                Pesquisa = Pesquisa.Where(s => s.Titulo.Contains(SearchString)
+                                       || s.Descricao.Contains(SearchString));
             }
 
             if (!String.IsNullOrEmpty(SearchPesquisa))
             {
-                Pesquisa = Pesquisa.Where(s => s.Titulo.Contains(SearchPesquisa));
+                Pesquisa = Pesquisa.Where(s => s.PesquisaId.ToString() == SearchPesquisa);
             }
-            //03
-
-
 
             switch (sortOrder)
             {
@@ -101,9 +74,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            
-            
-
             return View(Pesquisa.ToPagedList(pageNumber, pageSize));
         }
 

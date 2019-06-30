@@ -27,6 +27,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         //public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page, TB_Participantes tB_Participantes)
         public async Task<ViewResult> Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page)
         {
+
             var Perfil = int.Parse(Session["Perfil"].ToString());
             ViewBag.Perfil = Perfil;
             //tB_Participantes = db.TB_Participantes.Find(tB_Participantes.ParticipanteId);
@@ -40,7 +41,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             ViewBag.PesquisaSortParm = String.IsNullOrEmpty(sortOrder) ? "Titulo" : "";
             ViewBag.NomeSortParm = sortOrder == "Titulo" ? "Nome" : "E-mail";
 
-            if (SearchString != null && SearchString !="")
+            if (SearchString != null && SearchString != "")
             {
                 page = 1;
             }
@@ -49,7 +50,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 SearchString = currentFilter;
             }
             //01
-            if (SearchPesquisa != null && SearchPesquisa !="")
+            if (SearchPesquisa != null && SearchPesquisa != "")
             {
                 page = 1;
             }
@@ -60,11 +61,11 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             //01
 
             //02
-            if (SearchString != null && SearchString !="")
+            if (SearchString != null && SearchString != "")
             {
                 ViewBag.CurrentFilter = SearchString;
             }
-            if (SearchPesquisa != null && SearchPesquisa !="")
+            if (SearchPesquisa != null && SearchPesquisa != "")
             {
                 ViewBag.CurrentFilter = SearchPesquisa;
             }
