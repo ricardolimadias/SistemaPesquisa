@@ -14,9 +14,8 @@
 @using (Html.BeginForm("Index", "ViewResposta1", FormMethod.Get))
 {
     <p>
-        @Html.DropDownList("SearchPesquisa", new SelectList(ViewBag.Titulo), "Selecione")
-        <input type="submit" value="Filtrar" />
-        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        @Html.DropDownList("SearchPesquisa", (SelectList)ViewBag.Titulo)
+        @Html.TextBox("SearchString", ViewBag.SearchString as string)
         <input type="submit" value="Pesquisar" />
     </p>
 }
@@ -52,43 +51,43 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
-    <tr>
-        @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
-        {
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.RDM)
+                </td>
+            }
             <td>
-                @Html.DisplayFor(modelItem => item.RDM)
+                @Html.DisplayFor(modelItem => item.Titulo)
             </td>
-        }
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Questao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Alternativa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataEnvio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataResposta)
-        </td>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Detalhes", "Details", new { id = item.Resposta }) |
-            @Html.ActionLink("Excluir", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>*@
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.Questao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alternativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataEnvio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataResposta)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.Resposta }) |
+                    @Html.ActionLink("Excluir", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>*@
+        </tr>
+    }
 
 </table>
 Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+ new { page, sortOrder = ViewBag.CurrentSort, SearchString = ViewBag.SearchString, SearchPesquisa = ViewBag.SearchPesquisa }))

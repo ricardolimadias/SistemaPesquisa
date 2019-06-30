@@ -17,62 +17,33 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
     {
         private DEV_PESQUISA_SATISFACAOEntities db = new DEV_PESQUISA_SATISFACAOEntities();
 
-        // GET: TB_Participantes
-        //public ActionResult Index()
-        //{
-        //    var tB_Participantes = db.TB_Participantes.Include(t => t.TB_Pesquisa);
-        //    return View(tB_Participantes.ToList());
-        //}
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
-        //public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page, TB_Participantes tB_Participantes)
         public async Task<ViewResult> Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page)
         {
 
             var Perfil = int.Parse(Session["Perfil"].ToString());
             ViewBag.Perfil = Perfil;
-            //tB_Participantes = db.TB_Participantes.Find(tB_Participantes.ParticipanteId);
 
-            ViewBag.Titulo = (from c in db.TB_Pesquisa
-                              join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
-                              where d.PerfilId == Perfil
-                              select c.Titulo).Distinct();
+            var list = (from c in db.TB_Pesquisa
+                        join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
+                        where d.PerfilId == Perfil
+                        select new { c.PesquisaId, c.Titulo }).Distinct().ToList();
+
+            //Inicializa um objeto com o primeiro valor como 'selecione'
+            var objSelectList = new List<object> { new { id = 0, name = "Selecione" } };
+            //Insere o restante dos itens no SelectList
+            objSelectList.AddRange(list.Select(m => new { id = m.PesquisaId, name = m.Titulo }).ToList());
+            var selectList = new SelectList(objSelectList, "id", "name", SearchPesquisa);
+            ViewBag.Titulo = selectList;
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.PesquisaSortParm = String.IsNullOrEmpty(sortOrder) ? "Titulo" : "";
             ViewBag.NomeSortParm = sortOrder == "Titulo" ? "Nome" : "E-mail";
-
-            if (SearchString != null && SearchString != "")
-            {
-                page = 1;
-            }
-            else
-            {
-                SearchString = currentFilter;
-            }
-            //01
-            if (SearchPesquisa != null && SearchPesquisa != "")
-            {
-                page = 1;
-            }
-            else
-            {
-                SearchPesquisa = currentFilter;
-            }
-            //01
-
-            //02
-            if (SearchString != null && SearchString != "")
-            {
-                ViewBag.CurrentFilter = SearchString;
-            }
-            if (SearchPesquisa != null && SearchPesquisa != "")
-            {
-                ViewBag.CurrentFilter = SearchPesquisa;
-            }
-            //02
+            ViewBag.SearchString = SearchString;
+            ViewBag.SearchPesquisa = SearchPesquisa = SearchPesquisa == "0" ? null : SearchPesquisa;
 
             var Participante = from s in db.TB_Participantes join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
-            //03
+
             if (!String.IsNullOrEmpty(SearchString))
             {
                 Participante = Participante.Where(s => s.TB_Pesquisa.Titulo.Contains(SearchString) || s.Nome.Contains(SearchString) || s.Email.Contains(SearchString) || s.RDM.Contains(SearchString));
@@ -80,9 +51,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             if (!String.IsNullOrEmpty(SearchPesquisa))
             {
-                Participante = Participante.Where(s => s.TB_Pesquisa.Titulo.Contains(SearchPesquisa));
+                Participante = Participante.Where(s => s.TB_Pesquisa.PesquisaId.ToString() == SearchPesquisa);
             }
-            //03
+
             switch (sortOrder)
             {
                 case "RDM":
@@ -109,8 +80,8 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             }
 
             Participante = await Particip1(Participante);
-           
-            int pageSize = 5;
+
+            int pageSize = 2;
             int pageNumber = (page ?? 1);
             return View(Participante.ToPagedList(pageNumber, pageSize));
 
@@ -119,9 +90,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
         private Task<IQueryable<TB_Participantes>> Particip1(IQueryable<TB_Participantes> participantes)
         {
-           foreach (var Particip in participantes)
+            foreach (var Particip in participantes)
             {
-                
+
                 Particip.Status = "";
                 IEnumerable<string> DTE = (from dte in db.TB_DataEnvioDataResposta
                                            join vgpi in db.TB_VigenciaPesquisa on dte.PesquisaId equals vgpi.PesquisaId
@@ -269,12 +240,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 {
                     client.Send(mail);
                 }
-                catch (System.Exception erro)
-                {
-                    //trata erro
-
-
-                }
+                catch (Exception) { }
                 finally
                 {
                     mail = null;
@@ -350,18 +316,14 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 mail.To.Add(new MailAddress(tB_Participantes.Email));
                 mail.Subject = "Pesquisa de Satisfação – Link de Acesso Referente a RDM:" + tB_Participantes.RDM;
                 //mail.Body = tB_Participantes.TB_Pesquisa.TB_MensagemEmail + " Mensagem do Sistema de Pesquisa:<br/> Nome:  " + tB_Participantes.Nome + "<br/> Email : " + tB_Participantes.Email + " <br/> Mensagem : " + MSG1 + " o link de acesso:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId;
-                mail.Body = "<font face='Calibri'>" + "RDM: " + tB_Participantes.RDM +" "+ MSG1 + "<br/><br/>Acesse a pesquisa através do link:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "<br/><br/> Copie e cole este link no browser do Internet Explorer ou do Mozilla Firefox." + "</font>";
+                mail.Body = "<font face='Calibri'>" + "RDM: " + tB_Participantes.RDM + " " + MSG1 + "<br/><br/>Acesse a pesquisa através do link:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "<br/><br/> Copie e cole este link no browser do Internet Explorer ou do Mozilla Firefox." + "</font>";
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.High;
                 try
                 {
                     client.Send(mail);
                 }
-                catch (System.Exception erro)
-                {
-                    //trata erro
-
-                }
+                catch (Exception) { }
                 finally
                 {
                     mail = null;

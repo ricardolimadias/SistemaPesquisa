@@ -102,6 +102,12 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
            return View(login);
         }
 
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return View("Login");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

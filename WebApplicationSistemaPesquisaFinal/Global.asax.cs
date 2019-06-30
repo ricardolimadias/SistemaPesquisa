@@ -17,5 +17,14 @@ namespace WebApplicationSistemaPesquisaFinal
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        {
+            var context = HttpContext.Current;
+            if (context.Request.RawUrl != "/" && Session["Perfil"] == null)
+            {
+                Response.Redirect("/");
+            }
+        }
     }
 }
