@@ -101,24 +101,97 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             if (val.ToLower() == "xls")
             {
-                GridView gv = new GridView();
-                gv.DataSource = lst.ToList();
-                gv.DataBind();
+            //    GridView gv = new GridView();
+            //    gv.DataSource = lst.ToList();
+            //    gv.DataBind();
+
+            //    Response.ContentEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
+
+            //    Response.ClearContent();
+            //    Response.Buffer = true;
+            //    Response.AddHeader("content-disposition", "attachment; filename=RelatorioPesquisa.xls");
+            //    Response.ContentType = "application/ms-excel";
+            //    Response.Charset = "";
+            //    StringWriter sw = new StringWriter();
+            //    HtmlTextWriter htw = new HtmlTextWriter(sw);
+            //    gv.RenderControl(htw);
+            //    Response.Output.Write(sw.ToString());
+            //    Response.Flush();
+            //    Response.End();
+            if (Perfil == 1 || Perfil == 2 || Perfil == 4)
+            {
+                StringBuilder sb = new StringBuilder();
+                string[] columns = new string[7] { "RDM", "Título", "Questão", "Resposta", "Participante", "Data de Envio", "Data de Resposta" };
+                for (int k = 0; k < columns.Length; k++)
+                {
+                    //add separator
+                    sb.AppendFormat( columns[k].ToString() + '\t');
+                }
+
+                    sb.AppendFormat("\r\n");
+                    foreach (ViewRelatorio item in lst)
+                {
+                    sb.AppendFormat(item.RDM + "\t");
+                    sb.AppendFormat(item.Titulo + "\t");
+                    sb.AppendFormat(item.Questao + "\t");
+                    sb.AppendFormat(item.Alternativa + "\t");
+                    sb.AppendFormat(item.Nome + "\t");
+                    sb.AppendFormat(item.DataEnvio.ToString().Replace("00:00:00", "") + "\t");
+                    sb.AppendFormat(item.DataResposta.ToString().Replace("00:00:00", "") + "\t");
+                    //sb.Append(item.Resposta);
+                    //sb.Append new line
+                    sb.AppendFormat("\r\n");
+                }
 
                 Response.ContentEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
 
-                Response.ClearContent();
+                Response.Clear();
                 Response.Buffer = true;
-                Response.AddHeader("content-disposition", "attachment; filename=RelatorioPesquisa.xls");
-                Response.ContentType = "application/ms-excel";
+                Response.AddHeader("content-disposition", "attachment;filename=RelatorioPesquisa.xls");
                 Response.Charset = "";
-                StringWriter sw = new StringWriter();
-                HtmlTextWriter htw = new HtmlTextWriter(sw);
-                gv.RenderControl(htw);
-                Response.Output.Write(sw.ToString());
+                Response.ContentType = "application/ms-excel";
+                Response.Output.Write(sb.ToString());
+                Response.Flush();
+                Response.End();
+
+            }
+            else
+            {
+
+                StringBuilder sb = new StringBuilder();
+                string[] columns = new string[6] { "Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta" };
+                for (int k = 0; k < columns.Length; k++)
+                {
+                    //add separator
+                    sb.AppendFormat(columns[k].ToString() + '\t');
+                }
+
+                sb.AppendFormat("\r\n");
+                foreach (ViewRelatorio item in lst)
+                {
+                    sb.AppendFormat(item.Titulo + "\t");
+                    sb.AppendFormat(item.Questao + "\t");
+                    sb.AppendFormat(item.Alternativa + "\t");
+                    sb.AppendFormat(item.Nome + "\t");
+                    sb.AppendFormat(item.DataEnvio.ToString().Replace("00:00:00", "") + "\t");
+                    sb.AppendFormat(item.DataResposta.ToString().Replace("00:00:00", "") + "\t");
+                    //sb.Append(item.Resposta);
+                    //sb.Append new line
+                    sb.AppendFormat("\r\n");
+                }
+
+                Response.ContentEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
+
+                Response.Clear();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", "attachment;filename=RelatorioPesquisa.xls");
+                Response.Charset = "";
+                Response.ContentType = "application/ms-excel";
+                Response.Output.Write(sb.ToString());
                 Response.Flush();
                 Response.End();
             }
+        }
             else if (val.ToLower() == "csv")
             {
                 //var Perfil = int.Parse(Session["Perfil"].ToString());
@@ -178,8 +251,8 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         sb.Append(item.Questao + ",");
                         sb.Append(item.Alternativa + ",");
                         sb.Append(item.Nome + ",");
-                        sb.Append(item.DataEnvio + ",");
-                        sb.Append(item.DataResposta + ",");
+                        sb.Append(item.DataEnvio.ToString().Replace("00:00:00", "") + ",");
+                        sb.Append(item.DataResposta.ToString().Replace("00:00:00", "") + ",");
                         //sb.Append(item.Resposta);
                         //sb.Append new line
                         sb.Append("\r\n");

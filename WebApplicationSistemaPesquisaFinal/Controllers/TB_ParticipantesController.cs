@@ -264,14 +264,14 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             if (ModelState.IsValid)
             {
                 db.TB_Participantes.Add(tB_Participantes);
-                //db.SaveChanges();
+                db.SaveChanges();
 
                 if (ModelState.IsValid)
                 {
                     tB_DataEnvioDataResposta.ParticipanteId = tB_Participantes.ParticipanteId;
                     tB_DataEnvioDataResposta.DataEnvio = DateTime.Now;
                     db.TB_DataEnvioDataResposta.Add(tB_DataEnvioDataResposta);
-                    //db.SaveChanges();
+                    db.SaveChanges();
 
                 }
 
