@@ -24,26 +24,33 @@
         @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
         {
             <th>
-                @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.TituloSortParm })
+               @* @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.TituloSortParm })*@
+                <label>RDM</label>
             </th>
         }
         <th>
-            @Html.ActionLink("Título", "Index", new { sortOrder = ViewBag.TituloSortParm })
+            @*@Html.ActionLink("Título", "Index", new { sortOrder = ViewBag.TituloSortParm })*@
+            <label>Título</label>
         </th>
         <th>
-            @Html.ActionLink("Questão", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
+            @*@Html.ActionLink("Questão", "Index", new { sortOrder = ViewBag.DescricaoSortParm })*@
+            <label>Questão</label>
         </th>
         <th>
-            @Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
+            @*@Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.DescricaoSortParm })*@
+            <label>Resposta</label>
         </th>
         <th>
-            @Html.ActionLink("Participante", "Index", new { sortOrder = ViewBag.DescricaoSortParm })
+            @*@Html.ActionLink("Participante", "Index", new { sortOrder = ViewBag.DescricaoSortParm })*@
+            <label>Participante</label>
         </th>
         <th>
-            @Html.ActionLink("Data de Envio", "Index", new { sortOrder = ViewBag.ContSortParm })
+            @*@Html.ActionLink("Data de Envio", "Index", new { sortOrder = ViewBag.ContSortParm })*@
+            <label>Data de Envio</label>
         </th>
         <th>
-            @Html.ActionLink("Data de Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
+           @* @Html.ActionLink("Data de Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })*@
+            <label>Data de Resposta</label>
         </th>
         @*<th>
                 @Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })

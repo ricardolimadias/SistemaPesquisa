@@ -289,9 +289,6 @@
       <DependentUpon>ModelSistemaPesquisaFinal.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TB_AcaoQuestaoEncadeada.cs">
       <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
     </Compile>
@@ -414,6 +411,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="SQL\CriacaoViewUsuaPopulis.sql" />
     <Content Include="SQL\CriacaoViewRelatorio.sql" />
     <Content Include="SQL\CriacaoTB_Relatorio.sql" />
     <Content Include="SQL\CriacaoTB_QuestaoEncadeada.sql" />
@@ -535,7 +533,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Relatorio\" />
-    <Folder Include="Views\TB_DataEnvioDataResposta\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

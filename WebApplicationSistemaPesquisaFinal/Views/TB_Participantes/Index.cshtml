@@ -26,23 +26,29 @@
         @if (ViewBag.Perfil == 1 || ViewBag.Perfil == 2 || ViewBag.Perfil == 4)
         {
             <th>
-                @Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.NomeSortParm })
+                @*@Html.ActionLink("RDM", "Index", new { sortOrder = ViewBag.NomeSortParm })*@
+                <label>RDM</label>
             </th>
         }
         <th>
-            @Html.ActionLink("Data Envio", "Index", new { sortOrder = ViewBag.NomeSortParm })
+            @*@Html.ActionLink("Data Envio", "Index", new { sortOrder = ViewBag.NomeSortParm })*@
+            <label>Data Envio</label>
         </th>
         <th>
-            @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.NomeSortParm })
+            @*@Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.NomeSortParm })*@
+            <label>Status</label>
         </th>
         <th>
-            @Html.ActionLink("Pesquisa", "Index", new { sortOrder = ViewBag.PesquisaSortParm })
+            @*@Html.ActionLink("Pesquisa", "Index", new { sortOrder = ViewBag.PesquisaSortParm })*@
+            <label>Pesquisa</label>
         </th>
         <th>
-            @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NomeSortParm })
+           @* @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NomeSortParm })*@
+            <label>Nome</label>
         </th>
         <th>
-            @Html.ActionLink("E-mail", "Index", new { sortOrder = ViewBag.NomeSortParm })
+            @*@Html.ActionLink("E-mail", "Index", new { sortOrder = ViewBag.NomeSortParm })*@
+            <label>E-mail</label>
         </th>
     </tr>
 
