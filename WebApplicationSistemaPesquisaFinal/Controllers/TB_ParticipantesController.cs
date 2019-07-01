@@ -81,7 +81,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             Participante = await Particip1(Participante);
 
-            int pageSize = 2;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(Participante.ToPagedList(pageNumber, pageSize));
 

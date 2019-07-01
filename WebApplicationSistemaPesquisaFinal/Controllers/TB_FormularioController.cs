@@ -110,7 +110,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                             Questao = item.Questao,
                             TipoRespostaId = item.TipoRespostaId,
                             Alternativas = db.TB_Alternativas.Where(x => x.QuestaoId == item.QuestaoId).ToList(),
-                            VLResposta = string.Join(";", listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta).FirstOrDefault())
+                            VLResposta = string.Join(";", listaResposta.Where(x => x.QuestaoId == item.QuestaoId).Select(x => x.Resposta))
                         });
                     }
                 }else
