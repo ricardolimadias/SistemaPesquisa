@@ -158,8 +158,8 @@ body { background-color:#fafafa;}
 }
 
 
-/*::-ms-ticks-after { display: block; color: red; }
+::-ms-ticks-after { display: block; color: red; }
 ::-ms-ticks-before { display: block; color: green; }
 ::-ms-track { padding: 20px 0; }
-::-ms-tooltip { display: none;}*/
+::-ms-tooltip { display: none;}
 /* Campo range formatação fim */

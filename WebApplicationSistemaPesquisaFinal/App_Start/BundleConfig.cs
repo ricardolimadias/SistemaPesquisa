@@ -30,8 +30,7 @@ namespace WebApplicationSistemaPesquisaFinal
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/sticky.css",
-                      "~/Content/font-awesome.min.css"
-                      ));
+                      "~/Content/font-awesome.min.css"));
 
         }
     }
