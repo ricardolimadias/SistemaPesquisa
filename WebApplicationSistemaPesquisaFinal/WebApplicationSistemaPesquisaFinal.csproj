@@ -289,6 +289,9 @@
       <DependentUpon>ModelSistemaPesquisaFinal.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TB_AcaoQuestaoEncadeada.cs">
       <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
     </Compile>
@@ -332,6 +335,9 @@
       <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TB_VigenciaResposta.cs">
+      <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewPopuli.cs">
       <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewRelatorio.cs">
@@ -559,15 +565,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>5891</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5891/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>http://slqdbt-vspdop3.liquigas.hom:7777/</CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

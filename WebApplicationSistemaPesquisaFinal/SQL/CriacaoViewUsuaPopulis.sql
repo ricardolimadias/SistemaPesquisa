@@ -1,93 +1,19 @@
 ﻿USE [DEV_PESQUISA_SATISFACAO]
 GO
 
-/****** Object:  View [dbo].[ViewUsuaPopulis]    Script Date: 07/01/2019 1:05:14 PM ******/
+/****** Object:  View [dbo].[ViewPopulis]    Script Date: 07/02/2019 1:57:36 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-/*SELECT [CHAVE],[NOME_PESSOA],[SIGLA] FROM [Populis].[Populis].[V_ACESSO_GRCAC_FUNCIONARIOS_GERAL] UNION ALL
-SELECT [CHAVE],[NOME_PESSOA],[SIGLA] FROM [Populis].[Populis].[V_ACESSO_GRCAC_TERCEIROS_GERAL] */
-CREATE VIEW [dbo].[ViewUsuaPopulis]
+CREATE VIEW [dbo].[ViewPopulis]
 AS
-SELECT        CHAVE, NOME_PESSOA, LOWER(CHAVE) + '@liquigas.hom' AS EMAIL, SIGLA
+SELECT        ID_PESSOA, CHAVE, NOME_PESSOA, LOWER(CHAVE) + '@liquigas.hom' AS EMAIL, SIGLA
 FROM            OPENROWSET('SQLNCLI', 'Server=172.31.206.35;Database=POPDEV;UID=portal;PWD=Liquigas01', 
-                         'SELECT 
-[ID_PESSOA]
-      ,[CHAVE]
-      ,[NOME_PESSOA]
-      ,RIGHT(''00000000000'' + cast([CPF] as Nvarchar(11)),11) as CPF
-      ,[FUNCAO]
-      ,[NOME_CARGO]
-      ,[TELEFONE]
-      ,[DEPARTAMENTO]
-      ,[NOME_EMPRESA]
-      ,[SIGLA]
-      ,[EMPRESA_ABREV]
-      ,[DIRETORIA]
-      ,[NIVEL_HIERARQUICO]
-      ,right(''00000000000000'' + cast([CNPJ_EMPRESA_FUNC] as varchar(14)),14) as CNPJ_EMPRESA_FUNC
-      ,[SIGLA_PARTE1]
-      ,[SIGLA_PARTE2]
-      ,[SIGLA_PARTE3]
-      ,[SIGLA_PARTE4]
-      ,[CHAVE_GESTOR1]
-      ,[CHAVE_GESTOR2]
-      ,[CHAVE_GESTOR3]
-      ,[CHAVE_GESTOR4]
-FROM(
-SELECT distinct
-	[ID_PESSOA]
-      ,[CHAVE]
-      ,[NOME_PESSOA]
-      ,[CPF]
-      ,[FUNCAO]
-      ,[NOME_CARGO]
-      ,[TELEFONE]
-      ,[DEPARTAMENTO]
-      ,[NOME_EMPRESA]
-      ,[SIGLA]
-      ,[EMPRESA_ABREV]
-      ,[DIRETORIA]
-      ,[NIVEL_HIERARQUICO]
-      ,[CNPJ_EMPRESA_FUNC]
-      ,[SIGLA_PARTE1]
-      ,[SIGLA_PARTE2]
-      ,[SIGLA_PARTE3]
-      ,[SIGLA_PARTE4]
-      ,[CHAVE_GESTOR1]
-      ,[CHAVE_GESTOR2]
-      ,[CHAVE_GESTOR3]
-      ,[CHAVE_GESTOR4]
-  FROM [Popdev].[populis].[V_ACESSO_GRCAC_FUNCIONARIOS_GERAL] where CHAVE is not null and [DATA_QUITACAO] is null
-  union
-  SELECT distinct
-	[ID_PESSOA]
-      ,[CHAVE]
-      ,[NOME_PESSOA]
-      ,[CPF]
-      ,cast([FUNCAO] as varchar(40)) FUNCAO
-      ,cast([NOME_CARGO] as varchar(40)) NOME_CARGO
-      ,[TELEFONE]
-      ,[DEPARTAMENTO]
-      ,[NOME_EMPRESA]
-      ,[SIGLA]
-      ,[EMPRESA_ABREV]
-      ,[DIRETORIA]
-      ,[NIVEL_HIERARQUICO]
-      ,[CNPJ_EMPRESA_FUNC]
-      ,[SIGLA_PARTE1]
-      ,[SIGLA_PARTE2]
-      ,[SIGLA_PARTE3]
-      ,[SIGLA_PARTE4]
-      ,[CHAVE_GESTOR1]
-      ,[CHAVE_GESTOR2]
-      ,[CHAVE_GESTOR3]
-      ,[CHAVE_GESTOR4]
-  FROM [Popdev].[populis].[V_ACESSO_GRCAC_TERCEIROS_GERAL] where CHAVE is not null and [DATA_QUITACAO] is null) USUARIOS
-  ORDER BY NOME_PESSOA')
+                         'SELECT [ID_PESSOA],[CHAVE],[NOME_PESSOA],[SIGLA] FROM [Popdev].[Populis].[V_ACESSO_GRCAC_FUNCIONARIOS_GERAL] UNION ALL
+SELECT [ID_PESSOA],[CHAVE],[NOME_PESSOA],[SIGLA] FROM [Popdev].[Populis].[V_ACESSO_GRCAC_TERCEIROS_GERAL]')
                           AS USUARIOS_POPULIS
 
 GO
@@ -168,7 +94,7 @@ Begin DesignProperties =
                Top = 6
                Left = 38
                Bottom = 136
-               Right = 247
+               Right = 209
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -185,7 +111,7 @@ Begin DesignProperties =
          Width = 1500
          Width = 1500
          Width = 1500
-         Width = 2655
+         Width = 1500
          Width = 1500
          Width = 1500
          Width = 1500
@@ -210,10 +136,10 @@ Begin DesignProperties =
       End
    End
 End
-' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'ViewUsuaPopulis'
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'ViewPopulis'
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'ViewUsuaPopulis'
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'ViewPopulis'
 GO
 
 
