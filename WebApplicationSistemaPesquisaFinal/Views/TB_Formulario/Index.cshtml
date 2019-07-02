@@ -199,7 +199,7 @@
 
                             var Lista = item.VLResposta.Split(';');
 
-                            if (int.Parse(Lista[SubItem.i].ToString()) <= 5)
+                            if (Lista.Length > SubItem.i && !string.IsNullOrEmpty(Lista[SubItem.i].ToString()) && int.Parse(Lista[SubItem.i].ToString()) <= 5)
                             {
                                 <input type='range' id='@item.QuestaoId-@SubItem.value.AlternativaId' name='@item.QuestaoId-@SubItem.value.AlternativaId' min="0" max="5" value="@Lista[SubItem.i]">
                             }
