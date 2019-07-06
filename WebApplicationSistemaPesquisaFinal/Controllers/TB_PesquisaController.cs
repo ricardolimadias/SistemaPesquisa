@@ -50,8 +50,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             if (!String.IsNullOrEmpty(SearchString))
             {
-                Pesquisa = Pesquisa.Where(s => s.Titulo.Contains(SearchString)
-                                       || s.Descricao.Contains(SearchString));
+                Pesquisa = Pesquisa.Where(s => s.Titulo.Contains(SearchString) || s.Descricao.Contains(SearchString));
             }
 
             if (!String.IsNullOrEmpty(SearchPesquisa))

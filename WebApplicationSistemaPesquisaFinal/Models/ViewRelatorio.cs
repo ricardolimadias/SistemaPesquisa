@@ -23,6 +23,7 @@ namespace WebApplicationSistemaPesquisaFinal.Models
 
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use apenas caracteres alfabéticos.")]
         public Nullable<System.DateTime> DataEnvio { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DataResposta { get; set; }

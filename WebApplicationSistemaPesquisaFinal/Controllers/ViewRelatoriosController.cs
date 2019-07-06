@@ -14,6 +14,7 @@ using System.Web.UI;
 using System.Text;
 using OfficeOpenXml;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace WebApplicationSistemaPesquisaFinal.Controllers
 {
@@ -27,7 +28,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         //    return View(db.ViewRelatorios.ToList());
         //}
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
-        public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, string SearchEnvio, string SearchResposta, int? page)
+        public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, string SearchEnvio, string SearchResposta,string DtEnvioResposta, int? page)
         {
             var Perfil = 0;
             ViewBag.Perfil = Perfil = int.Parse(Session["Perfil"].ToString());
@@ -36,6 +37,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
                         where d.PerfilId == Perfil
                         select new { c.PesquisaId, c.Titulo }).Distinct().ToList();
+
 
             //Inicializa um objeto com o primeiro valor como 'selecione'
             var objSelectList = new List<object> { new { id = 0, name = "Selecione" } };
@@ -52,9 +54,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             ViewBag.SearchPesquisa = SearchPesquisa = SearchPesquisa == "0" ? null : SearchPesquisa;
             ViewBag.SearchEnvio = SearchEnvio;
             ViewBag.SearchResposta = SearchResposta;
+            ViewBag.DtEnvioResposta = DtEnvioResposta;
 
             var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
-            GetQueryRelatorio(SearchString, SearchResposta, SearchEnvio, SearchPesquisa, ref Relarorio);
+            GetQueryRelatorio(SearchString, SearchResposta, SearchEnvio, SearchPesquisa, DtEnvioResposta, ref Relarorio);
 
             switch (sortOrder)
             {
@@ -94,9 +97,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             var searchResposta = Request.QueryString["SearchResposta"];
             var searchEnvio = Request.QueryString["SearchEnvio"];
             var searchPesquisa = Request.QueryString["SearchPesquisa"];
+            var DtEnvioResposta = Request.QueryString["DtEnvioResposta"];
 
             var relatorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
-            GetQueryRelatorio(searchString, searchResposta, searchEnvio, searchPesquisa, ref relatorio);
+            GetQueryRelatorio(searchString, searchResposta, searchEnvio, searchPesquisa, DtEnvioResposta, ref relatorio);
             List<ViewRelatorio> lst = relatorio.ToList();
 
             if (val.ToLower() == "xls")
@@ -404,9 +408,29 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             base.Dispose(disposing);
         }
 
-        protected void GetQueryRelatorio(string searchString, string searchResposta, string searchEnvio, string searchPesquisa, ref IQueryable<ViewRelatorio> relatorio)
+        protected void GetQueryRelatorio(string searchString, string searchResposta, string searchEnvio, string searchPesquisa,string DtEnvioResposta, ref IQueryable<ViewRelatorio> relatorio)
         {
             var perfil = int.Parse(Session["Perfil"].ToString());
+
+            if (searchEnvio != null && searchEnvio !="")
+            {
+                //if (!Regex.IsMatch(searchResposta, "^[0-9]"))
+                if (!Regex.IsMatch(searchEnvio, "^([0]?[0-9]|[12][0-9]|[3][01])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$"))
+                {
+                    ViewBag.Validacao = "Data De No Formato Invalido.";
+                    return;
+                }
+            }
+            if (searchResposta != null && searchResposta !="")
+            {
+                //if (!Regex.IsMatch(searchResposta, "^[0-9]"))
+                if (!Regex.IsMatch(searchEnvio, "^([0]?[0-9]|[12][0-9]|[3][01])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$"))
+                {
+                    ViewBag.Validacao = "Data Até No Formato Invalido.";
+                    return;
+                }
+            }
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 relatorio = relatorio.Where(s => s.Titulo.Contains(searchString) || s.Questao.Contains(searchString) || s.Alternativa.Contains(searchString) || s.Nome.Contains(searchString) || s.Resposta.Contains(searchString) || s.RDM.Contains(searchString));
@@ -417,24 +441,59 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 relatorio = relatorio.Where(s => s.PesquisaId.ToString() == searchPesquisa);
             }
 
-            if (!String.IsNullOrEmpty(searchEnvio) && !String.IsNullOrEmpty(searchResposta))
+            if (!String.IsNullOrEmpty(searchEnvio) && String.IsNullOrEmpty(searchResposta) && string.IsNullOrEmpty(DtEnvioResposta))
+            {
+                ViewBag.Alerta = "Preencha Data Até e Selecione Se o Filtro Deve Ser sobre Data de Envio ou Data de Resposta.";
+                return ;
+            }
+            else if (!String.IsNullOrEmpty(searchResposta) && String.IsNullOrEmpty(searchEnvio) && string.IsNullOrEmpty(DtEnvioResposta))
+            {
+                ViewBag.Alerta = "Preencha Data De e Selecione Se o Filtro Deve Ser sobre Data de Envio ou Data de Resposta.";
+                return;
+            }
+            else if (!String.IsNullOrEmpty(searchResposta) && !String.IsNullOrEmpty(searchEnvio) && string.IsNullOrEmpty(DtEnvioResposta))
+            {
+                ViewBag.Alerta = "Selecione Se o Filtro Deve Ser sobre Data de Envio ou Data de Resposta.";
+                return;
+            }
+            else if (String.IsNullOrEmpty(searchResposta) && !String.IsNullOrEmpty(searchEnvio) && !string.IsNullOrEmpty(DtEnvioResposta))
+            {
+                ViewBag.Alerta = "Preencha Data Até.";
+                return;
+            }
+            else if (!String.IsNullOrEmpty(searchResposta) && String.IsNullOrEmpty(searchEnvio) && !string.IsNullOrEmpty(DtEnvioResposta))
+            {
+                ViewBag.Alerta = "Preencha Data De.";
+                return;
+            }
+
+            if (!String.IsNullOrEmpty(searchEnvio) && !String.IsNullOrEmpty(searchResposta) && !string.IsNullOrEmpty(DtEnvioResposta))
             {
                 var dtEnvio = DateTime.Parse(searchEnvio);
                 var dtResposta = DateTime.Parse(searchResposta);
-
-                relatorio = relatorio.Where(s => ((s.DataEnvio >= dtEnvio && s.DataEnvio <= dtResposta) || (s.DataResposta >= dtEnvio && s.DataResposta <= dtResposta)));
+                if (DtEnvioResposta == "Envio")
+                {
+                    relatorio = relatorio.Where(s => ((s.DataEnvio >= dtEnvio && s.DataEnvio <= dtResposta)));
+                }
+                else if (DtEnvioResposta == "Resposta")
+                {
+                    relatorio = relatorio.Where(s => ((s.DataResposta >= dtResposta && s.DataResposta <= dtEnvio)));
+                }
+                //relatorio = relatorio.Where(s => ((s.DataEnvio >= dtEnvio && s.DataEnvio <= dtResposta) || (s.DataResposta >= dtEnvio && s.DataResposta <= dtResposta)));
             }
 
-            if (!String.IsNullOrEmpty(searchEnvio) && String.IsNullOrEmpty(searchResposta))
-            {
-                var dtEnvio = DateTime.Parse(searchEnvio).ToString("yyyy-MM-dd");
-                relatorio = relatorio.Where(s => s.DataEnvio.ToString() == dtEnvio);
-            }
-            else if (!String.IsNullOrEmpty(searchResposta) && String.IsNullOrEmpty(searchEnvio))
-            {
-                var dtResposta = DateTime.Parse(searchResposta).ToString("yyyy-MM-dd");
-                relatorio = relatorio.Where(s => s.DataResposta.ToString() == dtResposta);
-            }
+
+
+            //if (!String.IsNullOrEmpty(searchEnvio) && String.IsNullOrEmpty(searchResposta))
+            //{
+            //    var dtEnvio = DateTime.Parse(searchEnvio).ToString("yyyy-MM-dd");
+            //    relatorio = relatorio.Where(s => s.DataEnvio.ToString() == dtEnvio);
+            //}
+            //else if (!String.IsNullOrEmpty(searchResposta) && String.IsNullOrEmpty(searchEnvio))
+            //{
+            //    var dtResposta = DateTime.Parse(searchResposta).ToString("yyyy-MM-dd");
+            //    relatorio = relatorio.Where(s => s.DataResposta.ToString() == dtResposta);
+            //}
         }
     }
 }

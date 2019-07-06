@@ -62,7 +62,7 @@
                     }
                 }
 
-                @*@if (item.TipoRespostaId == 4)
+                @if (item.TipoRespostaId == 4)
                 {
                     <label>Classificação de 1 a 5</label>
 
@@ -78,9 +78,7 @@
                         <input type='range' id='@item.QuestaoId-0' min="0" max="5" name='@item.QuestaoId-0' value="0">
                         
                     }
-                }*@
-
-
+                }
 
                 @if (item.TipoRespostaId == 5)
                 {
@@ -214,10 +212,13 @@
                         @if (item.TipoRespostaId == 5)
                         {
                             <label>Classificação de 1 a 5</label>
-                            if (item.VLResposta == 1.ToString() || item.VLResposta == 2.ToString() || item.VLResposta == 3.ToString() || item.VLResposta == 4.ToString() || item.VLResposta == 5.ToString())
+
+                            var Lista = item.VLResposta.Split(';');
+
+                            if (Lista.Length > SubItem.i && !string.IsNullOrEmpty(Lista[SubItem.i].ToString()) && int.Parse(Lista[SubItem.i].ToString()) <= 5)
                             {
                                 <div class="wrapper">
-                                    @if (item.VLResposta == 5.ToString())
+                                    @if (@Lista[SubItem.i] == 5.ToString())
                                     {
                                         <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" checked="checked" />
                                         <label for="@item.QuestaoId-1"></label>
@@ -227,7 +228,7 @@
                                         <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" />
                                         <label for="@item.QuestaoId-1"></label>
                                     }
-                                    @if (item.VLResposta == 4.ToString())
+                                    @if (@Lista[SubItem.i] == 4.ToString())
                                     {
                                         <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" checked="checked" />
                                         <label for="@item.QuestaoId-2"></label>
@@ -237,7 +238,7 @@
                                         <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" />
                                         <label for="@item.QuestaoId-2"></label>
                                     }
-                                    @if (item.VLResposta == 3.ToString())
+                                    @if (@Lista[SubItem.i] == 3.ToString())
                                     {
                                         <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" checked="checked" />
                                         <label for="@item.QuestaoId-3"></label>
@@ -247,7 +248,7 @@
                                         <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
                                         <label for="@item.QuestaoId-3"></label>
                                     }
-                                    @if (item.VLResposta == 2.ToString())
+                                    @if (@Lista[SubItem.i] == 2.ToString())
                                     {
                                         <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" checked="checked" />
                                         <label for="@item.QuestaoId-4"></label>
@@ -257,7 +258,7 @@
                                         <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" />
                                         <label for="@item.QuestaoId-4"></label>
                                     }
-                                    @if (item.VLResposta == 1.ToString())
+                                    @if (@Lista[SubItem.i] == 1.ToString())
                                     {
                                         <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" checked="checked" />
                                         <label for="@item.QuestaoId-5"></label>

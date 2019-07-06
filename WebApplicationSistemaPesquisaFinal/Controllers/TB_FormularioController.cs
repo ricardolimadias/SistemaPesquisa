@@ -35,29 +35,29 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 
                 IEnumerable<string> ViGenciaPesquisaInic = (from p in db.TB_Pesquisa
                                                             join q in db.TB_Questoes on p.PesquisaId equals q.PesquisaId
-                                                            join a in db.TB_Alternativas on q.QuestaoId equals a.QuestaoId
+                                                            //join a in db.TB_Alternativas on q.QuestaoId equals a.QuestaoId
                                                             join vr in db.TB_VigenciaPesquisa on p.PesquisaId equals vr.PesquisaId
                                                             where vr.PesquisaId == p.PesquisaId
-                                                            where q.QuestaoId == a.QuestaoId
-                                                            where a.QuestaoId == q.QuestaoId
+                                                            //where q.QuestaoId == a.QuestaoId
+                                                            //where a.QuestaoId == q.QuestaoId
                                                             where p.PesquisaId == Id_pesquisa
                                                             select vr.DataInicialPesquisa.ToString()).Distinct();
                 IEnumerable<string> ViGenciaPesquisaFin = (from p in db.TB_Pesquisa
                                                            join q in db.TB_Questoes on p.PesquisaId equals q.PesquisaId
-                                                           join a in db.TB_Alternativas on q.QuestaoId equals a.QuestaoId
+                                                           //join a in db.TB_Alternativas on q.QuestaoId equals a.QuestaoId
                                                            join vr in db.TB_VigenciaPesquisa on p.PesquisaId equals vr.PesquisaId
                                                            where vr.PesquisaId == p.PesquisaId
-                                                           where q.QuestaoId == a.QuestaoId
-                                                           where a.QuestaoId == q.QuestaoId
+                                                           //where q.QuestaoId == a.QuestaoId
+                                                           //where a.QuestaoId == q.QuestaoId
                                                            where p.PesquisaId == Id_pesquisa
                                                            select vr.DataFinalPesquisa.ToString()).Distinct();
                 IEnumerable<string> ViGenciaRespostaDia = (from p in db.TB_Pesquisa
                                                            join q in db.TB_Questoes on p.PesquisaId equals q.PesquisaId
-                                                           join a in db.TB_Alternativas on q.QuestaoId equals a.QuestaoId
+                                                           //join a in db.TB_Alternativas on q.QuestaoId equals a.QuestaoId
                                                            join vr in db.TB_VigenciaResposta on p.PesquisaId equals vr.PesquisaId
                                                            where vr.PesquisaId == p.PesquisaId
-                                                           where q.QuestaoId == a.QuestaoId
-                                                           where a.QuestaoId == q.QuestaoId
+                                                           //where q.QuestaoId == a.QuestaoId
+                                                           //where a.QuestaoId == q.QuestaoId
                                                            where p.PesquisaId == Id_pesquisa
                                                            select vr.QuantidadeDias.ToString()).Distinct();
                 IEnumerable<string> DataEnvioPesquisa = (from p in db.TB_Pesquisa

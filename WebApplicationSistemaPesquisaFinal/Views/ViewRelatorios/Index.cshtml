@@ -3,24 +3,73 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
+@*<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="jquery.mask.js"></script>
+<script type="text/javascript">
+			$().ready(function() {
+				//CEP
+				$('#cep').mask('00.000-000');
+				//CPF
+				$('#cpf').mask('000.000.000-00', {reverse: false});
+				//CNPJ
+				$("#cnpj").mask("00.000.000/0000-00");
+				//Data Brasil
+				$(".dataBR").mask("00/00/0000");
+				//Sigla estadual UF
+				$('#uf').mask('SS');
+				//valor monetario
+				$('.dinheiro').mask('000.000.000.000.000,00', {
+					reverse : true
+				});
+				//horario apenas Horas e minutos
+				$('.horario').mask('00:00');
+				//porcentagem
+				$('.porcentagem').mask('##0,00%', {
+					reverse : true
+				});
+				//telefone mascaras de são paulo
+				var masks = ['(00) 00000-0000', '(00) 0000-00009'], maskBehavior = function(val, e, field, options) {
+					return val.length > 14 ? masks[0] : masks[1];
+				};
+				$('.telefone').mask(maskBehavior, {
+					onKeyPress : function(val, e, field, options) {
+						field.mask(maskBehavior(val, e, field, options), options);
+					}
+				});
+			});
+</script>*@
+
 @{
     ViewBag.Title = "Relatório";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Relatório</h2>
+<h2>Relatório</h2> 
 
 @using (Html.BeginForm("Index", "ViewRelatorios", FormMethod.Get))
 {
     <p>
         @Html.DropDownList("SearchPesquisa", (SelectList)ViewBag.Titulo)
         @Html.TextBox("SearchString", ViewBag.SearchString as string)
-        <label>Data de Envio</label>
+        <label>De</label>
+        @*@Html.TextBox("SearchEnvio", ViewBag.SearchEnvio as string, "{0:dd/MM/yyyy}", new { @class = "dataBR", placeholder = "DD/MM/AAAA" })*@
         @Html.TextBox("SearchEnvio", ViewBag.SearchEnvio as string, "{0:dd/MM/yyyy}")
-        <label>Data de Resposta</label>
+        <label>Até</label>
+        @*@Html.TextBox("SearchResposta", ViewBag.SearchResposta as string, "{0:dd/MM/yyyy}", new { @class = "dataBR", placeholder = "DD/MM/AAAA" })*@
         @Html.TextBox("SearchResposta", ViewBag.SearchResposta as string, "{0:dd/MM/yyyy}")
+        <label>Data de Envio: @Html.RadioButton("DtEnvioResposta", "Envio") </label>
+        <label>Data de Resposta: @Html.RadioButton("DtEnvioResposta", "Resposta")</label>
         <input type="submit" value="Filtrar" />
     </p>
+}
+
+@if (@ViewBag.Alerta != null)
+{
+    <h4>Obrigatório: @ViewBag.Alerta</h4>
+}
+@if (@ViewBag.Validacao != null)
+{
+    <h4>Validação: @ViewBag.Validacao</h4>
 }
 
 @using (Html.BeginForm("ExportData", "ViewRelatorios", new
@@ -28,7 +77,8 @@
     SearchString = @ViewBag.SearchString,
     SearchEnvio = @ViewBag.SearchEnvio,
     SearchResposta = @ViewBag.SearchResposta,
-    SearchPesquisa = @ViewBag.SearchPesquisa
+    SearchPesquisa = @ViewBag.SearchPesquisa,
+    DtEnvioResposta = @ViewBag.DtEnvioResposta
 }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <table>
@@ -134,5 +184,6 @@ Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.Pa
         SearchString = ViewBag.SearchString,
         SearchPesquisa = ViewBag.SearchPesquisa,
         SearchEnvio = ViewBag.SearchEnvio,
-        SearchResposta = ViewBag.SearchResposta
+        SearchResposta = ViewBag.SearchResposta,
+        DtEnvioResposta = ViewBag.DtEnvioResposta
     }))
