@@ -1,0 +1,84 @@
+﻿@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Controllers.EmailGroupData>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Pesquisas";
+}
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">@TempData["Message"]</div>
+}
+@using (Html.BeginForm("GroupEmail", "TB_Participantes", FormMethod.Get, new { @id = "GroupEmailSearch" }))
+{
+    <div class="form-group">
+        @Html.Label("Grupo", new { @class = "control-label" })
+        <div class="input-group">
+            <span class="input-group-btn">
+                @Html.DropDownList("Sigla", (SelectList)ViewBag.Sigla, new { @class = "form-control" })
+                <input type="submit" value="Pesquisar" class="btn btn-default" />
+            </span>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("GroupEmail", "TB_Participantes", FormMethod.Post, new { @id = "GroupEmailRegister" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("Sigla", (string)ViewBag.SearchPesquisa)
+    <table class="table table-hover">
+        <tr>
+            <th></th>
+            <th><label>Nome</label></th>
+            <th><label>E-mail</label></th>
+            <th><label>Grupo</label></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><input type="checkbox" name="Id" value="@item.Id" /></td>
+                <td>@Html.DisplayFor(m => item.Name)</td>
+                <td>@Html.DisplayFor(m => item.Email)</td>
+                <td>@Html.DisplayFor(m => item.Sigla)</td>
+            </tr>
+        }
+    </table>
+    <div class="form-group">
+        @Html.Label("Pesquisa", new { @class = "control-label" })
+        <div class="input-group">
+            <span class="input-group-btn">
+                @Html.DropDownList("Pesquisa", (SelectList)ViewBag.Pesquisa, new { @class = "form-control" })
+                <input type="submit" value="Cadastrar" id="save" class="btn btn-default" />
+            </span>
+            <span class="input-group-btn">
+                <input type="submit" value="Cadastrar todos" id="saveAll" class="btn btn-default btn-warning pull-right" />
+            </span>
+        </div>
+    </div>
+}
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("GroupEmail",
+    new { page, SearchPesquisa = ViewBag.SearchPesquisa }))
+
+@section scripts{
+    <script>
+        $(function () {
+            activeButton();
+            $('input[name=Id], #Pesquisa').on('change', activeButton);
+
+            $('#saveAll').on('click', function (e) {
+                var question = confirm('Deseja cadastrar todos os participantes do grupo?');
+                !question && e.preventDefault();
+            })
+        })
+
+        function activeButton() {
+            var checked = $('input[name=Id]:checked').length > 0;
+            var selected = $('#Pesquisa').val() != '0';
+            var group = $('select#Sigla').val() != 'Selecione';
+
+            $('#save').prop('disabled', !checked || !selected)
+            $('#saveAll').prop('disabled', !selected || !group)
+        }
+    </script>
+}

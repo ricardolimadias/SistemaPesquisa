@@ -175,78 +175,13 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
-        public ActionResult Create([Bind(Include = "ParticipanteId,PesquisaId,Nome,Email,RDM")] TB_Participantes tB_Participantes,
+        public ActionResult Create([Bind(Include = "ParticipanteId,PesquisaId,Nome, Email,RDM")] TB_Participantes tB_Participantes,
                                    [Bind(Include = "EnvioId,PesquisaId,ParticipanteId,DataEnvio,DataResposta")] TB_DataEnvioDataResposta tB_DataEnvioDataResposta)
         {
 
             if (ModelState.IsValid)
             {
-                db.TB_Participantes.Add(tB_Participantes);
-                db.SaveChanges();
-
-                if (ModelState.IsValid)
-                {
-                    tB_DataEnvioDataResposta.ParticipanteId = tB_Participantes.ParticipanteId;
-                    tB_DataEnvioDataResposta.DataEnvio = DateTime.Now;
-                    db.TB_DataEnvioDataResposta.Add(tB_DataEnvioDataResposta);
-                    db.SaveChanges();
-                }
-
-                IEnumerable<string> MSG = from p in db.TB_Participantes
-                                          join m in db.TB_MensagemEmail
-                                          on p.PesquisaId equals m.PesquisaId
-                                          where m.PesquisaId == p.PesquisaId
-                                          where p.ParticipanteId == tB_Participantes.ParticipanteId
-                                          select m.Mensagem;
-
-
-                var MSG1 = MSG.First<string>();
-
-                //Envido de e-mail apos cadastro de participante.
-                System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-                //Desenvolvimento local
-                if (Request.Url.Authority == "localhost:5891")
-                {
-                    client.Host = "smtpint.liquigas.biz";
-                }
-                //Desenvolvimento remoto
-                if (Request.Url.Authority == "http://slqdbt-vspdop3.liquigas.hom:7777")
-                {
-                    client.Host = "smtpint.liquigas.biz";
-                }
-                //Homologação remoto
-                if (Request.Url.Authority == "http://pesquisa.liquigas.hom:8089")
-                {
-                    client.Host = "slqdbt-vlnqa1.liquigas.biz";
-                }
-                //Produção remoto
-                if (Request.Url.Authority == "http://pesquisa.liquigas.biz:8089")
-                {
-                    client.Host = "smtpint.liquigas.biz";
-                }
-
-                client.Port = 25;
-                client.EnableSsl = false;
-                MailMessage mail = new MailMessage();
-                mail.Sender = new System.Net.Mail.MailAddress("pesquisa@liquigas.com.br");
-                mail.From = new MailAddress("pesquisa@liquigas.com.br");
-                mail.To.Add(new MailAddress(tB_Participantes.Email));
-                mail.Subject = "Pesquisa de Satisfação – Link de Acesso";
-                mail.Body = "<font face='Calibri'>" + MSG1 + "<br/><br/>Acesse a pesquisa através do link:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "<br/><br/> Copie e cole este link no browser do Internet Explorer ou do Mozilla Firefox." + "</font>";
-
-                mail.IsBodyHtml = true;
-                mail.Priority = MailPriority.High;
-                try
-                {
-                    client.Send(mail);
-                }
-                catch (Exception) { }
-                finally
-                {
-                    mail = null;
-                }
-                //
-
+                Save(tB_Participantes, tB_DataEnvioDataResposta);
                 return RedirectToAction("Index");
             }
 
@@ -255,7 +190,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         }
         //
         [HttpGet]
-        public void SharePointPesquisa([Bind(Include = "ParticipanteId,PesquisaId,Nome,Email,RDM")] TB_Participantes tB_Participantes,
+        public void SharePointPesquisa([Bind(Include = "ParticipanteId,PesquisaId,Nome, Email,RDM")] TB_Participantes tB_Participantes,
                                        [Bind(Include = "EnvioId,PesquisaId,ParticipanteId,DataEnvio,DataResposta")] TB_DataEnvioDataResposta tB_DataEnvioDataResposta)
         {
 
@@ -361,7 +296,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
-        public ActionResult Edit([Bind(Include = "ParticipanteId,PesquisaId,Nome,Email,RDM")] TB_Participantes tB_Participantes)
+        public ActionResult Edit([Bind(Include = "ParticipanteId,PesquisaId,Nome, Email,RDM")] TB_Participantes tB_Participantes)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
             ViewBag.Perfil = Perfil;
@@ -405,6 +340,166 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
+        public ActionResult GroupEmail(EmailGroupData emailGroupData, string SearchPesquisa, int? page)
+        {
+            var data = new List<EmailGroupData>
+            {
+                new EmailGroupData{Id=9, Name="MIRANDINHA PEREIRA DA CRUZ", Email="ljs8@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+                new EmailGroupData{Id=41, Name="NILTON ANTONIO DIAS", Email="ljs9@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+                new EmailGroupData{Id=19, Name="ALEX SANDRO LUIZ VERIDIANO", Email="ljf7@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC" },
+                new EmailGroupData{Id=20, Name="ANTONIO DIMAS FERRAZ", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+                new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO", Email="lq4m@liquigas.hom", Sigla="GGMC/GIMCI" },
+                new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO 2", Email="lq42m@liquigas.hom", Sigla="GGMC/GIMCI" }
+            };
+
+            var Perfil = int.Parse(Session["Perfil"].ToString());
+
+            var list = (from c in db.TB_Pesquisa
+                        join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
+                        where d.PerfilId == Perfil
+                        select new { c.PesquisaId, c.Titulo }).Distinct().ToList();
+
+            //Inicializa um objeto com o primeiro valor como 'selecione'
+            var objSelectList = new List<object> { new { id = 0, name = "Selecione" } };
+            //Insere o restante dos itens no SelectList
+            objSelectList.AddRange(list.Select(m => new { id = m.PesquisaId, name = m.Titulo }).ToList());
+            var selectList = new SelectList(objSelectList, "id", "name", SearchPesquisa);
+
+            var lista = (from d in data
+                         where d.Sigla == emailGroupData.Sigla || string.IsNullOrEmpty(emailGroupData.Sigla) && !string.IsNullOrEmpty(d.Email)
+                         select d).ToList();
+
+
+            var objSelectInitials = new List<object> { new { name = "Selecione" } };
+            //Insere o restante dos itens no SelectList
+            objSelectInitials.AddRange(data.GroupBy(m => m.Sigla).Select(m => new { name = m.First().Sigla }).OrderBy(m => m.name).ToList());
+            var selectInitials = new SelectList(objSelectInitials, "name", "name", emailGroupData.Sigla);
+
+            ViewBag.Pesquisa = selectList;
+            ViewBag.Sigla = selectInitials;
+            ViewBag.SearchPesquisa = SearchPesquisa;
+
+
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+            return View(lista.ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
+        public ActionResult GroupEmail()
+        {
+            var data = new List<EmailGroupData>{
+                new EmailGroupData{Id=9, Name="MIRANDINHA PEREIRA DA CRUZ", Email="ljs8@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+                new EmailGroupData{Id=41, Name="NILTON ANTONIO DIAS", Email="ljs9@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+                new EmailGroupData{Id=19, Name="ALEX SANDRO LUIZ VERIDIANO", Email="ljf7@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC" },
+                new EmailGroupData{Id=20, Name="ANTONIO DIMAS FERRAZ", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+                new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO", Email="lq4m@liquigas.hom", Sigla="GGMC/GIMCI" },
+                new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO 2", Email="lq42m@liquigas.hom", Sigla="GGMC/GIMCI" }
+            }.ToList();
+
+            if (Request.Form["Id"] != null && !string.IsNullOrEmpty(Request.Form["Id"].ToString()))
+            {
+                var persons = Request.Form["Id"].ToString().Split(',');
+                data = data.Where(m => persons.Contains(m.Id.ToString())).ToList();
+            }
+            else if(Request.Form["Sigla"] != null && !string.IsNullOrEmpty(Request.Form["Sigla"].ToString()))
+            {
+                var group = Request.Form["Sigla"].ToString();
+                data = data.Where(m => m.Sigla == group && !string.IsNullOrEmpty(m.Email)).ToList();
+            }
+            else
+            {
+                return View("GroupEmail");
+            }
+
+            foreach (var item in data)
+            {
+                var research = int.Parse(Request.Form["Pesquisa"].ToString());
+                var participant = new TB_Participantes
+                {
+                    PesquisaId = research,
+                    Nome = item.Name,
+                    Email = item.Email
+                };
+                var responseDate = new TB_DataEnvioDataResposta { PesquisaId = research };
+                Save(participant, responseDate);
+            }
+
+            TempData["Message"] = "Os novos participantes foram cadastrados com sucesso!";
+
+            return RedirectToAction("GroupEmail");
+        }
+
+        public void Save(TB_Participantes tB_Participantes, TB_DataEnvioDataResposta tB_DataEnvioDataResposta)
+        {
+            db.TB_Participantes.Add(tB_Participantes);
+            db.SaveChanges();
+
+            tB_DataEnvioDataResposta.ParticipanteId = tB_Participantes.ParticipanteId;
+            tB_DataEnvioDataResposta.DataEnvio = DateTime.Now;
+            db.TB_DataEnvioDataResposta.Add(tB_DataEnvioDataResposta);
+            db.SaveChanges();
+
+
+            IEnumerable<string> MSG = from p in db.TB_Participantes
+                                      join m in db.TB_MensagemEmail
+                                      on p.PesquisaId equals m.PesquisaId
+                                      where m.PesquisaId == p.PesquisaId
+                                      where p.ParticipanteId == tB_Participantes.ParticipanteId
+                                      select m.Mensagem;
+
+
+            var MSG1 = MSG.First<string>();
+
+            //Envido de e-mail apos cadastro de participante.
+            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+            //Desenvolvimento local
+            if (Request.Url.Authority == "localhost:5891")
+            {
+                client.Host = "smtpint.liquigas.biz";
+            }
+            //Desenvolvimento remoto
+            if (Request.Url.Authority == "http://slqdbt-vspdop3.liquigas.hom:7777")
+            {
+                client.Host = "smtpint.liquigas.biz";
+            }
+            //Homologação remoto
+            if (Request.Url.Authority == "http://pesquisa.liquigas.hom:8089")
+            {
+                client.Host = "slqdbt-vlnqa1.liquigas.biz";
+            }
+            //Produção remoto
+            if (Request.Url.Authority == "http://pesquisa.liquigas.biz:8089")
+            {
+                client.Host = "smtpint.liquigas.biz";
+            }
+
+            client.Port = 25;
+            client.EnableSsl = false;
+            MailMessage mail = new MailMessage();
+            mail.Sender = new System.Net.Mail.MailAddress("pesquisa@liquigas.com.br");
+            mail.From = new MailAddress("pesquisa@liquigas.com.br");
+            mail.To.Add(new MailAddress(tB_Participantes.Email));
+            mail.Subject = "Pesquisa de Satisfação – Link de Acesso";
+            mail.Body = "<font face='Calibri'>" + MSG1 + "<br/><br/>Acesse a pesquisa através do link:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "<br/><br/> Copie e cole este link no browser do Internet Explorer ou do Mozilla Firefox." + "</font>";
+
+            mail.IsBodyHtml = true;
+            mail.Priority = MailPriority.High;
+            try
+            {
+                client.Send(mail);
+            }
+            catch (Exception) { }
+            finally
+            {
+                mail = null;
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -413,5 +508,14 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             }
             base.Dispose(disposing);
         }
+    }
+
+    public partial class EmailGroupData
+    {
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Sigla { get; set; }
     }
 }

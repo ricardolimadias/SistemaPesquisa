@@ -536,6 +536,7 @@
     <Content Include="Views\ViewResposta1\Edit.cshtml" />
     <Content Include="Views\ViewResposta1\Index.cshtml" />
     <Content Include="SQL\Populis.xlsx" />
+    <Content Include="Views\TB_Participantes\GroupEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
