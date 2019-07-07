@@ -66,7 +66,7 @@ public partial class DEV_PESQUISA_SATISFACAOEntities : DbContext
 
     public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
 
-    public virtual DbSet<ViewPopuli> ViewPopulis { get; set; }
+    public virtual DbSet<ViewUsuaPopuli> ViewUsuaPopulis { get; set; }
 
 }
 

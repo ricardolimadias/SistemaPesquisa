@@ -148,18 +148,6 @@
           <Property Name="QuantidadeDias" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewPopulis' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="ViewPopulis">
-          <Key>
-            <PropertyRef Name="ID_PESSOA" />
-          </Key>
-          <Property Name="ID_PESSOA" Type="int" Nullable="false" />
-          <Property Name="CHAVE" Type="varchar" MaxLength="20" />
-          <Property Name="NOME_PESSOA" Type="varchar" MaxLength="70" />
-          <Property Name="EMAIL" Type="varchar" MaxLength="33" />
-          <Property Name="SIGLA" Type="varchar" MaxLength="255" />
-        </EntityType>
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewRelatorio' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewRelatorio">
           <Key>
@@ -184,6 +172,18 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewRelatorio' does no
           <Property Name="DataInicialPesquisa" Type="date" />
           <Property Name="DataFinalPesquisa" Type="date" />
           <Property Name="PesquisaId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewUsuaPopulis' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewUsuaPopulis">
+          <Key>
+            <PropertyRef Name="ID_PESSOA" />
+          </Key>
+          <Property Name="ID_PESSOA" Type="int" Nullable="false" />
+          <Property Name="CHAVE" Type="nvarchar(max)" />
+          <Property Name="NOME_PESSOA" Type="nvarchar(max)" />
+          <Property Name="EMAIL" Type="nvarchar(max)" />
+          <Property Name="SIGLA" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_TB_Acesso_TB_Perfil">
           <End Role="TB_Perfil" Type="Self.TB_Perfil" Multiplicity="0..1" />
@@ -394,15 +394,6 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewRelatorio' does no
           <EntitySet Name="TB_TipoResposta" EntityType="Self.TB_TipoResposta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TB_VigenciaPesquisa" EntityType="Self.TB_VigenciaPesquisa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TB_VigenciaResposta" EntityType="Self.TB_VigenciaResposta" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ViewPopulis" EntityType="Self.ViewPopulis" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ViewPopulis].[ID_PESSOA] AS [ID_PESSOA], 
-    [ViewPopulis].[CHAVE] AS [CHAVE], 
-    [ViewPopulis].[NOME_PESSOA] AS [NOME_PESSOA], 
-    [ViewPopulis].[EMAIL] AS [EMAIL], 
-    [ViewPopulis].[SIGLA] AS [SIGLA]
-    FROM [dbo].[ViewPopulis] AS [ViewPopulis]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="ViewRelatorio" EntityType="Self.ViewRelatorio" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ViewRelatorio].[RDM] AS [RDM], 
@@ -419,6 +410,15 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewRelatorio' does no
     [ViewRelatorio].[DataFinalPesquisa] AS [DataFinalPesquisa], 
     [ViewRelatorio].[PesquisaId] AS [PesquisaId]
     FROM [dbo].[ViewRelatorio] AS [ViewRelatorio]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewUsuaPopulis" EntityType="Self.ViewUsuaPopulis" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewUsuaPopulis].[ID_PESSOA] AS [ID_PESSOA], 
+    [ViewUsuaPopulis].[CHAVE] AS [CHAVE], 
+    [ViewUsuaPopulis].[NOME_PESSOA] AS [NOME_PESSOA], 
+    [ViewUsuaPopulis].[EMAIL] AS [EMAIL], 
+    [ViewUsuaPopulis].[SIGLA] AS [SIGLA]
+    FROM [dbo].[ViewUsuaPopulis] AS [ViewUsuaPopulis]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_TB_Acesso_TB_Perfil" Association="Self.FK_TB_Acesso_TB_Perfil">
             <End Role="TB_Perfil" EntitySet="TB_Perfil" />
@@ -826,7 +826,7 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewRelatorio' does no
           <EntitySet Name="TB_DataEnvioDataResposta" EntityType="DEV_PESQUISA_SATISFACAOModel.TB_DataEnvioDataResposta" />
           <EntitySet Name="ViewRelatorios" EntityType="DEV_PESQUISA_SATISFACAOModel.ViewRelatorio" />
           <EntitySet Name="sysdiagrams" EntityType="DEV_PESQUISA_SATISFACAOModel.sysdiagram" />
-          <EntitySet Name="ViewPopulis" EntityType="DEV_PESQUISA_SATISFACAOModel.ViewPopuli" />
+          <EntitySet Name="ViewUsuaPopulis" EntityType="DEV_PESQUISA_SATISFACAOModel.ViewUsuaPopuli" />
           </EntityContainer>
         <EntityType Name="TB_AcaoQuestaoEncadeada">
           <Key>
@@ -963,15 +963,15 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewRelatorio' does no
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="ViewPopuli">
+        <EntityType Name="ViewUsuaPopuli">
           <Key>
             <PropertyRef Name="ID_PESSOA" />
           </Key>
           <Property Name="ID_PESSOA" Type="Int32" Nullable="false" />
-          <Property Name="CHAVE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NOME_PESSOA" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
-          <Property Name="EMAIL" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
-          <Property Name="SIGLA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CHAVE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NOME_PESSOA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SIGLA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1156,9 +1156,9 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewRelatorio' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ViewPopulis">
-            <EntityTypeMapping TypeName="DEV_PESQUISA_SATISFACAOModel.ViewPopuli">
-              <MappingFragment StoreEntitySet="ViewPopulis">
+          <EntitySetMapping Name="ViewUsuaPopulis">
+            <EntityTypeMapping TypeName="DEV_PESQUISA_SATISFACAOModel.ViewUsuaPopuli">
+              <MappingFragment StoreEntitySet="ViewUsuaPopulis">
                 <ScalarProperty Name="SIGLA" ColumnName="SIGLA" />
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="NOME_PESSOA" ColumnName="NOME_PESSOA" />

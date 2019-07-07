@@ -337,10 +337,10 @@
     <Compile Include="Models\TB_VigenciaResposta.cs">
       <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewPopuli.cs">
+    <Compile Include="Models\ViewRelatorio.cs">
       <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewRelatorio.cs">
+    <Compile Include="Models\ViewUsuaPopuli.cs">
       <DependentUpon>ModelSistemaPesquisaFinal.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

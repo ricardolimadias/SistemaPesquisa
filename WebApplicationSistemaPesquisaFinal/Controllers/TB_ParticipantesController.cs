@@ -342,17 +342,17 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
 
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
-        public ActionResult GroupEmail(EmailGroupData emailGroupData, string SearchPesquisa, int? page)
+        public ActionResult GroupEmail(ViewUsuaPopuli emailGroupData, string SearchPesquisa, int? page)
         {
-            var data = new List<EmailGroupData>
-            {
-                new EmailGroupData{Id=9, Name="MIRANDINHA PEREIRA DA CRUZ", Email="ljs8@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
-                new EmailGroupData{Id=41, Name="NILTON ANTONIO DIAS", Email="ljs9@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
-                new EmailGroupData{Id=19, Name="ALEX SANDRO LUIZ VERIDIANO", Email="ljf7@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC" },
-                new EmailGroupData{Id=20, Name="ANTONIO DIMAS FERRAZ", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
-                new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO", Email="lq4m@liquigas.hom", Sigla="GGMC/GIMCI" },
-                new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO 2", Email="lq42m@liquigas.hom", Sigla="GGMC/GIMCI" }
-            };
+            var data = (from p in db.ViewUsuaPopulis select p);
+            //{
+            //    new EmailGroupData{Id=9, Name="MIRANDINHA PEREIRA DA CRUZ", Email="ljs8@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+            //    new EmailGroupData{Id=41, Name="NILTON ANTONIO DIAS", Email="ljs9@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+            //    new EmailGroupData{Id=19, Name="ALEX SANDRO LUIZ VERIDIANO", Email="ljf7@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC" },
+            //    new EmailGroupData{Id=20, Name="ANTONIO DIMAS FERRAZ", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+            //    new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO", Email="lq4m@liquigas.hom", Sigla="GGMC/GIMCI" },
+            //    new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO 2", Email="lq42m@liquigas.hom", Sigla="GGMC/GIMCI" }
+            //};
 
             var Perfil = int.Parse(Session["Perfil"].ToString());
 
@@ -368,14 +368,14 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             var selectList = new SelectList(objSelectList, "id", "name", SearchPesquisa);
 
             var lista = (from d in data
-                         where d.Sigla == emailGroupData.Sigla || string.IsNullOrEmpty(emailGroupData.Sigla) && !string.IsNullOrEmpty(d.Email)
+                         where (d.SIGLA == emailGroupData.SIGLA || string.IsNullOrEmpty(emailGroupData.SIGLA)) && !string.IsNullOrEmpty(d.EMAIL)
                          select d).ToList();
 
 
             var objSelectInitials = new List<object> { new { name = "Selecione" } };
             //Insere o restante dos itens no SelectList
-            objSelectInitials.AddRange(data.GroupBy(m => m.Sigla).Select(m => new { name = m.First().Sigla }).OrderBy(m => m.name).ToList());
-            var selectInitials = new SelectList(objSelectInitials, "name", "name", emailGroupData.Sigla);
+            objSelectInitials.AddRange(data.GroupBy(m => m.SIGLA).Select(m => new { name = m.FirstOrDefault().SIGLA }).OrderBy(m => m.name).ToList());
+            var selectInitials = new SelectList(objSelectInitials, "name", "name", emailGroupData.SIGLA);
 
             ViewBag.Pesquisa = selectList;
             ViewBag.Sigla = selectInitials;
@@ -392,24 +392,26 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ActionResult GroupEmail()
         {
-            var data = new List<EmailGroupData>{
-                new EmailGroupData{Id=9, Name="MIRANDINHA PEREIRA DA CRUZ", Email="ljs8@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
-                new EmailGroupData{Id=41, Name="NILTON ANTONIO DIAS", Email="ljs9@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
-                new EmailGroupData{Id=19, Name="ALEX SANDRO LUIZ VERIDIANO", Email="ljf7@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC" },
-                new EmailGroupData{Id=20, Name="ANTONIO DIMAS FERRAZ", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
-                new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO", Email="lq4m@liquigas.hom", Sigla="GGMC/GIMCI" },
-                new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO 2", Email="lq42m@liquigas.hom", Sigla="GGMC/GIMCI" }
-            }.ToList();
+            var data = (from p in db.ViewUsuaPopulis select p).ToList();
+            //var data = new List<EmailGroupData>
+            //{
+            //    new EmailGroupData{Id=9, Name="MIRANDINHA PEREIRA DA CRUZ", Email="ljs8@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+            //    new EmailGroupData{Id=41, Name="NILTON ANTONIO DIAS", Email="ljs9@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+            //    new EmailGroupData{Id=19, Name="ALEX SANDRO LUIZ VERIDIANO", Email="ljf7@liquigas.hom", Sigla="GGOP/GOPE-II/GCO-SC" },
+            //    new EmailGroupData{Id=20, Name="ANTONIO DIMAS FERRAZ", Sigla="GGOP/GOPE-II/GCO-SC/SUOPE-SC" },
+            //    new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO", Email="lq4m@liquigas.hom", Sigla="GGMC/GIMCI" },
+            //    new EmailGroupData{Id=30, Name="JORGE AUGUSTO CUNHA LINO 2", Email="lq42m@liquigas.hom", Sigla="GGMC/GIMCI" }
+            //}.ToList();
 
             if (Request.Form["Id"] != null && !string.IsNullOrEmpty(Request.Form["Id"].ToString()))
             {
                 var persons = Request.Form["Id"].ToString().Split(',');
-                data = data.Where(m => persons.Contains(m.Id.ToString())).ToList();
+                data = data.Where(m => persons.Contains(m.ID_PESSOA.ToString())).ToList();
             }
             else if(Request.Form["Sigla"] != null && !string.IsNullOrEmpty(Request.Form["Sigla"].ToString()))
             {
                 var group = Request.Form["Sigla"].ToString();
-                data = data.Where(m => m.Sigla == group && !string.IsNullOrEmpty(m.Email)).ToList();
+                data = data.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.EMAIL)).ToList();
             }
             else
             {
@@ -422,8 +424,8 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 var participant = new TB_Participantes
                 {
                     PesquisaId = research,
-                    Nome = item.Name,
-                    Email = item.Email
+                    Nome = item.NOME_PESSOA,
+                    Email = item.EMAIL
                 };
                 var responseDate = new TB_DataEnvioDataResposta { PesquisaId = research };
                 Save(participant, responseDate);
@@ -510,12 +512,12 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         }
     }
 
-    public partial class EmailGroupData
-    {
+    //public partial class EmailGroupData
+    //{
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Sigla { get; set; }
-    }
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    public string Email { get; set; }
+    //    public string Sigla { get; set; }
+    //}
 }

@@ -15,7 +15,7 @@ namespace WebApplicationSistemaPesquisaFinal.Models
 using System;
     using System.Collections.Generic;
     
-public partial class ViewPopuli
+public partial class ViewUsuaPopuli
 {
 
     public int ID_PESSOA { get; set; }
