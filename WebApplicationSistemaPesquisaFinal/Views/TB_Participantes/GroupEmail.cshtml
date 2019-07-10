@@ -1,6 +1,9 @@
-﻿@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Controllers.EmailGroupData>
+﻿@model PagedList.IPagedList<WebApplicationSistemaPesquisaFinal.Models.ViewUsuaPopuli>
+
+
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE; FF=5; OtherUA=4; chrome=5" />
 
 @{
     ViewBag.Title = "Pesquisas";
@@ -36,10 +39,10 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td><input type="checkbox" name="Id" value="@item.Id" /></td>
-                <td>@Html.DisplayFor(m => item.Name)</td>
-                <td>@Html.DisplayFor(m => item.Email)</td>
-                <td>@Html.DisplayFor(m => item.Sigla)</td>
+                <td><input type="checkbox" name="Id" value="@item.ID_PESSOA" /></td>
+                <td>@Html.DisplayFor(m => item.NOME_PESSOA)</td>
+                <td>@Html.DisplayFor(m => item.EMAIL)</td>
+                <td>@Html.DisplayFor(m => item.SIGLA)</td>
             </tr>
         }
     </table>

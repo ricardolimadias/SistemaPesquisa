@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ServiceData" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR" />
+      <xsd:import schemaLocation="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR.EF" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IServiceData_GetPopulis_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPopulis" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetPopulis_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPopulisResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetPopulisAniversariantes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPopulisAniversariantes" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetPopulisAniversariantes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPopulisAniversariantesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetMapasRede_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMapasRede" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetMapasRede_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMapasRedeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetClienteWeb_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClienteWeb" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetClienteWeb_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClienteWebResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetAniversariantesTerceiros_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAniversariantesTerceiros" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetAniversariantesTerceiros_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAniversariantesTerceirosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetFuncionariosGeral_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFuncionariosGeral" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetFuncionariosGeral_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFuncionariosGeralResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetFuncionariosTereceirosGeral_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFuncionariosTereceirosGeral" />
+  </wsdl:message>
+  <wsdl:message name="IServiceData_GetFuncionariosTereceirosGeral_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFuncionariosTereceirosGeralResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IServiceData">
+    <wsdl:operation name="GetPopulis">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceData/GetPopulis" message="tns:IServiceData_GetPopulis_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceData/GetPopulisResponse" message="tns:IServiceData_GetPopulis_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPopulisAniversariantes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceData/GetPopulisAniversariantes" message="tns:IServiceData_GetPopulisAniversariantes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceData/GetPopulisAniversariantesResponse" message="tns:IServiceData_GetPopulisAniversariantes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMapasRede">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceData/GetMapasRede" message="tns:IServiceData_GetMapasRede_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceData/GetMapasRedeResponse" message="tns:IServiceData_GetMapasRede_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClienteWeb">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceData/GetClienteWeb" message="tns:IServiceData_GetClienteWeb_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceData/GetClienteWebResponse" message="tns:IServiceData_GetClienteWeb_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAniversariantesTerceiros">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceData/GetAniversariantesTerceiros" message="tns:IServiceData_GetAniversariantesTerceiros_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceData/GetAniversariantesTerceirosResponse" message="tns:IServiceData_GetAniversariantesTerceiros_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFuncionariosGeral">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceData/GetFuncionariosGeral" message="tns:IServiceData_GetFuncionariosGeral_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceData/GetFuncionariosGeralResponse" message="tns:IServiceData_GetFuncionariosGeral_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFuncionariosTereceirosGeral">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceData/GetFuncionariosTereceirosGeral" message="tns:IServiceData_GetFuncionariosTereceirosGeral_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceData/GetFuncionariosTereceirosGeralResponse" message="tns:IServiceData_GetFuncionariosTereceirosGeral_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IServiceData" type="tns:IServiceData">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetPopulis">
+      <soap:operation soapAction="http://tempuri.org/IServiceData/GetPopulis" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPopulisAniversariantes">
+      <soap:operation soapAction="http://tempuri.org/IServiceData/GetPopulisAniversariantes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMapasRede">
+      <soap:operation soapAction="http://tempuri.org/IServiceData/GetMapasRede" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClienteWeb">
+      <soap:operation soapAction="http://tempuri.org/IServiceData/GetClienteWeb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAniversariantesTerceiros">
+      <soap:operation soapAction="http://tempuri.org/IServiceData/GetAniversariantesTerceiros" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFuncionariosGeral">
+      <soap:operation soapAction="http://tempuri.org/IServiceData/GetFuncionariosGeral" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFuncionariosTereceirosGeral">
+      <soap:operation soapAction="http://tempuri.org/IServiceData/GetFuncionariosTereceirosGeral" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServiceData">
+    <wsdl:port name="BasicHttpBinding_IServiceData" binding="tns:BasicHttpBinding_IServiceData">
+      <soap:address location="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
