@@ -88,52 +88,52 @@
                         <div class="wrapper">
                             @if (item.VLResposta == 5.ToString())
                             {
-                                <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" checked="checked" />
+                                <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" checked="checked" onclick="CheckEstrela(this)" />
                                 <label for="@item.QuestaoId-1"></label>
                             }
                             else
                             {
-                                <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" />
+                                <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" onclick="CheckEstrela(this)" />
                                 <label for="@item.QuestaoId-1"></label>
                             }
                             @if (item.VLResposta == 4.ToString())
                             {
-                                <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" checked="checked" />
+                                <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" checked="checked" onclick="CheckEstrela(this)" />
                                 <label for="@item.QuestaoId-2"></label>
                             }
                             else
                             {
-                                <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" />
+                                <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" onclick="CheckEstrela(this)" />
                                 <label for="@item.QuestaoId-2"></label>
                             }
                             @if (item.VLResposta == 3.ToString())
                             {
-                                <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" checked="checked" />
+                                <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" checked="checked" onclick="CheckEstrela(this)" />
                                 <label for="@item.QuestaoId-3"></label>
                             }
                             else
                             {
-                                <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
+                                <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" onclick="CheckEstrela(this)" />
                                 <label for="@item.QuestaoId-3"></label>
                             }
                             @if (item.VLResposta == 2.ToString())
                             {
-                                <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" checked="checked" />
+                                <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" checked="checked" onclick="CheckEstrela(this)" />
                                 <label for="@item.QuestaoId-4"></label>
                             }
                             else
                             {
-                                <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" />
+                                <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" onclick="CheckEstrela(this)" />
                                 <label for="@item.QuestaoId-4"></label>
                             }
                             @if (item.VLResposta == 1.ToString())
                             {
-                                <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" checked="checked" />
+                                <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" checked="checked" onclick="CheckEstrela(this)" />
                                 <label for="@item.QuestaoId-5"></label>
                             }
                             else
                             {
-                                <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" />
+                                <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" onclick="CheckEstrela(this)" />
                                 <label for="@item.QuestaoId-5"></label>
                             }
                         </div>
@@ -141,15 +141,15 @@
                     else
                     {
                         <div class="wrapper">
-                            <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" />
+                            <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" onclick="CheckEstrela(this)" />
                             <label for="@item.QuestaoId-1"></label>
-                            <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" />
+                            <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" onclick="CheckEstrela(this)"/>
                             <label for="@item.QuestaoId-2"></label>
-                            <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
+                            <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" onclick="CheckEstrela(this)" />
                             <label for="@item.QuestaoId-3"></label>
-                            <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" />
+                            <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" onclick="CheckEstrela(this)" />
                             <label for="@item.QuestaoId-4"></label>
-                            <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" />
+                            <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" onclick="CheckEstrela(this)" />
                             <label for="@item.QuestaoId-5"></label>
                         </div>
                     }
@@ -220,52 +220,52 @@
                                 <div class="wrapper">
                                     @if (@Lista[SubItem.i] == 5.ToString())
                                     {
-                                        <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" checked="checked" />
+                                        <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="@item.VLResposta" checked="checked" onclick="CheckEstrela(this)" />
                                         <label for="@item.QuestaoId-1"></label>
                                     }
                                     else
                                     {
-                                        <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" />
+                                        <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" onclick="CheckEstrela(this)" />
                                         <label for="@item.QuestaoId-1"></label>
                                     }
                                     @if (@Lista[SubItem.i] == 4.ToString())
                                     {
-                                        <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" checked="checked" />
+                                        <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="@item.VLResposta" checked="checked" onclick="CheckEstrela(this)" />
                                         <label for="@item.QuestaoId-2"></label>
                                     }
                                     else
                                     {
-                                        <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" />
+                                        <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" onclick="CheckEstrela(this)" />
                                         <label for="@item.QuestaoId-2"></label>
                                     }
                                     @if (@Lista[SubItem.i] == 3.ToString())
                                     {
-                                        <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" checked="checked" />
+                                        <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="@item.VLResposta" checked="checked" onclick="CheckEstrela(this)" />
                                         <label for="@item.QuestaoId-3"></label>
                                     }
                                     else
                                     {
-                                        <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
+                                        <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" onclick="CheckEstrela(this)" />
                                         <label for="@item.QuestaoId-3"></label>
                                     }
                                     @if (@Lista[SubItem.i] == 2.ToString())
                                     {
-                                        <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" checked="checked" />
+                                        <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="@item.VLResposta" checked="checked" onclick="CheckEstrela(this)" />
                                         <label for="@item.QuestaoId-4"></label>
                                     }
                                     else
                                     {
-                                        <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" />
+                                        <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" onclick="CheckEstrela(this)" />
                                         <label for="@item.QuestaoId-4"></label>
                                     }
                                     @if (@Lista[SubItem.i] == 1.ToString())
                                     {
-                                        <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" checked="checked" />
+                                        <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="@item.VLResposta" checked="checked" onclick="CheckEstrela(this)" />
                                         <label for="@item.QuestaoId-5"></label>
                                     }
                                     else
                                     {
-                                        <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" />
+                                        <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" onclick="CheckEstrela(this)" />
                                         <label for="@item.QuestaoId-5"></label>
                                     }
                                 </div>
@@ -273,15 +273,15 @@
                             else
                             {
                                 <div class="wrapper">
-                                    <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" />
+                                    <input type="checkbox" id="@item.QuestaoId-1" name="@item.QuestaoId-1" value="5" onclick="CheckEstrela(this)" />
                                     <label for="@item.QuestaoId-1"></label>
-                                    <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" />
+                                    <input type="checkbox" id="@item.QuestaoId-2" name="@item.QuestaoId-2" value="4" onclick="CheckEstrela(this)" />
                                     <label for="@item.QuestaoId-2"></label>
-                                    <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" />
+                                    <input type="checkbox" id="@item.QuestaoId-3" name="@item.QuestaoId-3" value="3" onclick="CheckEstrela(this)" />
                                     <label for="@item.QuestaoId-3"></label>
-                                    <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" />
+                                    <input type="checkbox" id="@item.QuestaoId-4" name="@item.QuestaoId-4" value="2" onclick="CheckEstrela(this)" />
                                     <label for="@item.QuestaoId-4"></label>
-                                    <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" />
+                                    <input type="checkbox" id="@item.QuestaoId-5" name="@item.QuestaoId-5" value="1" onclick="CheckEstrela(this)" />
                                     <label for="@item.QuestaoId-5"></label>
                                 </div>
                             }

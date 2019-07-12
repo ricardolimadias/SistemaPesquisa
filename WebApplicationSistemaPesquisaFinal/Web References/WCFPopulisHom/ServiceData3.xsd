@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR" />
+  <xs:import schemaLocation="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR.EF" />
+  <xs:element name="GetPopulis">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Pagina" type="xs:int" />
+        <xs:element minOccurs="0" name="RegistroPagina" type="xs:int" />
+        <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Unidade" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Cargo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="AdmissaoInicial" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="AdmissaoFinal" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="Sexo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Instrucao" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Diretoria" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Situacao" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="TipoFunc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Vinculo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="gm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="gv" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Index" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPopulisResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR" minOccurs="0" name="GetPopulisResult" nillable="true" type="q1:PopulisResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPopulisAniversariantes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Pagina" type="xs:int" />
+        <xs:element minOccurs="0" name="RegistroPagina" type="xs:int" />
+        <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Unidade" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Cargo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="AdmissaoInicial" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="AdmissaoFinal" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="Sexo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Instrucao" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Diretoria" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Situacao" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="TipoFunc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Vinculo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DiaNascimento" type="xs:int" />
+        <xs:element minOccurs="0" name="MesNascimento" type="xs:int" />
+        <xs:element minOccurs="0" name="gm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="gv" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Index" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPopulisAniversariantesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR" minOccurs="0" name="GetPopulisAniversariantesResult" nillable="true" type="q2:PopulisResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMapasRede">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Pagina" type="xs:int" />
+        <xs:element minOccurs="0" name="RegistroPagina" type="xs:int" />
+        <xs:element minOccurs="0" name="Index" type="xs:int" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DataNascimento" nillable="true" type="q3:ArrayOfdateTime" />
+        <xs:element minOccurs="0" name="Socio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Cidade" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Cod_R3" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMapasRedeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR" minOccurs="0" name="GetMapasRedeResult" nillable="true" type="q4:MapaRedeResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClienteWeb">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Pagina" type="xs:int" />
+        <xs:element minOccurs="0" name="RegistroPagina" type="xs:int" />
+        <xs:element minOccurs="0" name="Index" type="xs:int" />
+        <xs:element minOccurs="0" name="Cod_R3" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Raz_Social" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Contato_Eml" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Email2" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UF" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Municipio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Nom_Cons_Vendas" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Des_Ger_Merc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Des_Ger_Vendas" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Nome_Fantasia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Cnpj_Cpf" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Inscr_Estadual" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Cep" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Logradouro" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Compl_Endereco" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Bairro" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Fone_Mkt1" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Cod_Area_Atuacao" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Data_Inclusao_Inicio_Termino" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="Data_Inclusao_Inicio" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="Login_Cons_Vendas" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Cod_Real_Alvara" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Descr_Real_Alvara" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Contato_Eml3" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Email3" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Contato_Eml4" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Email4" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="gm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="gv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClienteWebResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR" minOccurs="0" name="GetClienteWebResult" nillable="true" type="q5:ClienteWebResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAniversariantesTerceiros">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dia" type="xs:int" />
+        <xs:element minOccurs="0" name="mes" type="xs:int" />
+        <xs:element minOccurs="0" name="gerencia" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAniversariantesTerceirosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR.EF" minOccurs="0" name="GetAniversariantesTerceirosResult" nillable="true" type="q6:ArrayOfV_ACESSO_GRCAC_TERCEIROS_GERAL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFuncionariosGeral">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Matricula" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Chave" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CPF" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFuncionariosGeralResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR.EF" minOccurs="0" name="GetFuncionariosGeralResult" nillable="true" type="q7:ArrayOfV_ACESSO_GRCAC_FUNCIONARIOS_GERAL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFuncionariosTereceirosGeral">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Chave" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Matricula" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFuncionariosTereceirosGeralResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR.EF" minOccurs="0" name="GetFuncionariosTereceirosGeralResult" nillable="true" type="q8:ArrayOfV_ACESSO_GRCAC_TERCEIROS_GERAL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

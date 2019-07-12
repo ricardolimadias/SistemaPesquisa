@@ -63,24 +63,24 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             switch (sortOrder)
             {
-                case "Título":
-                    Resposta = Resposta.OrderByDescending(s => s.Titulo);
-                    break;
-                case "Questão":
-                    Resposta = Resposta.OrderBy(s => s.Questao);
-                    break;
-                case "Resposta":
-                    Resposta = Resposta.OrderBy(s => s.Alternativa);
-                    break;
-                case "Participante":
-                    Resposta = Resposta.OrderBy(s => s.Nome);
-                    break;
-                case "Data de Envio":
-                    Resposta = Resposta.OrderBy(s => s.DataEnvio);
-                    break;
-                case "Data de Resposta":
-                    Resposta = Resposta.OrderBy(s => s.DataResposta);
-                    break;
+                //case "Título":
+                //    Resposta = Resposta.OrderByDescending(s => s.Titulo);
+                //    break;
+                //case "Questão":
+                //    Resposta = Resposta.OrderBy(s => s.Questao);
+                //    break;
+                //case "Resposta":
+                //    Resposta = Resposta.OrderBy(s => s.Alternativa);
+                //    break;
+                //case "Participante":
+                //    Resposta = Resposta.OrderBy(s => s.Nome);
+                //    break;
+                //case "Data de Envio":
+                //    Resposta = Resposta.OrderBy(s => s.DataEnvio);
+                //    break;
+                //case "Data de Resposta":
+                //    Resposta = Resposta.OrderBy(s => s.DataResposta);
+                //    break;
                 //case "Resposta":
                 //    Relarorio = Relarorio.OrderBy(s => s.Resposta);
                 //    break;

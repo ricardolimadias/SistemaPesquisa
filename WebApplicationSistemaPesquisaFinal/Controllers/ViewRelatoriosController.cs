@@ -61,24 +61,24 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             switch (sortOrder)
             {
-                case "Título":
-                    Relarorio = Relarorio.OrderByDescending(s => s.Titulo);
-                    break;
-                case "Questão":
-                    Relarorio = Relarorio.OrderBy(s => s.Questao);
-                    break;
-                case "Resposta":
-                    Relarorio = Relarorio.OrderBy(s => s.Alternativa);
-                    break;
-                case "Participante":
-                    Relarorio = Relarorio.OrderBy(s => s.Nome);
-                    break;
-                case "Data de Envio":
-                    Relarorio = Relarorio.OrderBy(s => s.DataEnvio);
-                    break;
-                case "Data de Resposta":
-                    Relarorio = Relarorio.OrderBy(s => s.DataResposta);
-                    break;
+                //case "Título":
+                //    Relarorio = Relarorio.OrderByDescending(s => s.Titulo);
+                //    break;
+                //case "Questão":
+                //    Relarorio = Relarorio.OrderBy(s => s.Questao);
+                //    break;
+                //case "Resposta":
+                //    Relarorio = Relarorio.OrderBy(s => s.Alternativa);
+                //    break;
+                //case "Participante":
+                //    Relarorio = Relarorio.OrderBy(s => s.Nome);
+                //    break;
+                //case "Data de Envio":
+                //    Relarorio = Relarorio.OrderBy(s => s.DataEnvio);
+                //    break;
+                //case "Data de Resposta":
+                //    Relarorio = Relarorio.OrderBy(s => s.DataResposta);
+                //    break;
                 default:
                     Relarorio = Relarorio.OrderBy(s => s.Titulo);
                     break;

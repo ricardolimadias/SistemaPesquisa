@@ -1,4 +1,13 @@
-﻿function Encadeado (campo)
+﻿function CheckEstrela(elemento)
+{
+    //indice = indice - 1;
+    var parent = $(elemento).parent(".wrapper");
+    parent.children("input:checkbox").prop('checked', false);
+    $(elemento).prop('checked', true);
+    //parent.children("input:checkbox:lt(" + indice + ")").prop('checked', true);    
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+function Encadeado(campo)
 {
     var valorencadeado = $(campo).attr("data-value");
     if (valorencadeado == "Parar Resposta Formulario") {
@@ -42,7 +51,7 @@ function GetDadosRespostas() {
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 window.btn = "";
 $(document).ready(function () {
-    
+
     $("form").on("submit", function (event) {
         event.preventDefault();
         var o = {}; var a = $(this).serializeArray();
