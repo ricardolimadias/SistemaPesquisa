@@ -15,6 +15,7 @@ using System.Text;
 using OfficeOpenXml;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace WebApplicationSistemaPesquisaFinal.Controllers
 {
@@ -28,7 +29,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         //    return View(db.ViewRelatorios.ToList());
         //}
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
-        public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, string SearchEnvio, string SearchResposta,string DtEnvioResposta, int? page)
+        public async Task<ViewResult> Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, string SearchEnvio, string SearchResposta,string DtEnvioResposta, int? page)
         {
             var Perfil = 0;
             ViewBag.Perfil = Perfil = int.Parse(Session["Perfil"].ToString());
@@ -61,24 +62,24 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             switch (sortOrder)
             {
-                //case "Título":
-                //    Relarorio = Relarorio.OrderByDescending(s => s.Titulo);
-                //    break;
-                //case "Questão":
-                //    Relarorio = Relarorio.OrderBy(s => s.Questao);
-                //    break;
-                //case "Resposta":
-                //    Relarorio = Relarorio.OrderBy(s => s.Alternativa);
-                //    break;
-                //case "Participante":
-                //    Relarorio = Relarorio.OrderBy(s => s.Nome);
-                //    break;
-                //case "Data de Envio":
-                //    Relarorio = Relarorio.OrderBy(s => s.DataEnvio);
-                //    break;
-                //case "Data de Resposta":
-                //    Relarorio = Relarorio.OrderBy(s => s.DataResposta);
-                //    break;
+                case "Título":
+                    Relarorio = Relarorio.OrderByDescending(s => s.Titulo);
+                    break;
+                case "Questão":
+                    Relarorio = Relarorio.OrderBy(s => s.Questao);
+                    break;
+                case "Resposta":
+                    Relarorio = Relarorio.OrderBy(s => s.Alternativa);
+                    break;
+                case "Participante":
+                    Relarorio = Relarorio.OrderBy(s => s.Nome);
+                    break;
+                case "Data de Envio":
+                    Relarorio = Relarorio.OrderBy(s => s.DataEnvio);
+                    break;
+                case "Data de Resposta":
+                    Relarorio = Relarorio.OrderBy(s => s.DataResposta);
+                    break;
                 default:
                     Relarorio = Relarorio.OrderBy(s => s.Titulo);
                     break;
@@ -125,7 +126,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             if (Perfil == 1 || Perfil == 2 || Perfil == 4)
             {
                 StringBuilder sb = new StringBuilder();
-                string[] columns = new string[7] { "RDM", "Título", "Questão", "Resposta", "Participante", "Data de Envio", "Data de Resposta" };
+                string[] columns = new string[8] { "RDM", "Título", "Questão", "Resposta", "Participante", "Data de Envio", "Data de Resposta","Status" };
                 for (int k = 0; k < columns.Length; k++)
                 {
                     //add separator
@@ -142,9 +143,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     sb.AppendFormat(item.Nome + "\t");
                     sb.AppendFormat(item.DataEnvio.ToString().Replace("00:00:00", "") + "\t");
                     sb.AppendFormat(item.DataResposta.ToString().Replace("00:00:00", "") + "\t");
-                    //sb.Append(item.Resposta);
-                    //sb.Append new line
-                    sb.AppendFormat("\r\n");
+                    sb.AppendFormat(item.Status + "\t");
+                        //sb.Append(item.Resposta);
+                        //sb.Append new line
+                        sb.AppendFormat("\r\n");
                 }
 
                 Response.ContentEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
@@ -163,7 +165,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
 
                 StringBuilder sb = new StringBuilder();
-                string[] columns = new string[6] { "Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta" };
+                string[] columns = new string[7] { "Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta","Status" };
                 for (int k = 0; k < columns.Length; k++)
                 {
                     //add separator
@@ -179,9 +181,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     sb.AppendFormat(item.Nome + "\t");
                     sb.AppendFormat(item.DataEnvio.ToString().Replace("00:00:00", "") + "\t");
                     sb.AppendFormat(item.DataResposta.ToString().Replace("00:00:00", "") + "\t");
-                    //sb.Append(item.Resposta);
-                    //sb.Append new line
-                    sb.AppendFormat("\r\n");
+                    sb.AppendFormat(item.Status + "\t");
+                        //sb.Append(item.Resposta);
+                        //sb.Append new line
+                        sb.AppendFormat("\r\n");
                 }
 
                 Response.ContentEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
@@ -203,7 +206,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 if (Perfil == 1 || Perfil == 2 || Perfil == 4)
                 {
                     StringBuilder sb = new StringBuilder();
-                    string[] columns = new string[7] { "RDM", "Título", "Questão", "Resposta", "Participante", "Data de Envio", "Data de Resposta" };
+                    string[] columns = new string[8] { "RDM", "Título", "Questão", "Resposta", "Participante", "Data de Envio", "Data de Resposta","Status" };
                     for (int k = 0; k < columns.Length; k++)
                     {
                         //add separator
@@ -220,6 +223,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         sb.Append(item.Nome + ",");
                         sb.Append(item.DataEnvio.ToString().Replace("00:00:00", "") + ",");
                         sb.Append(item.DataResposta.ToString().Replace("00:00:00", "") + ",");
+                        sb.AppendFormat(item.Status + ",");
                         //sb.Append(item.Resposta);
                         //sb.Append new line
                         sb.Append("\r\n");
@@ -241,7 +245,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 {
 
                     StringBuilder sb = new StringBuilder();
-                    string[] columns = new string[6] { "Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta" };
+                    string[] columns = new string[7] { "Título", "Questão", "Alternativa", "Participante", "Data de Envio", "Data de Resposta","Status" };
                     for (int k = 0; k < columns.Length; k++)
                     {
                         //add separator
@@ -257,6 +261,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                         sb.Append(item.Nome + ",");
                         sb.Append(item.DataEnvio.ToString().Replace("00:00:00", "") + ",");
                         sb.Append(item.DataResposta.ToString().Replace("00:00:00", "") + ",");
+                        sb.AppendFormat(item.Status + ",");
                         //sb.Append(item.Resposta);
                         //sb.Append new line
                         sb.Append("\r\n");
@@ -477,7 +482,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 }
                 else if (DtEnvioResposta == "Resposta")
                 {
-                    relatorio = relatorio.Where(s => ((s.DataResposta >= dtResposta && s.DataResposta <= dtEnvio)));
+                    relatorio = relatorio.Where(s => ((s.DataResposta >= dtEnvio && s.DataResposta <= dtResposta)));  
                 }
                 //relatorio = relatorio.Where(s => ((s.DataEnvio >= dtEnvio && s.DataEnvio <= dtResposta) || (s.DataResposta >= dtEnvio && s.DataResposta <= dtResposta)));
             }

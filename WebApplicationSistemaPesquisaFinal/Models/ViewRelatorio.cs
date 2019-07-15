@@ -35,5 +35,7 @@ namespace WebApplicationSistemaPesquisaFinal.Models
         public Nullable<System.DateTime> DataFinalPesquisa { get; set; }
         public int PesquisaId { get; set; }
         public string RDM { get; set; }
+
+        public string Status { get; set; }
     }
 }

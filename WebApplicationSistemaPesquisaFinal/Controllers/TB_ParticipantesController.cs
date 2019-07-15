@@ -87,7 +87,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
         }
 
-
         private Task<IQueryable<TB_Participantes>> Particip1(IQueryable<TB_Participantes> participantes)
         {
             foreach (var Particip in participantes)
@@ -251,7 +250,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 mail.To.Add(new MailAddress(tB_Participantes.Email));
                 mail.Subject = "Pesquisa de Satisfação – Link de Acesso Referente a RDM:" + tB_Participantes.RDM;
                 //mail.Body = tB_Participantes.TB_Pesquisa.TB_MensagemEmail + " Mensagem do Sistema de Pesquisa:<br/> Nome:  " + tB_Participantes.Nome + "<br/> Email : " + tB_Participantes.Email + " <br/> Mensagem : " + MSG1 + " o link de acesso:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId;
-                mail.Body = "<font face='Calibri'>" + "RDM: " + tB_Participantes.RDM + " " + MSG1 + "<br/><br/>Acesse a pesquisa através do link:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "<br/><br/> Copie e cole este link no browser do Internet Explorer ou do Mozilla Firefox." + "</font>";
+                mail.Body = "<font face='Calibri'>" + "RDM: " + tB_Participantes.RDM + " " + MSG1 + "<br/><br/> Copie e cole o link a seguir no browser do Internet Explorer ou do Mozilla Firefox."  + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId  + "</font>";
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.High;
                 try
@@ -314,6 +313,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
         public ActionResult Delete(int? id)
         {
+            
             var Perfil = int.Parse(Session["Perfil"].ToString());
             ViewBag.Perfil = Perfil;
             if (id == null)
@@ -321,6 +321,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TB_Participantes tB_Participantes = db.TB_Participantes.Find(id);
+       
             if (tB_Participantes == null)
             {
                 return HttpNotFound();
@@ -334,9 +335,22 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var ParticipanteId = id;
+
             TB_Participantes tB_Participantes = db.TB_Participantes.Find(id);
             db.TB_Participantes.Remove(tB_Participantes);
-            db.SaveChanges();
+
+            //var  tB_Respostas = db.TB_Respostas.Where(x => x.ParticipanteId == ParticipanteId).Select(x => x);
+            //TB_Respostas tB_Respostas = db.TB_Respostas.Where(tB_Respostas.ParticipanteId.Equals(ParticipanteId));
+            //var tB_Respostas = from s in db.TB_Respostas join c in db.TB_Participantes on s.ParticipanteId equals c.ParticipanteId where c.ParticipanteId == ParticipanteId select s;
+            var tB_Respostas = from s in db.TB_Respostas join c in db.TB_DataEnvioDataResposta on s.ParticipanteId equals c.ParticipanteId where c.ParticipanteId == ParticipanteId select s;
+            //db.TB_Respostas.Remove(tB_Respostas);
+            db.TB_Respostas.RemoveRange(tB_Respostas);
+            //if(tB_Respostas.FirstOrDefault() !=null)
+            //{
+                db.SaveChanges();
+            //}
+            
             return RedirectToAction("Index");
         }
 
@@ -529,7 +543,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             mail.From = new MailAddress("pesquisa@liquigas.com.br");
             mail.To.Add(new MailAddress(tB_Participantes.Email));
             mail.Subject = "Pesquisa de Satisfação – Link de Acesso";
-            mail.Body = "<font face='Calibri'>" + MSG1 + "<br/><br/>Acesse a pesquisa através do link:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "<br/><br/> Copie e cole este link no browser do Internet Explorer ou do Mozilla Firefox." + "</font>";
+            mail.Body = "<font face='Calibri'>" + MSG1 + "<br/><br/> Copie e cole o link a seguir no browser do Internet Explorer ou do Mozilla Firefox."  + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId  + "</font>";
 
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.High;

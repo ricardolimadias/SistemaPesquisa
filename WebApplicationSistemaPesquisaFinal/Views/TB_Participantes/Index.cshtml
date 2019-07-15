@@ -79,7 +79,10 @@
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.ParticipanteId }) |
                 @Html.ActionLink("Detalhe", "Details", new { id = item.ParticipanteId }) |
+                @if (item.Status != "Respondido")
+                {
                 @Html.ActionLink("Excluir", "Delete", new { id = item.ParticipanteId })
+                }
             </td>
         </tr>
     }

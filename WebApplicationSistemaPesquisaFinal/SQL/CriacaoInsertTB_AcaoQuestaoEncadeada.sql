@@ -28,20 +28,20 @@ INSERT INTO [dbo].[TB_AcaoQuestaoEncadeada]
            ('Parar Resposta Formulario')
 GO
 
-INSERT INTO [dbo].[TB_AcaoQuestaoEncadeada]
-           ([Acao])
-     VALUES
-           ('Continuar Resposta Formulario')
-GO
+--INSERT INTO [dbo].[TB_AcaoQuestaoEncadeada]
+--           ([Acao])
+--     VALUES
+--           ('Continuar Resposta Formulario')
+--GO
 
-INSERT INTO [dbo].[TB_AcaoQuestaoEncadeada]
-           ([Acao])
-     VALUES
-           ('Abrir Nova Questão')
-GO
+--INSERT INTO [dbo].[TB_AcaoQuestaoEncadeada]
+--           ([Acao])
+--     VALUES
+--           ('Abrir Nova Questão')
+--GO
 
-INSERT INTO [dbo].[TB_AcaoQuestaoEncadeada]
-           ([Acao])
-     VALUES
-           ('Fechar Nova Questão')
-GO
+--INSERT INTO [dbo].[TB_AcaoQuestaoEncadeada]
+--           ([Acao])
+--     VALUES
+--           ('Fechar Nova Questão')
+--GO
