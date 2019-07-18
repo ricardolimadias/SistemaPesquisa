@@ -157,6 +157,7 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewRelatorio' does no
             <PropertyRef Name="Nome" />
             <PropertyRef Name="Resposta" />
             <PropertyRef Name="PesquisaId" />
+            <PropertyRef Name="Status" />
             <PropertyRef Name="Alternativa" />
           </Key>
           <Property Name="RDM" Type="varchar(max)" />
@@ -172,9 +173,8 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewRelatorio' does no
           <Property Name="DataInicialPesquisa" Type="date" />
           <Property Name="DataFinalPesquisa" Type="date" />
           <Property Name="PesquisaId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewUsuaPopuli' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <Association Name="FK_TB_Acesso_TB_Perfil">
           <End Role="TB_Perfil" Type="Self.TB_Perfil" Multiplicity="0..1" />
           <End Role="TB_Acesso" Type="Self.TB_Acesso" Multiplicity="*" />
@@ -398,7 +398,8 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewUsuaPopuli' does n
     [ViewRelatorio].[QuantidadeDias] AS [QuantidadeDias], 
     [ViewRelatorio].[DataInicialPesquisa] AS [DataInicialPesquisa], 
     [ViewRelatorio].[DataFinalPesquisa] AS [DataFinalPesquisa], 
-    [ViewRelatorio].[PesquisaId] AS [PesquisaId]
+    [ViewRelatorio].[PesquisaId] AS [PesquisaId], 
+    [ViewRelatorio].[Status] AS [Status]
     FROM [dbo].[ViewRelatorio] AS [ViewRelatorio]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_TB_Acesso_TB_Perfil" Association="Self.FK_TB_Acesso_TB_Perfil">
@@ -918,6 +919,7 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewUsuaPopuli' does n
             <PropertyRef Name="Nome" />
             <PropertyRef Name="Resposta" />
             <PropertyRef Name="PesquisaId" />
+            <PropertyRef Name="Status" />
           </Key>
           <Property Name="Titulo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -932,6 +934,7 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewUsuaPopuli' does n
           <Property Name="DataFinalPesquisa" Type="DateTime" Precision="0" />
           <Property Name="PesquisaId" Type="Int32" Nullable="false" />
           <Property Name="RDM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1099,6 +1102,7 @@ warning 6002: The table/view 'DEV_PESQUISA_SATISFACAO.dbo.ViewUsuaPopuli' does n
           <EntitySetMapping Name="ViewRelatorios">
             <EntityTypeMapping TypeName="DEV_PESQUISA_SATISFACAOModel.ViewRelatorio">
               <MappingFragment StoreEntitySet="ViewRelatorio">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="RDM" ColumnName="RDM" />
                 <ScalarProperty Name="PesquisaId" ColumnName="PesquisaId" />
                 <ScalarProperty Name="DataFinalPesquisa" ColumnName="DataFinalPesquisa" />

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplicationSistemaPesquisaFinal.Models;
 using PagedList;
+using System.Threading.Tasks;
 
 namespace WebApplicationSistemaPesquisaFinal.Controllers
 {
@@ -101,8 +102,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         public ActionResult Create()
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
-            ViewBag.QuestaoId = new SelectList(from s in db.TB_Questoes join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "QuestaoId", "Questao");
 
+            ViewBag.PesquisaId = new SelectList(from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "PesquisaId", "Titulo");
+
+            ViewBag.QuestaoId = new SelectList(from s in db.TB_Questoes join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "QuestaoId", "Questao");
             return View();
         }
 
@@ -140,6 +143,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 return HttpNotFound();
             }
             ViewBag.QuestaoId = new SelectList(from s in db.TB_Questoes join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "QuestaoId", "Questao", TB_Alternativas.QuestaoId);
+
+            ViewBag.PesquisaId = new SelectList(from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "PesquisaId", "Titulo");
+            
             //ViewBag.QuestaoId = new SelectList(db.TB_Questoes, "QuestaoId", "Questao", TB_Alternativas.QuestaoId);
             return View(TB_Alternativas);
         }

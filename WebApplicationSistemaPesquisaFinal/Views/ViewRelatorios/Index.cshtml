@@ -139,6 +139,10 @@
         @*<th>
                 @Html.ActionLink("Resposta", "Index", new { sortOrder = ViewBag.ContSortParm })
             </th>*@
+        <th>
+            @*@Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.NomeSortParm })*@
+            <label>Status</label>
+        </th>
         <th></th>
     </tr>
 
@@ -168,6 +172,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DataResposta)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Status)
             </td>
         </tr>
     }
