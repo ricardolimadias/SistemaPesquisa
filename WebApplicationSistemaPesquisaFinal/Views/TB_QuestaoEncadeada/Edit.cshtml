@@ -21,7 +21,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PesquisaId, "Pesquisa", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("PesquisaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("PesquisaId", null, htmlAttributes: new { @class = "form-control", @onchange = "UpdateQuestion(this.value)" })
                 @Html.ValidationMessageFor(model => model.PesquisaId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.QuestaoId, "Questão", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("QuestaoId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("QuestaoId", null, htmlAttributes: new { @class = "form-control", @onchange = "UpdateAlternative(this.value)" })
                 @Html.ValidationMessageFor(model => model.QuestaoId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -63,5 +63,5 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/script.js")
 }

@@ -17,12 +17,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
     {
         private DEV_PESQUISA_SATISFACAOEntities db = new DEV_PESQUISA_SATISFACAOEntities();
 
-        // GET: TB_Alternativas
-        //public ActionResult Index()
-        //{
-        //    var TB_Alternativas = db.TB_Alternativas.Include(t => t.TB_Questoes);
-        //    return View(TB_Alternativas.ToList());
-        //}
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page)
         {
@@ -99,13 +93,24 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
         // GET: TB_Alternativas/Create
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
-        public ActionResult Create()
+        public ActionResult Create(int? PesquisaId)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
+            var lstPesquisa = (from s in db.TB_Pesquisa
+                               join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId
+                               where c.PerfilId == Perfil
+                               select s);
 
-            ViewBag.PesquisaId = new SelectList(from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "PesquisaId", "Titulo");
+            ViewBag.PesquisaId = new SelectList(lstPesquisa, "PesquisaId", "Titulo", PesquisaId);
 
-            ViewBag.QuestaoId = new SelectList(from s in db.TB_Questoes join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "QuestaoId", "Questao");
+            PesquisaId = PesquisaId ?? lstPesquisa.FirstOrDefault().PesquisaId;
+
+            var lstQuestao = (from s in db.TB_Questoes
+                              join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId
+                              where c.PerfilId == Perfil && s.PesquisaId == PesquisaId
+                              select s);
+
+            ViewBag.QuestaoId = new SelectList(lstQuestao, "QuestaoId", "Questao");
             return View();
         }
 
@@ -130,7 +135,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
         // GET: TB_Alternativas/Edit/5
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? PesquisaId)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
             if (id == null)
@@ -142,11 +147,22 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.QuestaoId = new SelectList(from s in db.TB_Questoes join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "QuestaoId", "Questao", TB_Alternativas.QuestaoId);
+            var lstPesquisa = (from s in db.TB_Pesquisa
+                               join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId
+                               where c.PerfilId == Perfil
+                               select s);
 
-            ViewBag.PesquisaId = new SelectList(from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "PesquisaId", "Titulo");
-            
-            //ViewBag.QuestaoId = new SelectList(db.TB_Questoes, "QuestaoId", "Questao", TB_Alternativas.QuestaoId);
+            ViewBag.PesquisaId = new SelectList(lstPesquisa, "PesquisaId", "Titulo", PesquisaId);
+
+            PesquisaId = PesquisaId ?? lstPesquisa.FirstOrDefault().PesquisaId;
+
+            var lstQuestao = (from s in db.TB_Questoes
+                              join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId
+                              where c.PerfilId == Perfil && s.PesquisaId == PesquisaId
+                              select s);
+
+            ViewBag.QuestaoId = new SelectList(lstQuestao, "QuestaoId", "Questao");
+
             return View(TB_Alternativas);
         }
 

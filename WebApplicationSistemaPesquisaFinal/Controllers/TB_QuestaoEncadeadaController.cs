@@ -15,13 +15,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
     {
         private DEV_PESQUISA_SATISFACAOEntities db = new DEV_PESQUISA_SATISFACAOEntities();
 
-        // GET: TB_QuestaoEncadeada
-        //public ActionResult Index()
-        //{
-        //    var tB_QuestaoEncadeada = db.TB_QuestaoEncadeada.Include(t => t.TB_AcaoQuestaoEncadeada).Include(t => t.TB_Alternativas).Include(t => t.TB_Pesquisa).Include(t => t.TB_Questoes);
-        //    return View(tB_QuestaoEncadeada.ToList());
-        //}
-
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
         public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page)
         {
@@ -124,12 +117,30 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         }
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
         // GET: TB_QuestaoEncadeada/Create
-        public ActionResult Create()
+        public ActionResult Create(int? PesquisaId, int? QuestaoId)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
-            ViewBag.PesquisaId = new SelectList(from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "PesquisaId", "Titulo");
-            ViewBag.QuestaoId = new SelectList(from s in db.TB_Questoes join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "QuestaoId", "Questao");
-            ViewBag.AlternativaId = new SelectList(from s in db.TB_Alternativas join c in db.TB_PesquisaPerfil on s.TB_Questoes.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil  select s, "AlternativaId", "Alternativa");
+
+            var lstPesquisa = (from s in db.TB_Pesquisa
+                               join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId
+                               where c.PerfilId == Perfil
+                               select s);
+            ViewBag.PesquisaId = new SelectList(lstPesquisa, "PesquisaId", "Titulo", PesquisaId);
+
+            PesquisaId = PesquisaId ?? lstPesquisa.FirstOrDefault().PesquisaId;
+
+            var lstQuestao = (from s in db.TB_Questoes
+                              join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId
+                              where c.PerfilId == Perfil && s.PesquisaId == PesquisaId
+                              select s);
+            ViewBag.QuestaoId = new SelectList(lstQuestao, "QuestaoId", "Questao");
+
+            QuestaoId = QuestaoId ?? lstQuestao.FirstOrDefault().QuestaoId;
+            var lstAlternativa = (from s in db.TB_Alternativas
+                                  join c in db.TB_PesquisaPerfil on s.TB_Questoes.TB_Pesquisa.PesquisaId equals c.PesquisaId
+                                  where c.PerfilId == Perfil && s.QuestaoId == QuestaoId
+                                  select s);
+            ViewBag.AlternativaId = new SelectList(lstAlternativa, "AlternativaId", "Alternativa");
             ViewBag.AcaoId = new SelectList(db.TB_AcaoQuestaoEncadeada, "AcaoId", "Acao");
             return View();
         }
@@ -149,17 +160,12 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.PesquisaId = new SelectList(from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "PesquisaId", "Titulo");
-            ViewBag.QuestaoId = new SelectList(from s in db.TB_Questoes join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "QuestaoId", "Questao");
-            ViewBag.AlternativaId = new SelectList(from s in db.TB_Alternativas join c in db.TB_PesquisaPerfil on s.TB_Questoes.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "AlternativaId", "Alternativa");
-            ViewBag.AcaoId = new SelectList(db.TB_AcaoQuestaoEncadeada, "AcaoId", "Acao");
             return View(tB_QuestaoEncadeada);
         }
 
         // GET: TB_QuestaoEncadeada/Edit/5
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? PesquisaId, int? QuestaoId)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
             if (id == null)
@@ -171,10 +177,27 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.PesquisaId = new SelectList(from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "PesquisaId", "Titulo", tB_QuestaoEncadeada.PesquisaId);
-            ViewBag.QuestaoId = new SelectList(from s in db.TB_Questoes join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "QuestaoId", "Questao", tB_QuestaoEncadeada.QuestaoId);
-            ViewBag.AlternativaId = new SelectList(from s in db.TB_Alternativas join c in db.TB_PesquisaPerfil on s.TB_Questoes.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "AlternativaId", "Alternativa", tB_QuestaoEncadeada.AlternativaId);
-            ViewBag.AcaoId = new SelectList(db.TB_AcaoQuestaoEncadeada, "AcaoId", "Acao", tB_QuestaoEncadeada.AcaoId);
+            var lstPesquisa = (from s in db.TB_Pesquisa
+                               join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId
+                               where c.PerfilId == Perfil
+                               select s);
+            ViewBag.PesquisaId = new SelectList(lstPesquisa, "PesquisaId", "Titulo", PesquisaId);
+
+            PesquisaId = PesquisaId ?? lstPesquisa.FirstOrDefault().PesquisaId;
+
+            var lstQuestao = (from s in db.TB_Questoes
+                              join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId
+                              where c.PerfilId == Perfil && s.PesquisaId == PesquisaId
+                              select s);
+            ViewBag.QuestaoId = new SelectList(lstQuestao, "QuestaoId", "Questao");
+
+            QuestaoId = QuestaoId ?? lstQuestao.FirstOrDefault().QuestaoId;
+            var lstAlternativa = (from s in db.TB_Alternativas
+                                  join c in db.TB_PesquisaPerfil on s.TB_Questoes.TB_Pesquisa.PesquisaId equals c.PesquisaId
+                                  where c.PerfilId == Perfil && s.QuestaoId == QuestaoId
+                                  select s);
+            ViewBag.AlternativaId = new SelectList(lstAlternativa, "AlternativaId", "Alternativa");
+            ViewBag.AcaoId = new SelectList(db.TB_AcaoQuestaoEncadeada, "AcaoId", "Acao");
 
             return View(tB_QuestaoEncadeada);
         }
@@ -194,11 +217,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PesquisaId = new SelectList(from s in db.TB_Pesquisa join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "PesquisaId", "Titulo", tB_QuestaoEncadeada.PesquisaId);
-            ViewBag.QuestaoId = new SelectList(from s in db.TB_Questoes join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "QuestaoId", "Questao", tB_QuestaoEncadeada.QuestaoId);
-            ViewBag.AlternativaId = new SelectList(from s in db.TB_Alternativas join c in db.TB_PesquisaPerfil on s.TB_Questoes.TB_Pesquisa.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s, "AlternativaId", "Alternativa", tB_QuestaoEncadeada.AlternativaId);
-            ViewBag.AcaoId = new SelectList(db.TB_AcaoQuestaoEncadeada, "AcaoId", "Acao", tB_QuestaoEncadeada.AcaoId);
-
             return View(tB_QuestaoEncadeada);
         }
 
