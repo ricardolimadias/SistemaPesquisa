@@ -22,18 +22,9 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-         @*   @Html.ActionLink("Pesquisa", "Index", new { sortOrder = ViewBag.QuestoesSortParm })*@
-            <label>Pesquisa</label>
-        </th>
-        <th>
-            @*@Html.ActionLink("Questão", "Index", new { sortOrder = ViewBag.QuestoesSortParm })*@
-            <label>Questão</label>
-        </th>
-        <th>
-           @* @Html.ActionLink("Alternativa", "Index", new { sortOrder = ViewBag.AlternativaSortParm })*@
-            <label>Alternativa</label>
-        </th>
+        <th><label>Pesquisa</label></th>
+        <th><label>Questão</label></th>
+        <th><label>Alternativa</label></th>
     </tr>
 
     @foreach (var item in Model)
