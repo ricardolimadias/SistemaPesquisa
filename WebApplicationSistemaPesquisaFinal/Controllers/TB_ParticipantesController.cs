@@ -437,17 +437,16 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             var lista = (from d in data
                          where (d.SIGLA == emailGroupData.SIGLA || string.IsNullOrEmpty(emailGroupData.SIGLA)) && !string.IsNullOrEmpty(d.CHAVE + "@liquigas.hom")
-                         select d).ToList();
+                         select new { d.CHAVE, d.NOME_PESSOA, d.ID_PESSOA, d.SIGLA, EMAIL = d.CHAVE + "@liquigas.hom" }).ToList();
 
             var listaterceiro = (from d in dataterceiro
                                  where (d.SIGLA == emailGroupData.SIGLA || string.IsNullOrEmpty(emailGroupData.SIGLA)) && !string.IsNullOrEmpty(d.CHAVE + "@liquigas.hom")
-                                 select d).ToList();
+                                 select new { d.CHAVE, d.NOME_PESSOA, d.ID_PESSOA, d.SIGLA, EMAIL = d.CHAVE + "@liquigas.hom" }).ToList();
 
 
             var objSelectInitials = new List<object> { new { name = "Selecione" } };
             //Insere o restante dos itens no SelectList
             objSelectInitials.AddRange(data.GroupBy(m => m.SIGLA).Select(m => new { name = m.FirstOrDefault().SIGLA }).OrderBy(m => m.name).ToList());
-            //objSelectInitials.AddRange(dataterceiro.GroupBy(m => m.SIGLA).Select(m => new { name = m.FirstOrDefault().SIGLA }).OrderBy(m => m.name).ToList());
             var selectInitials = new SelectList(objSelectInitials, "name", "name", emailGroupData.SIGLA);
 
             ViewBag.Pesquisa = selectList;
@@ -500,13 +499,13 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             {
                 var persons = Request.Form["Id"].ToString().Split(',');
                 data = data.Where(m => persons.Contains(m.ID_PESSOA.ToString())).ToList();
-                dataterceiro =dataterceiro.Where(m => persons.Contains(m.ID_PESSOA.ToString())).ToList();
+                dataterceiro = dataterceiro.Where(m => persons.Contains(m.ID_PESSOA.ToString())).ToList();
             }
             else if (Request.Form["Sigla"] != null && !string.IsNullOrEmpty(Request.Form["Sigla"].ToString()))
             {
                 var group = Request.Form["Sigla"].ToString();
                 data = data.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.hom")).ToList();
-                dataterceiro =dataterceiro.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.hom")).ToList();
+                dataterceiro = dataterceiro.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.hom")).ToList();
             }
             else
             {
