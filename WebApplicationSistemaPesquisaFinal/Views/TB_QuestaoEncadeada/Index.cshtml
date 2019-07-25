@@ -59,7 +59,7 @@
             @Html.DisplayFor(modelItem => item.TB_AcaoQuestaoEncadeada.Acao)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.QuestaoEncadeadaId }) |
+            @Html.ActionLink("Editar", "Edit", new { id=item.QuestaoEncadeadaId, PesquisaId=item.TB_Pesquisa.PesquisaId, QuestaoId=item.QuestaoId, AlternativaId=item.AlternativaId }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.QuestaoEncadeadaId }) |
             @Html.ActionLink("Excluir", "Delete", new { id=item.QuestaoEncadeadaId })
         </td>

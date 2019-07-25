@@ -26,7 +26,7 @@ namespace WebApplicationSistemaPesquisaFinal.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc")]
         public string WebApplicationSistemaPesquisaFinal_WCFPopulis_ServiceData {
             get {
                 return ((string)(this["WebApplicationSistemaPesquisaFinal_WCFPopulis_ServiceData"]));

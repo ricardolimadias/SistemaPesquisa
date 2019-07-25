@@ -604,10 +604,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc">
+    <WebReferenceUrl Include="http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\WCFPopulisHom\</RelPath>
-      <UpdateFromURL>http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc</UpdateFromURL>
+      <UpdateFromURL>http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

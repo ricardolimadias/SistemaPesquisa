@@ -22,7 +22,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         private DEV_PESQUISA_SATISFACAOEntities db = new DEV_PESQUISA_SATISFACAOEntities();
 
         // GET: ViewResposta1
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
@@ -97,7 +97,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         }
 
         // GET: ViewResposta1/Details/5
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ActionResult Details(string id)
         {
             if (id == null)

@@ -1,107 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR.EF" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR.EF" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfV_ACESSO_GRCAC_TERCEIROS_GERAL">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/LIQUIGAS.WCF.PR" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="PopulisResult">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="V_ACESSO_GRCAC_TERCEIROS_GERAL" nillable="true" type="tns:V_ACESSO_GRCAC_TERCEIROS_GERAL" />
+      <xs:element minOccurs="0" name="Mensagem" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ok" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="tns:ArrayOfPopulisContract" />
+      <xs:element minOccurs="0" name="SQL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoErro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Total" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfV_ACESSO_GRCAC_TERCEIROS_GERAL" nillable="true" type="tns:ArrayOfV_ACESSO_GRCAC_TERCEIROS_GERAL" />
-  <xs:complexType name="V_ACESSO_GRCAC_TERCEIROS_GERAL">
+  <xs:element name="PopulisResult" nillable="true" type="tns:PopulisResult" />
+  <xs:complexType name="ArrayOfPopulisContract">
     <xs:sequence>
-      <xs:element minOccurs="0" name="AUTO_APROVADOR" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CEDIDOS" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="CHAVE" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE_DIRETOR" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE_GESTOR1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE_GESTOR2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE_GESTOR3" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE_GESTOR4" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CNPJ_EMPRESA_FUNC" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="COD_CENTRO" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="COD_CENTRO_CUSTO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="COD_SITUACAO" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="CPF" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="DATA_ADMISSAO" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DATA_NASCIMENTO" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DATA_QUITACAO" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DEPARTAMENTO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DIRETORIA" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DT_FINAL_FERIAS" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DT_INICIO_FERIAS" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="EMPRESA_ABREV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FLAG" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="FUNCAO" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="ID_PESSOA" type="xs:int" />
-      <xs:element minOccurs="0" name="NIVEL_HIERARQUICO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_CARGO" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="NOME_EMPRESA" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_GESTOR1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_GESTOR2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_GESTOR3" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_GESTOR4" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_PESSOA" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="REGISTRO" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="SEXO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SIGLA" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SIGLA_PARTE1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SIGLA_PARTE2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SIGLA_PARTE3" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SIGLA_PARTE4" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TELEFONE" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TIP_FUNCIONARIO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PopulisContract" nillable="true" type="tns:PopulisContract" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="V_ACESSO_GRCAC_TERCEIROS_GERAL" nillable="true" type="tns:V_ACESSO_GRCAC_TERCEIROS_GERAL" />
-  <xs:complexType name="ArrayOfV_ACESSO_GRCAC_FUNCIONARIOS_GERAL">
+  <xs:element name="ArrayOfPopulisContract" nillable="true" type="tns:ArrayOfPopulisContract" />
+  <xs:complexType name="PopulisContract">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="V_ACESSO_GRCAC_FUNCIONARIOS_GERAL" nillable="true" type="tns:V_ACESSO_GRCAC_FUNCIONARIOS_GERAL" />
+      <xs:element minOccurs="0" name="admissao" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="cargo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="diretoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="instrucao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nascimento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="sexo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="siglario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="situacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoFunc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="unidade" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="vinculo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfV_ACESSO_GRCAC_FUNCIONARIOS_GERAL" nillable="true" type="tns:ArrayOfV_ACESSO_GRCAC_FUNCIONARIOS_GERAL" />
-  <xs:complexType name="V_ACESSO_GRCAC_FUNCIONARIOS_GERAL">
+  <xs:element name="PopulisContract" nillable="true" type="tns:PopulisContract" />
+  <xs:complexType name="MapaRedeResult">
     <xs:sequence>
-      <xs:element minOccurs="0" name="AUTO_APROVADOR" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CEDIDOS" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE_DIRETOR" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE_GESTOR1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE_GESTOR2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE_GESTOR3" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CHAVE_GESTOR4" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CNPJ_EMPRESA_FUNC" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="COD_CENTRO_CUSTO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="COD_SITUACAO" nillable="true" type="xs:unsignedByte" />
-      <xs:element minOccurs="0" name="CPF" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="DATA_ADMISSAO" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DATA_NASCIMENTO" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DATA_QUITACAO" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DEPARTAMENTO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DIRETORIA" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DT_FINAL_FERIAS" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DT_INICIO_FERIAS" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="EMPRESA_ABREV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FLAG" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="FUNCAO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IDVISAO" type="xs:int" />
-      <xs:element minOccurs="0" name="ID_PESSOA" type="xs:int" />
-      <xs:element minOccurs="0" name="NIVEL_HIERARQUICO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_CARGO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_EMPRESA" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_GESTOR1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_GESTOR2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_GESTOR3" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_GESTOR4" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NOME_PESSOA" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="REGISTRO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SEXO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SIGLA" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SIGLA_PARTE1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SIGLA_PARTE2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SIGLA_PARTE3" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SIGLA_PARTE4" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TELEFONE" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TIP_FUNCIONARIO" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Mensagem" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ok" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="tns:ArrayOfMapaRedeContract" />
+      <xs:element minOccurs="0" name="SQL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoErro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Total" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="V_ACESSO_GRCAC_FUNCIONARIOS_GERAL" nillable="true" type="tns:V_ACESSO_GRCAC_FUNCIONARIOS_GERAL" />
+  <xs:element name="MapaRedeResult" nillable="true" type="tns:MapaRedeResult" />
+  <xs:complexType name="ArrayOfMapaRedeContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MapaRedeContract" nillable="true" type="tns:MapaRedeContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMapaRedeContract" nillable="true" type="tns:ArrayOfMapaRedeContract" />
+  <xs:complexType name="MapaRedeContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DataNascimento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="cidade" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cod_r3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="socio" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MapaRedeContract" nillable="true" type="tns:MapaRedeContract" />
+  <xs:complexType name="ClienteWebResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Mensagem" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ok" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="tns:ArrayOfClienteWebContract" />
+      <xs:element minOccurs="0" name="SQL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoErro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Total" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClienteWebResult" nillable="true" type="tns:ClienteWebResult" />
+  <xs:complexType name="ArrayOfClienteWebContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClienteWebContract" nillable="true" type="tns:ClienteWebContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClienteWebContract" nillable="true" type="tns:ArrayOfClienteWebContract" />
+  <xs:complexType name="ClienteWebContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bairro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cep" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="classe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cnpj_cpf" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cod_R3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cod_area_atuacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cod_real_alvara" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="compl_endereco" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="contato_eml" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="contato_eml3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="contato_eml4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="data_inclusao" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="des_ger_merc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="des_ger_vendas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="descr_real_alvara" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="email2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="email3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="email4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fone_mkt1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="gm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="gv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="inscr_estadual" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="login_cons_vendas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="logradouro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="municipio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nom_cons_vendas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nome_fantasia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="raz_social" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="uf" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClienteWebContract" nillable="true" type="tns:ClienteWebContract" />
 </xs:schema>

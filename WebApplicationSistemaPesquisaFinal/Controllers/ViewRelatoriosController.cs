@@ -28,7 +28,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         //{
         //    return View(db.ViewRelatorios.ToList());
         //}
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public async Task<ViewResult> Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, string SearchEnvio, string SearchResposta,string DtEnvioResposta, int? page)
         {
             var Perfil = 0;
@@ -57,39 +57,41 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             ViewBag.SearchResposta = SearchResposta;
             ViewBag.DtEnvioResposta = DtEnvioResposta;
 
-            var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
-            GetQueryRelatorio(SearchString, SearchResposta, SearchEnvio, SearchPesquisa, DtEnvioResposta, ref Relarorio);
+                var Relarorio = from s in db.ViewRelatorios join c in db.TB_PesquisaPerfil on s.PesquisaId equals c.PesquisaId where c.PerfilId == Perfil select s;
+                GetQueryRelatorio(SearchString, SearchResposta, SearchEnvio, SearchPesquisa, DtEnvioResposta, ref Relarorio);
 
-            switch (sortOrder)
-            {
-                case "Título":
-                    Relarorio = Relarorio.OrderByDescending(s => s.Titulo);
-                    break;
-                case "Questão":
-                    Relarorio = Relarorio.OrderBy(s => s.Questao);
-                    break;
-                case "Resposta":
-                    Relarorio = Relarorio.OrderBy(s => s.Alternativa);
-                    break;
-                case "Participante":
-                    Relarorio = Relarorio.OrderBy(s => s.Nome);
-                    break;
-                case "Data de Envio":
-                    Relarorio = Relarorio.OrderBy(s => s.DataEnvio);
-                    break;
-                case "Data de Resposta":
-                    Relarorio = Relarorio.OrderBy(s => s.DataResposta);
-                    break;
-                default:
-                    Relarorio = Relarorio.OrderBy(s => s.Titulo);
-                    break;
-            }
+                switch (sortOrder)
+                {
+                    case "Título":
+                        Relarorio = Relarorio.OrderByDescending(s => s.Titulo);
+                        break;
+                    case "Questão":
+                        Relarorio = Relarorio.OrderBy(s => s.Questao);
+                        break;
+                    case "Resposta":
+                        Relarorio = Relarorio.OrderBy(s => s.Alternativa);
+                        break;
+                    case "Participante":
+                        Relarorio = Relarorio.OrderBy(s => s.Nome);
+                        break;
+                    case "Data de Envio":
+                        Relarorio = Relarorio.OrderBy(s => s.DataEnvio);
+                        break;
+                    case "Data de Resposta":
+                        Relarorio = Relarorio.OrderBy(s => s.DataResposta);
+                        break;
+                    default:
+                        Relarorio = Relarorio.OrderBy(s => s.Titulo);
+                        break;
+                }
 
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
-            return View(Relarorio.ToPagedList(pageNumber, pageSize));
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
+                return View(Relarorio.ToPagedList(pageNumber, pageSize));
+           
         }
 
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ActionResult ExportData()
         {
             string val = Request["Export"].ToString();
@@ -303,7 +305,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             return RedirectToAction("Relatorio");
         }
 
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         // GET: ViewRelatorios/Details/5
         public ActionResult Details(string id)
         {
@@ -318,7 +320,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             }
             return View(viewRelatorio);
         }
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         // GET: ViewRelatorios/Create
         public ActionResult Create()
         {
@@ -330,7 +332,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ActionResult Create([Bind(Include = "Titulo,Descricao,Questao,Alternativa,Nome,DataEnvio,DataResposta,Resposta,QuantidadeDias,DataInicialPesquisa,DataFinalPesquisa,PesquisaId")] ViewRelatorio viewRelatorio)
         {
             if (ModelState.IsValid)
@@ -344,7 +346,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         }
 
         // GET: ViewRelatorios/Edit/5
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -364,7 +366,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ActionResult Edit([Bind(Include = "Titulo,Descricao,Questao,Alternativa,Nome,DataEnvio,DataResposta,Resposta,QuantidadeDias,DataInicialPesquisa,DataFinalPesquisa,PesquisaId")] ViewRelatorio viewRelatorio)
         {
             if (ModelState.IsValid)
@@ -377,7 +379,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         }
 
         // GET: ViewRelatorios/Delete/5
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -395,7 +397,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         // POST: ViewRelatorios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ActionResult DeleteConfirmed(string id)
         {
             ViewRelatorio viewRelatorio = db.ViewRelatorios.Find(id);
@@ -412,7 +414,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             }
             base.Dispose(disposing);
         }
-
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         protected void GetQueryRelatorio(string searchString, string searchResposta, string searchEnvio, string searchPesquisa,string DtEnvioResposta, ref IQueryable<ViewRelatorio> relatorio)
         {
             var perfil = int.Parse(Session["Perfil"].ToString());

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Results>
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd1" filename="ServiceData.xsd" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?disco" filename="ServiceData.disco" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd3" filename="ServiceData0.xsd" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?wsdl" filename="ServiceData.wsdl" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd4" filename="ServiceData1.xsd" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd2" filename="ServiceData2.xsd" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc?xsd=xsd0" filename="ServiceData3.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc?xsd=xsd4" filename="ServiceData.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc?xsd=xsd1" filename="ServiceData0.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc?disco" filename="ServiceData.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc?wsdl" filename="ServiceData.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc?xsd=xsd2" filename="ServiceData1.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc?xsd=xsd3" filename="ServiceData2.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc?xsd=xsd0" filename="ServiceData3.xsd" />
   </Results>
 </DiscoveryClientResultsFile>

@@ -54,11 +54,13 @@
                 {
                     if (item.VLResposta == item.QuestaoId.ToString())
                     {
-                        <input type='text' id='@item.QuestaoId-0' name='@item.QuestaoId-0' value="@item.VLResposta">
+                        @*<input type='text' id='@item.QuestaoId-0' name='@item.QuestaoId-0' value="@item.VLResposta">*@
+                        <textarea id="@item.QuestaoId-0" name="@item.QuestaoId-0"  rows="3" cols="10">@item.VLResposta</textarea>
                     }
                     else
                     {
-                        <input type='text' id='@item.QuestaoId-0' name='@item.QuestaoId-0' value="@item.VLResposta">
+                        @*<input type='text' id='@item.QuestaoId-0' name='@item.QuestaoId-0' value="@item.VLResposta">*@
+                        <textarea id="@item.QuestaoId-0" name="@item.QuestaoId-0"  rows="3" cols="10">@item.VLResposta</textarea>
                     }
                 }
 

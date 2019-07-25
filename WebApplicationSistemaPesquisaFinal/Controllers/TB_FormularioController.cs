@@ -165,18 +165,37 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     var questoes = db.TB_Questoes.Where(x => x.PesquisaId.ToString() == pesquisa && x.Obrigatorio==true).ToList();
                     var questoesrespondidas = new List<int>();
 
-                    foreach (KeyValuePair<string, string> kvp in valor)
+                    if (acao == "fechar")
                     {
-                        var chave = kvp.Key.Split('-');
-                        var vl = kvp.Value;
-                        var resposta = new TB_Respostas();
-                        resposta.QuestaoId = int.Parse(chave[0]);
-                        resposta.AlternativaId = int.Parse(chave[1]);                       
-                        resposta.ParticipanteId = participante;
-                        resposta.Resposta = vl;
-                        questoesrespondidas.Add(resposta.QuestaoId);
-                        lista.Add(resposta);
+                        foreach (KeyValuePair<string, string> kvp in valor)
+                        {
+                            var chave = kvp.Key.Split('-');
+                            var vl = kvp.Value;
+                            var resposta = new TB_Respostas();
+                            resposta.QuestaoId = int.Parse(chave[0]);
+                            resposta.AlternativaId = int.Parse(chave[1]);
+                            resposta.ParticipanteId = participante;
+                            resposta.Resposta = vl;
+                            questoesrespondidas.Add(resposta.QuestaoId);
+                            lista.Add(resposta);
+                            break;
+                        }
+                    }else
+                    {
+                        foreach (KeyValuePair<string, string> kvp in valor)
+                        {
+                            var chave = kvp.Key.Split('-');
+                            var vl = kvp.Value;
+                            var resposta = new TB_Respostas();
+                            resposta.QuestaoId = int.Parse(chave[0]);
+                            resposta.AlternativaId = int.Parse(chave[1]);
+                            resposta.ParticipanteId = participante;
+                            resposta.Resposta = vl;
+                            questoesrespondidas.Add(resposta.QuestaoId);
+                            lista.Add(resposta);
+                        }
                     }
+
                     if (acao == "enviar")
                     {
                         foreach (var questao in questoes)
@@ -193,10 +212,11 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                             }
                             else
                             {
-                                return Json(new { status = "Erro", msg = $"Obrigatório responder à questão {questao.Questao}" }, JsonRequestBehavior.AllowGet);
+                                    return Json(new { status = "Erro", msg = $"Obrigatório responder à questão {questao.Questao}" }, JsonRequestBehavior.AllowGet);
                             }
                         }
                     }
+
                     db.TB_Respostas.AddRange(lista);
                     var respostabd = db.TB_Respostas.Where(x => x.ParticipanteId == participante);
                     db.TB_Respostas.RemoveRange(respostabd);

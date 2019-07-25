@@ -165,7 +165,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
         // GET: TB_QuestaoEncadeada/Edit/5
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
-        public ActionResult Edit(int? id, int? PesquisaId, int? QuestaoId)
+        public ActionResult Edit(int? id, int? PesquisaId, int? QuestaoId,int? AlternativaId)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
             if (id == null)

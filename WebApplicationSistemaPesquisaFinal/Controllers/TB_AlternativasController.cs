@@ -108,6 +108,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             var lstQuestao = (from s in db.TB_Questoes
                               join c in db.TB_PesquisaPerfil on s.TB_Pesquisa.PesquisaId equals c.PesquisaId
                               where c.PerfilId == Perfil && s.PesquisaId == PesquisaId
+
                               select s);
 
             ViewBag.QuestaoId = new SelectList(lstQuestao, "QuestaoId", "Questao");
@@ -135,7 +136,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
         // GET: TB_Alternativas/Edit/5
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
-        public ActionResult Edit(int? id, int? PesquisaId)
+        public ActionResult Edit(int? id, int? PesquisaId, int? QuestaoId)
         {
             var Perfil = int.Parse(Session["Perfil"].ToString());
             if (id == null)

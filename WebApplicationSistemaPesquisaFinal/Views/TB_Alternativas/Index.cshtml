@@ -30,6 +30,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            @*<td>
+                @Html.DisplayFor(modelitem => item.TB_Questoes.TB_Pesquisa.PesquisaId)
+            </td>*@
             <td>
                 @Html.DisplayFor(modelitem => item.TB_Questoes.TB_Pesquisa.Titulo)
             </td>
@@ -40,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Alternativa)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.AlternativaId }) |
+                @Html.ActionLink("Editar", "Edit", new { id = item.AlternativaId, PesquisaId = item.TB_Questoes.TB_Pesquisa.PesquisaId, QuestaoId = item.QuestaoId }) |
                 @Html.ActionLink("Detalhes", "Details", new { id = item.AlternativaId }) |
                 @Html.ActionLink("Excluir", "Delete", new { id = item.AlternativaId })
             </td>

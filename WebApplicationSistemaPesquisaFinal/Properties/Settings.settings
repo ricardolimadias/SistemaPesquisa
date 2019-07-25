@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="WebApplicationSistemaPesquisaFinal_WCFPopulis_ServiceData" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://slqdbt-vspdop4.liquigas.hom:8077/ServiceData.svc</Value>
+      <Value Profile="(Default)">http://slqdbt-vsppd3.liquigas.biz:8090/ServiceData.svc</Value>
     </Setting>
   </Settings>
 </SettingsFile>

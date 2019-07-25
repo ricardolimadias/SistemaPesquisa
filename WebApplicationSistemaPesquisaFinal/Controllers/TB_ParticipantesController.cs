@@ -250,7 +250,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 mail.To.Add(new MailAddress(tB_Participantes.Email));
                 mail.Subject = "Pesquisa de Satisfação – Link de Acesso Referente a RDM:" + tB_Participantes.RDM;
                 //mail.Body = tB_Participantes.TB_Pesquisa.TB_MensagemEmail + " Mensagem do Sistema de Pesquisa:<br/> Nome:  " + tB_Participantes.Nome + "<br/> Email : " + tB_Participantes.Email + " <br/> Mensagem : " + MSG1 + " o link de acesso:" + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId;
-                mail.Body = "<font face='Calibri'>" + "RDM: " + tB_Participantes.RDM + " " + MSG1 + "<br/><br/> Copie e cole o link a seguir no browser do Internet Explorer ou do Mozilla Firefox."  + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId  + "</font>";
+                mail.Body = "<font face='Calibri'>" + "RDM: " + tB_Participantes.RDM + " " + MSG1 + "<br/><br/> Copie e cole o link a seguir no browser do Internet Explorer ou do Mozilla Firefox." + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "</font>";
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.High;
                 try
@@ -313,7 +313,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO")]
         public ActionResult Delete(int? id)
         {
-            
+
             var Perfil = int.Parse(Session["Perfil"].ToString());
             ViewBag.Perfil = Perfil;
             if (id == null)
@@ -321,7 +321,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TB_Participantes tB_Participantes = db.TB_Participantes.Find(id);
-       
+
             if (tB_Participantes == null)
             {
                 return HttpNotFound();
@@ -348,9 +348,9 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             db.TB_Respostas.RemoveRange(tB_Respostas);
             //if(tB_Respostas.FirstOrDefault() !=null)
             //{
-                db.SaveChanges();
+            db.SaveChanges();
             //}
-            
+
             return RedirectToAction("Index");
         }
 
@@ -384,77 +384,77 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         //    return "";
         //}
 
-
+        [HttpGet]
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
-        public ActionResult GroupEmail(WCFPopulisHom.V_ACESSO_GRCAC_FUNCIONARIOS_GERAL emailGroupData, string SearchPesquisa, int? page)
+        public ActionResult GroupEmail(WCFPopulisHom.V_ACESSO_GRCAC_FUNCIONARIOS_GERAL emailGroupData, WCFPopulisHom.V_ACESSO_GRCAC_TERCEIROS_GERAL emailGroupDataterceiro, string SearchPesquisa, int? page)
         {
 
-                WCFPopulisHom.V_ACESSO_GRCAC_FUNCIONARIOS_GERAL[] resultFuncionarios = null;
-                WCFPopulisHom.ServiceData svc = new WCFPopulisHom.ServiceData();
-                resultFuncionarios = svc.GetFuncionariosGeral(string.Empty, string.Empty, string.Empty);
-                foreach (var item in resultFuncionarios)
-                {
+            WCFPopulisHom.V_ACESSO_GRCAC_FUNCIONARIOS_GERAL[] resultFuncionarios = null;
+            WCFPopulisHom.V_ACESSO_GRCAC_TERCEIROS_GERAL[] resultFuncionariosterceiro = null;
+            WCFPopulisHom.ServiceData svc = new WCFPopulisHom.ServiceData();
+            resultFuncionarios = svc.GetFuncionariosGeral(string.Empty, string.Empty, string.Empty);
+            resultFuncionariosterceiro = svc.GetFuncionariosTereceirosGeral(string.Empty, string.Empty, string.Empty);
+            foreach (var item in resultFuncionarios)
+            {
 
                 if (item.ID_PESSOA.ToString() != null && item.CHAVE != null && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
-                    {
-                        var ID_PESSOA = item.ID_PESSOA.ToString();
-                        var CHAVE = item.CHAVE.ToString();
-                        var NOME_PESSOA = item.NOME_PESSOA.ToString();
-                        //var EMAIL = item.CHAVE.ToString() + fimemail;
-
-                    if (Request.Url.Authority == "localhost:5891")
-                    {
-                        var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-                    }
-                    //Desenvolvimento remoto
-                    if (Request.Url.Authority == "http://slqdbt-vspdop3.liquigas.hom:7777")
-                    {
-                        var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-                    }
-                    //Homologação remoto
-                    if (Request.Url.Authority == "http://pesquisa.liquigas.hom:8089")
-                    {
-                        var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-                    }
-                    //Produção remoto
-                    if (Request.Url.Authority == "http://pesquisa.liquigas.biz:8089")
-                    {
-                        var EMAIL = item.CHAVE.ToString() + "@liquigas.com.br";
-                    }
-
+                {
+                    var ID_PESSOA = item.ID_PESSOA.ToString();
+                    var CHAVE = item.CHAVE.ToString();
+                    var NOME_PESSOA = item.NOME_PESSOA.ToString();
+                    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
                     var SIGLA = item.SIGLA.ToString();
-                    }
                 }
+            }
+            foreach (var item in resultFuncionariosterceiro)
+            {
 
-                var data = (from p in resultFuncionarios select p);
+                if (item.ID_PESSOA.ToString() != null && item.CHAVE != null && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
+                {
+                    var ID_PESSOA = item.ID_PESSOA.ToString();
+                    var CHAVE = item.CHAVE.ToString();
+                    var NOME_PESSOA = item.NOME_PESSOA.ToString();
+                    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
+                    var SIGLA = item.SIGLA.ToString();
+                }
+            }
 
-                var Perfil = int.Parse(Session["Perfil"].ToString());
+            var data = (from p in resultFuncionarios select p);
+            var dataterceiro = (from p in resultFuncionariosterceiro select p);
 
-                var list = (from c in db.TB_Pesquisa
-                            join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
-                            where d.PerfilId == Perfil
-                            select new { c.PesquisaId, c.Titulo }).Distinct().ToList();
+            var Perfil = int.Parse(Session["Perfil"].ToString());
 
-                //Inicializa um objeto com o primeiro valor como 'selecione'
-                var objSelectList = new List<object> { new { id = 0, name = "Selecione" } };
-                //Insere o restante dos itens no SelectList
-                objSelectList.AddRange(list.Select(m => new { id = m.PesquisaId, name = m.Titulo }).ToList());
-                var selectList = new SelectList(objSelectList, "id", "name", SearchPesquisa);
+            var list = (from c in db.TB_Pesquisa
+                        join d in db.TB_PesquisaPerfil on c.PesquisaId equals d.PesquisaId
+                        where d.PerfilId == Perfil
+                        select new { c.PesquisaId, c.Titulo }).Distinct().ToList();
 
-                var lista = (from d in data
-                             where (d.SIGLA == emailGroupData.SIGLA || string.IsNullOrEmpty(emailGroupData.SIGLA)) && !string.IsNullOrEmpty(d.CHAVE + "@liquigas.hom")
-                             select d).ToList();
+            //Inicializa um objeto com o primeiro valor como 'selecione'
+            var objSelectList = new List<object> { new { id = 0, name = "Selecione" } };
+            //Insere o restante dos itens no SelectList
+            objSelectList.AddRange(list.Select(m => new { id = m.PesquisaId, name = m.Titulo }).ToList());
+            var selectList = new SelectList(objSelectList, "id", "name", SearchPesquisa);
+
+            var lista = (from d in data
+                         where (d.SIGLA == emailGroupData.SIGLA || string.IsNullOrEmpty(emailGroupData.SIGLA)) && !string.IsNullOrEmpty(d.CHAVE + "@liquigas.hom")
+                         select d).ToList();
+
+            var listaterceiro = (from d in dataterceiro
+                                 where (d.SIGLA == emailGroupData.SIGLA || string.IsNullOrEmpty(emailGroupData.SIGLA)) && !string.IsNullOrEmpty(d.CHAVE + "@liquigas.hom")
+                                 select d).ToList();
 
 
-                var objSelectInitials = new List<object> { new { name = "Selecione" } };
-                //Insere o restante dos itens no SelectList
-                objSelectInitials.AddRange(data.GroupBy(m => m.SIGLA).Select(m => new { name = m.FirstOrDefault().SIGLA }).OrderBy(m => m.name).ToList());
-                var selectInitials = new SelectList(objSelectInitials, "name", "name", emailGroupData.SIGLA);
+            var objSelectInitials = new List<object> { new { name = "Selecione" } };
+            //Insere o restante dos itens no SelectList
+            objSelectInitials.AddRange(data.GroupBy(m => m.SIGLA).Select(m => new { name = m.FirstOrDefault().SIGLA }).OrderBy(m => m.name).ToList());
+            //objSelectInitials.AddRange(dataterceiro.GroupBy(m => m.SIGLA).Select(m => new { name = m.FirstOrDefault().SIGLA }).OrderBy(m => m.name).ToList());
+            var selectInitials = new SelectList(objSelectInitials, "name", "name", emailGroupData.SIGLA);
 
-                ViewBag.Pesquisa = selectList;
-                ViewBag.Sigla = selectInitials;
-                ViewBag.SearchPesquisa = SearchPesquisa;
-            
+            ViewBag.Pesquisa = selectList;
+            ViewBag.Sigla = selectInitials;
+            ViewBag.SearchPesquisa = SearchPesquisa;
+
+            lista.AddRange(listaterceiro);
 
             int pageSize = 15;
             int pageNumber = (page ?? 1);
@@ -467,8 +467,10 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         public ActionResult GroupEmail()
         {
             WCFPopulisHom.V_ACESSO_GRCAC_FUNCIONARIOS_GERAL[] resultFuncionarios = null;
+            WCFPopulisHom.V_ACESSO_GRCAC_TERCEIROS_GERAL[] resultFuncionariosterceiro = null;
             WCFPopulisHom.ServiceData svc = new WCFPopulisHom.ServiceData();
             resultFuncionarios = svc.GetFuncionariosGeral(string.Empty, string.Empty, string.Empty);
+            resultFuncionariosterceiro = svc.GetFuncionariosTereceirosGeral(string.Empty, string.Empty, string.Empty);
             foreach (var item in resultFuncionarios)
             {
                 if (item.ID_PESSOA.ToString() != null && item.CHAVE != null && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
@@ -476,63 +478,35 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     var ID_PESSOA = item.ID_PESSOA.ToString();
                     var CHAVE = item.CHAVE.ToString();
                     var NOME_PESSOA = item.NOME_PESSOA.ToString();
-
-                    //if (Request.Url.Authority == "localhost:5891")
-                    //{
-                    //    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-                    //}
-                    ////Desenvolvimento remoto
-                    //if (Request.Url.Authority == "http://slqdbt-vspdop3.liquigas.hom:7777")
-                    //{
-                    //    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-                    //}
-                    ////Homologação remoto
-                    //if (Request.Url.Authority == "http://pesquisa.liquigas.hom:8089")
-                    //{
-                    //    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-                    //}
-                    ////Produção remoto
-                    //if (Request.Url.Authority == "http://pesquisa.liquigas.biz:8089")
-                    //{
-                    //    var EMAIL = item.CHAVE.ToString() + "@liquigas.com.br";
-                    //}
-
+                    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
+                    var SIGLA = item.SIGLA.ToString();
+                }
+            }
+            foreach (var item in resultFuncionariosterceiro)
+            {
+                if (item.ID_PESSOA.ToString() != null && item.CHAVE != null && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
+                {
+                    var ID_PESSOA = item.ID_PESSOA.ToString();
+                    var CHAVE = item.CHAVE.ToString();
+                    var NOME_PESSOA = item.NOME_PESSOA.ToString();
                     var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
                     var SIGLA = item.SIGLA.ToString();
                 }
             }
             var data = (from p in resultFuncionarios select p).ToList();
+            var dataterceiro = (from p in resultFuncionariosterceiro select p).ToList();
             //var data = (from p in resultFuncionarios select p);
             if (Request.Form["Id"] != null && !string.IsNullOrEmpty(Request.Form["Id"].ToString()))
             {
                 var persons = Request.Form["Id"].ToString().Split(',');
                 data = data.Where(m => persons.Contains(m.ID_PESSOA.ToString())).ToList();
+                dataterceiro =dataterceiro.Where(m => persons.Contains(m.ID_PESSOA.ToString())).ToList();
             }
-            else if(Request.Form["Sigla"] != null && !string.IsNullOrEmpty(Request.Form["Sigla"].ToString()))
+            else if (Request.Form["Sigla"] != null && !string.IsNullOrEmpty(Request.Form["Sigla"].ToString()))
             {
                 var group = Request.Form["Sigla"].ToString();
-
-                //if (Request.Url.Authority == "localhost:5891")
-                //{
-                //    data = data.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.hom")).ToList();
-                //}
-                ////Desenvolvimento remoto
-                //if (Request.Url.Authority == "http://slqdbt-vspdop3.liquigas.hom:7777")
-                //{
-                //    data = data.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.hom")).ToList();
-                //}
-                ////Homologação remoto
-                //if (Request.Url.Authority == "http://pesquisa.liquigas.hom:8089")
-                //{
-                //    data = data.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.hom")).ToList();
-                //}
-                ////Produção remoto
-                //if (Request.Url.Authority == "http://pesquisa.liquigas.biz:8089")
-                //{
-                //    data = data.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.com.br")).ToList();
-                //}
-
                 data = data.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.hom")).ToList();
+                dataterceiro =dataterceiro.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.hom")).ToList();
             }
             else
             {
@@ -542,30 +516,23 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             foreach (var item in data)
             {
                 var research = int.Parse(Request.Form["Pesquisa"].ToString());
-
-                //var fimemail = "";
-                //if (Request.Url.Authority == "localhost:5891")
-                //{
-                //     fimemail = "@liquigas.hom";
-                //}
-                ////Desenvolvimento remoto
-                //if (Request.Url.Authority == "http://slqdbt-vspdop3.liquigas.hom:7777")
-                //{
-                //     fimemail = "@liquigas.hom";
-                //}
-                ////Homologação remoto
-                //if (Request.Url.Authority == "http://pesquisa.liquigas.hom:8089")
-                //{
-                //     fimemail = "@liquigas.hom";
-                //}
-                ////Produção remoto
-                //if (Request.Url.Authority == "http://pesquisa.liquigas.biz:8089")
-                //{
-                //     fimemail = "@liquigas.com.br";
-                //}
                 var participant = new TB_Participantes
                 {
-                    
+
+                    PesquisaId = research,
+                    Nome = item.NOME_PESSOA,
+                    Email = item.CHAVE + "@liquigas.hom"
+                };
+                var responseDate = new TB_DataEnvioDataResposta { PesquisaId = research };
+                Save(participant, responseDate);
+            }
+
+            foreach (var item in dataterceiro)
+            {
+                var research = int.Parse(Request.Form["Pesquisa"].ToString());
+                var participant = new TB_Participantes
+                {
+
                     PesquisaId = research,
                     Nome = item.NOME_PESSOA,
                     Email = item.CHAVE + "@liquigas.hom"
@@ -630,7 +597,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             mail.From = new MailAddress("pesquisa@liquigas.com.br");
             mail.To.Add(new MailAddress(tB_Participantes.Email));
             mail.Subject = "Pesquisa de Satisfação – Link de Acesso";
-            mail.Body = "<font face='Calibri'>" + MSG1 + "<br/><br/> Copie e cole o link a seguir no browser do Internet Explorer ou do Mozilla Firefox."  + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId  + "</font>";
+            mail.Body = "<font face='Calibri'>" + MSG1 + "<br/><br/> Copie e cole o link a seguir no browser do Internet Explorer ou do Mozilla Firefox." + " http://" + Request.Url.Authority + "/TB_Formulario/" + tB_Participantes.PesquisaId + "/" + tB_Participantes.ParticipanteId + "</font>";
 
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.High;
