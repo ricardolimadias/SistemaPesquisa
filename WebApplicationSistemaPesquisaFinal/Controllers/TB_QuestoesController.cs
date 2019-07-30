@@ -16,13 +16,6 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
     {
         private DEV_PESQUISA_SATISFACAOEntities db = new DEV_PESQUISA_SATISFACAOEntities();
 
-        // GET: TB_Questoes
-        //public ActionResult Index()
-        //{
-        //    var tB_Questoes = db.TB_Questoes.Include(t => t.TB_Pesquisa).Include(t => t.TB_TipoResposta);
-        //    return View(tB_Questoes.ToList());
-        //}
-
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page)
         {

@@ -98,8 +98,8 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
                     }
                 }
             }
-            /*Caso os campos não esteja de acordo com a solicitação retorna a tela de login com as mensagem dos campos*/
-           return View(login);
+            /*Caso os campos não esteja de acordo com a solicitação retorna a tela de login com as mensagem dos campos*/           
+            return View(login);
         }
 
         public ActionResult Logout()

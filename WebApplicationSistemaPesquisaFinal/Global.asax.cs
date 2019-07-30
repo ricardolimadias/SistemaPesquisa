@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+
 
 namespace WebApplicationSistemaPesquisaFinal
 {
@@ -18,13 +20,15 @@ namespace WebApplicationSistemaPesquisaFinal
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        //protected void Application_AcquireRequestState(object sender, EventArgs e)
-        //{
-        //    var context = HttpContext.Current;
-        //    if (!context.Request.RawUrl.ToLower().Contains("TB_Formulario") && (context.Request.RawUrl != "/" && Session == null))
-        //    {
-        //        Response.Redirect("/");
-        //    }
-        //}
+        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        {
+            var context = HttpContext.Current;
+
+                if (!context.Request.RawUrl.Contains("/TB_Formulario/") & (context.Request.RawUrl != "/" && Session["Perfil"] == null))
+                {
+                    Response.Redirect("/");
+                }
+        }
+
     }
 }

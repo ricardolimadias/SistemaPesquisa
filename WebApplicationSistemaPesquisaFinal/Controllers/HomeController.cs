@@ -16,6 +16,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ActionResult Index()
         {
+            var Perfil = int.Parse(Session["Perfil"].ToString());
             return View();
         }
 

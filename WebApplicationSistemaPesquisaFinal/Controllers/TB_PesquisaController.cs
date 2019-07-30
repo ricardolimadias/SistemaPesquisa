@@ -22,6 +22,7 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         //    return View(db.TB_Pesquisa.ToList());
         //}
 
+
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
         public ViewResult Index(string sortOrder, string currentFilter, string SearchString, string SearchPesquisa, int? page)
         {

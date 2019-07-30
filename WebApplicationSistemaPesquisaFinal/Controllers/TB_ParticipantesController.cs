@@ -336,53 +336,14 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var ParticipanteId = id;
-
             TB_Participantes tB_Participantes = db.TB_Participantes.Find(id);
             db.TB_Participantes.Remove(tB_Participantes);
-
-            //var  tB_Respostas = db.TB_Respostas.Where(x => x.ParticipanteId == ParticipanteId).Select(x => x);
-            //TB_Respostas tB_Respostas = db.TB_Respostas.Where(tB_Respostas.ParticipanteId.Equals(ParticipanteId));
-            //var tB_Respostas = from s in db.TB_Respostas join c in db.TB_Participantes on s.ParticipanteId equals c.ParticipanteId where c.ParticipanteId == ParticipanteId select s;
             var tB_Respostas = from s in db.TB_Respostas join c in db.TB_DataEnvioDataResposta on s.ParticipanteId equals c.ParticipanteId where c.ParticipanteId == ParticipanteId select s;
-            //db.TB_Respostas.Remove(tB_Respostas);
             db.TB_Respostas.RemoveRange(tB_Respostas);
-            //if(tB_Respostas.FirstOrDefault() !=null)
-            //{
             db.SaveChanges();
-            //}
-
             return RedirectToAction("Index");
         }
 
-        //public string GetValoresPopules()
-        //{
-        //    WCFPopulisHom.V_ACESSO_GRCAC_FUNCIONARIOS_GERAL[] resultFuncionarios = null;
-        //    WCFPopulisHom.ServiceData svc = new WCFPopulisHom.ServiceData();
-        //    resultFuncionarios = svc.GetFuncionariosGeral(string.Empty, string.Empty, string.Empty);
-        //    foreach (var item in resultFuncionarios)
-        //    {
-        //        if (item.ID_PESSOA.ToString() != null && item.CHAVE != null && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
-        //        {
-        //            var ID_PESSOA = item.ID_PESSOA.ToString();
-        //            var CHAVE = item.CHAVE.ToString();
-        //            var NOME_PESSOA = item.NOME_PESSOA.ToString();
-        //            var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-        //            var SIGLA = item.SIGLA.ToString();
-        //        }
-        //        //item.ID_PESSOA.ToString();
-        //        //if (item.CHAVE != null)
-        //        //{
-        //        //    item.CHAVE.ToString();
-        //        //}
-        //        //item.NOME_PESSOA.ToString();
-        //        //if (item.CHAVE != null)
-        //        //{
-        //        //    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-        //        //}
-        //        //item.SIGLA.ToString();
-        //    }
-        //    return "";
-        //}
 
         [HttpGet]
         [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
@@ -397,30 +358,36 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             foreach (var item in resultFuncionarios)
             {
 
-                if (item.ID_PESSOA.ToString() != null && item.CHAVE != null && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
+                if (!string.IsNullOrEmpty(item.CHAVE) || item.CHAVE != null || item.CHAVE != ""|| item.CHAVE.ToString().Length ==4)
+                { 
+                if (item.ID_PESSOA.ToString() != null && !string.IsNullOrEmpty(item.CHAVE) && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
                 {
                     var ID_PESSOA = item.ID_PESSOA.ToString();
                     var CHAVE = item.CHAVE.ToString();
                     var NOME_PESSOA = item.NOME_PESSOA.ToString();
-                    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
+                    var EMAIL = item.CHAVE.ToString() + "@liquigas.com.br";
                     var SIGLA = item.SIGLA.ToString();
+                }
                 }
             }
             foreach (var item in resultFuncionariosterceiro)
             {
-
-                if (item.ID_PESSOA.ToString() != null && item.CHAVE != null && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
+                if (!string.IsNullOrEmpty(item.CHAVE) || item.CHAVE != null || item.CHAVE != ""|| item.CHAVE.ToString().Length == 4)
                 {
-                    var ID_PESSOA = item.ID_PESSOA.ToString();
-                    var CHAVE = item.CHAVE.ToString();
-                    var NOME_PESSOA = item.NOME_PESSOA.ToString();
-                    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-                    var SIGLA = item.SIGLA.ToString();
+                    if (item.ID_PESSOA.ToString() != null && !string.IsNullOrEmpty(item.CHAVE) && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
+                    {
+                        var ID_PESSOA = item.ID_PESSOA.ToString();
+                        var CHAVE = item.CHAVE.ToString();
+                        var NOME_PESSOA = item.NOME_PESSOA.ToString();
+                        var EMAIL = item.CHAVE.ToString() + "@liquigas.com.br";
+                        var SIGLA = item.SIGLA.ToString();
+                    }
                 }
             }
 
-            var data = (from p in resultFuncionarios select p);
-            var dataterceiro = (from p in resultFuncionariosterceiro select p);
+            var data = (from p in resultFuncionarios where !string.IsNullOrEmpty(p.CHAVE) select p).Distinct();
+            var dataterceiro = (from p in resultFuncionariosterceiro where !string.IsNullOrEmpty(p.CHAVE) select p).Distinct();
+            
 
             var Perfil = int.Parse(Session["Perfil"].ToString());
 
@@ -436,13 +403,12 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             var selectList = new SelectList(objSelectList, "id", "name", SearchPesquisa);
 
             var lista = (from d in data
-                         where (d.SIGLA == emailGroupData.SIGLA || string.IsNullOrEmpty(emailGroupData.SIGLA)) && !string.IsNullOrEmpty(d.CHAVE + "@liquigas.hom")
-                         select new { d.CHAVE, d.NOME_PESSOA, d.ID_PESSOA, d.SIGLA, EMAIL = d.CHAVE + "@liquigas.hom" }).ToList();
+                         where (d.SIGLA == emailGroupData.SIGLA || string.IsNullOrEmpty(emailGroupData.SIGLA)) && !string.IsNullOrEmpty(d.CHAVE)
+                         select new WCFPopulisHom.V_ACESSO_GRCAC_FUNCIONARIOS_GERAL { CHAVE = d.CHAVE, NOME_PESSOA = d.NOME_PESSOA, ID_PESSOA = d.ID_PESSOA, SIGLA = d.SIGLA }).ToList();
 
             var listaterceiro = (from d in dataterceiro
-                                 where (d.SIGLA == emailGroupData.SIGLA || string.IsNullOrEmpty(emailGroupData.SIGLA)) && !string.IsNullOrEmpty(d.CHAVE + "@liquigas.hom")
-                                 select new { d.CHAVE, d.NOME_PESSOA, d.ID_PESSOA, d.SIGLA, EMAIL = d.CHAVE + "@liquigas.hom" }).ToList();
-
+                                 where (d.SIGLA == emailGroupData.SIGLA || string.IsNullOrEmpty(emailGroupData.SIGLA)) && !string.IsNullOrEmpty(d.CHAVE)
+                                 select new WCFPopulisHom.V_ACESSO_GRCAC_FUNCIONARIOS_GERAL { CHAVE = d.CHAVE, NOME_PESSOA = d.NOME_PESSOA, ID_PESSOA = d.ID_PESSOA, SIGLA = d.SIGLA }).ToList();
 
             var objSelectInitials = new List<object> { new { name = "Selecione" } };
             //Insere o restante dos itens no SelectList
@@ -454,15 +420,15 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             ViewBag.SearchPesquisa = SearchPesquisa;
 
             lista.AddRange(listaterceiro);
-
-            int pageSize = 15;
+            
+            int pageSize = 60;
             int pageNumber = (page ?? 1);
             return View(lista.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")]
+        [Authorize(Roles = "ADMTI,ADMGARTI,ADMGPCO,GARTI,GPCO")] 
         public ActionResult GroupEmail()
         {
             WCFPopulisHom.V_ACESSO_GRCAC_FUNCIONARIOS_GERAL[] resultFuncionarios = null;
@@ -472,28 +438,34 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             resultFuncionariosterceiro = svc.GetFuncionariosTereceirosGeral(string.Empty, string.Empty, string.Empty);
             foreach (var item in resultFuncionarios)
             {
-                if (item.ID_PESSOA.ToString() != null && item.CHAVE != null && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
+                if (!string.IsNullOrEmpty(item.CHAVE) || item.CHAVE != null || item.CHAVE != "" || item.CHAVE.ToString().Length ==4)
                 {
-                    var ID_PESSOA = item.ID_PESSOA.ToString();
-                    var CHAVE = item.CHAVE.ToString();
-                    var NOME_PESSOA = item.NOME_PESSOA.ToString();
-                    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-                    var SIGLA = item.SIGLA.ToString();
+                    if (item.ID_PESSOA.ToString() != null && !string.IsNullOrEmpty(item.CHAVE) && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
+                    {
+                        var ID_PESSOA = item.ID_PESSOA.ToString();
+                        var CHAVE = item.CHAVE.ToString();
+                        var NOME_PESSOA = item.NOME_PESSOA.ToString();
+                        var EMAIL = item.CHAVE.ToString() + "@liquigas.com.br";
+                        var SIGLA = item.SIGLA.ToString();
+                    }
                 }
             }
             foreach (var item in resultFuncionariosterceiro)
             {
-                if (item.ID_PESSOA.ToString() != null && item.CHAVE != null && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
+                if (!string.IsNullOrEmpty(item.CHAVE)|| item.CHAVE !=null || item.CHAVE !="" || item.CHAVE.ToString().Length ==4)
                 {
-                    var ID_PESSOA = item.ID_PESSOA.ToString();
-                    var CHAVE = item.CHAVE.ToString();
-                    var NOME_PESSOA = item.NOME_PESSOA.ToString();
-                    var EMAIL = item.CHAVE.ToString() + "@liquigas.hom";
-                    var SIGLA = item.SIGLA.ToString();
+                    if (item.ID_PESSOA.ToString() != null && !string.IsNullOrEmpty(item.CHAVE) && item.NOME_PESSOA.ToString() != null && item.SIGLA.ToString() != null)
+                    {
+                        var ID_PESSOA = item.ID_PESSOA.ToString();
+                        var CHAVE = item.CHAVE.ToString();
+                        var NOME_PESSOA = item.NOME_PESSOA.ToString();
+                        var EMAIL = item.CHAVE.ToString() + "@liquigas.com.br";
+                        var SIGLA = item.SIGLA.ToString();
+                    }
                 }
             }
-            var data = (from p in resultFuncionarios select p).ToList();
-            var dataterceiro = (from p in resultFuncionariosterceiro select p).ToList();
+            var data = (from p in resultFuncionarios where !string.IsNullOrEmpty(p.CHAVE) select p).Distinct();
+            var dataterceiro = (from p in resultFuncionariosterceiro where !string.IsNullOrEmpty(p.CHAVE) select p).Distinct();
             //var data = (from p in resultFuncionarios select p);
             if (Request.Form["Id"] != null && !string.IsNullOrEmpty(Request.Form["Id"].ToString()))
             {
@@ -504,8 +476,8 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
             else if (Request.Form["Sigla"] != null && !string.IsNullOrEmpty(Request.Form["Sigla"].ToString()))
             {
                 var group = Request.Form["Sigla"].ToString();
-                data = data.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.hom")).ToList();
-                dataterceiro = dataterceiro.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.hom")).ToList();
+                data = data.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.com.br")).ToList();
+                dataterceiro = dataterceiro.Where(m => m.SIGLA == group && !string.IsNullOrEmpty(m.CHAVE + "@liquigas.com.br")).ToList();
             }
             else
             {
@@ -514,30 +486,35 @@ namespace WebApplicationSistemaPesquisaFinal.Controllers
 
             foreach (var item in data)
             {
-                var research = int.Parse(Request.Form["Pesquisa"].ToString());
-                var participant = new TB_Participantes
+                if (!string.IsNullOrEmpty(item.CHAVE) || item.CHAVE != null || item.CHAVE != "" || item.CHAVE.ToString().Length == 4)
                 {
 
-                    PesquisaId = research,
-                    Nome = item.NOME_PESSOA,
-                    Email = item.CHAVE + "@liquigas.hom"
-                };
-                var responseDate = new TB_DataEnvioDataResposta { PesquisaId = research };
-                Save(participant, responseDate);
+                    var research = int.Parse(Request.Form["Pesquisa"].ToString());
+                    var participant = new TB_Participantes
+                    {
+                        PesquisaId = research,
+                        Nome = item.NOME_PESSOA,
+                        Email = item.CHAVE + "@liquigas.com.br"
+                    };
+                    var responseDate = new TB_DataEnvioDataResposta { PesquisaId = research };
+                    Save(participant, responseDate);
+                }
             }
 
             foreach (var item in dataterceiro)
             {
-                var research = int.Parse(Request.Form["Pesquisa"].ToString());
-                var participant = new TB_Participantes
+                if (!string.IsNullOrEmpty(item.CHAVE) || item.CHAVE != null || item.CHAVE != "" || item.CHAVE.ToString().Length == 4)
                 {
-
-                    PesquisaId = research,
-                    Nome = item.NOME_PESSOA,
-                    Email = item.CHAVE + "@liquigas.hom"
-                };
-                var responseDate = new TB_DataEnvioDataResposta { PesquisaId = research };
-                Save(participant, responseDate);
+                    var research = int.Parse(Request.Form["Pesquisa"].ToString());
+                    var participant = new TB_Participantes
+                    {
+                        PesquisaId = research,
+                        Nome = item.NOME_PESSOA,
+                        Email = item.CHAVE + "@liquigas.com.br"
+                    };
+                    var responseDate = new TB_DataEnvioDataResposta { PesquisaId = research };
+                    Save(participant, responseDate);
+                }
             }
 
             TempData["Message"] = "Os novos participantes foram cadastrados com sucesso!";
